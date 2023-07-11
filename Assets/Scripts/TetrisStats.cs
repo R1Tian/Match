@@ -1,20 +1,6 @@
 using UnityEngine;
-
-public class Tetromino
-{
-    public string Name { get; private set; }
-    public int[][] Shape { get; private set; }
-    public int Index { get; private set; }
-
-    public Tetromino(string name, int[][] shape, int index = 0)
-    {
-        Name = name;
-        Shape = shape;
-        Index = index;
-    }
-}
-
-
+using Sirenix.OdinInspector;
+using System.Collections.Generic;
 
 public class TetrisStats : MonoBehaviour
 {
@@ -29,81 +15,8 @@ public class TetrisStats : MonoBehaviour
 
     public Transform boardContainer;
 
-    //private void Start()
-    //{
-    //    float startTime = Time.realtimeSinceStartup;
-
-    //    // 初始化棋盘和计数器
-    //    board = new int[boardSize, boardSize];
-    //    tetrominoCounts = new int[colors.Length * tetrominoNames.Length];
-
-    //    // 初始化方块图形数组
-    //    tetrominoes = new Tetromino[]
-    //    {
-    //        new Tetromino("L型",new int[][] // L型方块
-    //        {
-    //            new int[] { 1, 0 },
-    //            new int[] { 1, 0 },
-    //            new int[] { 1, 1 }
-    //        },0),
-
-    //        new Tetromino("J型",new int[][] // J型方块
-    //        {
-    //            new int[] { 1, 0, 0 },
-    //            new int[] { 1, 1, 1 }
-    //            },1),
-
-    //        new Tetromino("O型",new int[][] // O型方块
-    //        {
-    //            new int[] { 1, 1 },
-    //            new int[] { 1, 1 }
-    //        },2),
-
-    //        new Tetromino("I型",new int[][] // I型方块
-    //        {
-    //            new int[] { 1, 1, 1, 1 }
-    //        },3),
-
-    //        new Tetromino("T型",new int[][] // T型方块
-    //        {
-    //            new int[] { 1, 0 },
-    //            new int[] { 1, 1 },
-    //            new int[] { 1, 0 }
-    //        },4),
-
-    //        new Tetromino("S型",new int[][] // S型方块
-    //        {
-    //            new int[] { 1, 0 },
-    //            new int[] { 1, 1 },
-    //            new int[] { 0, 1 }
-    //        },5),
-
-    //        new Tetromino("Z型",new int[][] // Z型方块
-    //        {
-    //            new int[] { 1, 1, 0 },
-    //            new int[] { 0, 1, 1 }
-    //        },6),
-    //    };
-
-
-
-
-    //    // 生成棋盘颜色
-    //    GenerateBoardColors();
-
-    //    // 统计方块图形个数
-    //    CountTetrominoes();
-
-    //    // 输出统计结果
-    //    PrintTetrominoCounts();
-
-    //    // 输出程序执行时间
-        
-
-    //    float endTime = Time.realtimeSinceStartup;
-    //    float elapsedTime = (endTime - startTime) * 1000f;
-    //    Debug.Log("用时：" + elapsedTime.ToString("F2") + " ms");
-    //}
+    [ShowInInspector]
+    List<Vector2Int> matchedBlocks;
 
     public void OnButtonClick()
     {

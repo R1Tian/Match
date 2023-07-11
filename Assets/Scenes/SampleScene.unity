@@ -310,7 +310,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &603171980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,7 +587,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1008423114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a09c0f96897649e448812a156426d7e1, type: 3}
+  m_Script: {fileID: 11500000, guid: de129c4bd0743e242be34429f78a624a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cubePrefab: {fileID: 6183837692891308622, guid: 7664852b633eb934c9ba0a924909a5cc, type: 3}
@@ -709,7 +709,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1008423119}
-        m_TargetAssemblyTypeName: TetrisStats, Assembly-CSharp
+        m_TargetAssemblyTypeName: TetrisStats2, Assembly-CSharp
         m_MethodName: OnButtonClick
         m_Mode: 1
         m_Arguments:
