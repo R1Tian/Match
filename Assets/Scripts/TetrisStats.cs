@@ -5,18 +5,25 @@ using System.Collections.Generic;
 public class TetrisStats : MonoBehaviour
 {
     public GameObject cubePrefab;
-    public int boardSize = 8; // ×Ô¶¨ÒåÆåÅÌ´óĞ¡
+    public int boardSize = 8; // è‡ªå®šä¹‰æ£‹ç›˜å¤§å°
     private Color[] colors = { Color.red, Color.green, Color.blue, Color.yellow };
-    private string[] colorNames = { "ºìÉ«", "ÂÌÉ«" ,"À¶É«", "»ÆÉ«" };
+    private string[] colorNames = { "çº¢è‰²", "ç»¿è‰²" ,"è“è‰²", "é»„è‰²" };
     private Tetromino[] tetrominoes;
-    private string[] tetrominoNames = { "LĞÍ", "JĞÍ", "OĞÍ", "IĞÍ", "TĞÍ", "SĞÍ", "ZĞÍ" };
-    private int[,] board;
+    private string[] tetrominoNames = { "Lå‹", "Jå‹", "Oå‹", "Iå‹", "Tå‹", "Så‹", "Zå‹" };
+    [ShowInInspector]
+    public int[,] board;
+    [ShowInInspector]
+    public int[,] board1;//ç½®ä¸º-1ä¹‹åçš„æ£‹ç›˜æ•°æ®
+
+
+    
     private int[] tetrominoCounts;
 
     public Transform boardContainer;
 
     
     List<Vector2Int> matchedBlocks;
+    List<Vector2Int> sortedBlocks;
 
     [ShowInInspector]
     List<Vector2Int> matchedBlocksInInspector;
@@ -26,6 +33,8 @@ public class TetrisStats : MonoBehaviour
         board = new int[boardSize, boardSize];
         InitializeBoard();
 
+        board1 = new int[boardSize, boardSize];
+
         matchedBlocks = new List<Vector2Int>();
     }
 
@@ -34,52 +43,52 @@ public class TetrisStats : MonoBehaviour
     {
         float startTime = Time.realtimeSinceStartup;
 
-        // ³õÊ¼»¯ÆåÅÌºÍ¼ÆÊıÆ÷
+        // åˆå§‹åŒ–æ£‹ç›˜å’Œè®¡æ•°å™¨
         //board = new int[boardSize, boardSize];
         tetrominoCounts = new int[colors.Length * tetrominoNames.Length];
 
-        // ³õÊ¼»¯·½¿éÍ¼ĞÎÊı×é
+        // åˆå§‹åŒ–æ–¹å—å›¾å½¢æ•°ç»„
         tetrominoes = new Tetromino[]
         {
-            new Tetromino("LĞÍ",new int[][] // LĞÍ·½¿é
+            new Tetromino("Lå‹",new int[][] // Lå‹æ–¹å—
             {
                 new int[] { 1, 0 },
                 new int[] { 1, 0 },
                 new int[] { 1, 1 }
             },0),
 
-            new Tetromino("JĞÍ",new int[][] // JĞÍ·½¿é
+            new Tetromino("Jå‹",new int[][] // Jå‹æ–¹å—
             {
                 new int[] { 1, 0, 0 },
                 new int[] { 1, 1, 1 }
                 },1),
 
-            new Tetromino("OĞÍ",new int[][] // OĞÍ·½¿é
+            new Tetromino("Oå‹",new int[][] // Oå‹æ–¹å—
             {
                 new int[] { 1, 1 },
                 new int[] { 1, 1 }
             },2),
 
-            new Tetromino("IĞÍ",new int[][] // IĞÍ·½¿é
+            new Tetromino("Iå‹",new int[][] // Iå‹æ–¹å—
             {
                 new int[] { 1, 1, 1, 1 }
             },3),
 
-            new Tetromino("TĞÍ",new int[][] // TĞÍ·½¿é
+            new Tetromino("Tå‹",new int[][] // Tå‹æ–¹å—
             {
                 new int[] { 1, 0 },
                 new int[] { 1, 1 },
                 new int[] { 1, 0 }
             },4),
 
-            new Tetromino("SĞÍ",new int[][] // SĞÍ·½¿é
+            new Tetromino("Så‹",new int[][] // Så‹æ–¹å—
             {
                 new int[] { 1, 0 },
                 new int[] { 1, 1 },
                 new int[] { 0, 1 }
             },5),
 
-            new Tetromino("ZĞÍ",new int[][] // ZĞÍ·½¿é
+            new Tetromino("Zå‹",new int[][] // Zå‹æ–¹å—
             {
                 new int[] { 1, 1, 0 },
                 new int[] { 0, 1, 1 }
@@ -89,25 +98,25 @@ public class TetrisStats : MonoBehaviour
 
 
 
-        // Éú³ÉÆåÅÌÑÕÉ«
+        // ç”Ÿæˆæ£‹ç›˜é¢œè‰²
         GenerateBoardColors();
 
-        // Í³¼Æ·½¿éÍ¼ĞÎ¸öÊı
+        // ç»Ÿè®¡æ–¹å—å›¾å½¢ä¸ªæ•°
         CountTetrominoes();
 
-        // Êä³öÍ³¼Æ½á¹û
+        // è¾“å‡ºç»Ÿè®¡ç»“æœ
         PrintTetrominoCounts();
 
-        // Êä³ö³ÌĞòÖ´ĞĞÊ±¼ä
+        // è¾“å‡ºç¨‹åºæ‰§è¡Œæ—¶é—´
 
 
         float endTime = Time.realtimeSinceStartup;
         float elapsedTime = (endTime - startTime) * 1000f;
-        Debug.Log("ÓÃÊ±£º" + elapsedTime.ToString("F2") + " ms");
+        Debug.Log("ç”¨æ—¶ï¼š" + elapsedTime.ToString("F2") + " ms");
 
         UpdateBoardWithMatches(matchedBlocks);
         ShowMatchedBlocksInInspector();
-        //matchedBlocks.Clear();
+        matchedBlocks.Clear();
     }
 
     public void GenerateBoardColors()
@@ -119,7 +128,7 @@ public class TetrisStats : MonoBehaviour
         {
             for (int j = 0; j < boardSize; j++)
             {
-                if (board[i, j] == -1) // ÒÑÏû³ıµÄ¸ñ×Ó
+                if (board[i, j] == -1) // å·²æ¶ˆé™¤çš„æ ¼å­
                 {
                     int randomColorIndex = Random.Range(0, colors.Length);
                     Color randomColor = colors[randomColorIndex];
@@ -128,7 +137,7 @@ public class TetrisStats : MonoBehaviour
                     cube.GetComponent<SpriteRenderer>().color = randomColor;
                     cube.transform.SetParent(boardContainer);
                 }
-                //else // Î´Ïû³ıµÄ¸ñ×Ó
+                //else // æœªæ¶ˆé™¤çš„æ ¼å­
                 //{
                 //    Color color = colors[board[i, j]];
                 //    GameObject cube = Instantiate(cubePrefab, new Vector3(-j + xOffset, -i + yOffset, 0), Quaternion.identity);
@@ -190,7 +199,7 @@ public class TetrisStats : MonoBehaviour
                     for (int k = 0; k < 4; k++)
                     {
 
-                        //List<Vector2Int> matchedBlocks = new List<Vector2Int>(); // Ê¹ÓÃ List Ìæ´ú HashSet
+                        //List<Vector2Int> matchedBlocks = new List<Vector2Int>(); // ä½¿ç”¨ List æ›¿ä»£ HashSet
 
                         if (CheckTetromino(rotatedBoard[k], tetromino, i, j))
                         {
@@ -198,13 +207,13 @@ public class TetrisStats : MonoBehaviour
                             int tetrominoCountIndex = tetromino.Index + colorIndex * tetrominoes.Length;
                             tetrominoCounts[tetrominoCountIndex]++;
 
-                            // ½«Æ¥Åä³É¹¦µÄÎ»ÖÃ×ª»»³ÉÔ­Ê¼Î´Ğı×ªµÄ×ø±ê
+                            // å°†åŒ¹é…æˆåŠŸçš„ä½ç½®è½¬æ¢æˆåŸå§‹æœªæ—‹è½¬çš„åæ ‡
                             int originalX = i;
                             int originalY = j;
                             ConvertToOriginalCoordinates(originalX, originalY, k, out int originalXUnrotated, out int originalYUnrotated);
 
 
-                            // ½«Æ¥Åä³É¹¦µÄ¸ñ×ÓÎ»ÖÃºÍĞÎ×´ÖĞµÄ¸ñ×ÓÎ»ÖÃ¶¼¼ÇÂ¼ÏÂÀ´
+                            // å°†åŒ¹é…æˆåŠŸçš„æ ¼å­ä½ç½®å’Œå½¢çŠ¶ä¸­çš„æ ¼å­ä½ç½®éƒ½è®°å½•ä¸‹æ¥
                             matchedBlocks.Add(new Vector2Int(originalXUnrotated, originalYUnrotated));
                             RecordShapeBlocks(originalX, originalY, tetromino.Shape, matchedBlocks, k);
                         }
@@ -213,22 +222,22 @@ public class TetrisStats : MonoBehaviour
                 }
             }
         }
-        //OĞÍÖØ¸´¼ÆËãÁËËÄ±é
+        //Oå‹é‡å¤è®¡ç®—äº†å››é
         for (int i = 2; i < tetrominoCounts.Length; i += 7)
         {
             tetrominoCounts[i] /= 4;
         }
-        //IĞÍÖØ¸´¼ÆËãÁËÁ½±é
+        //Iå‹é‡å¤è®¡ç®—äº†ä¸¤é
         for (int i = 3; i < tetrominoCounts.Length; i += 7)
         {
             tetrominoCounts[i] /= 2;
         }
-        //SĞÍÖØ¸´¼ÆËãÁËÁ½±é
+        //Så‹é‡å¤è®¡ç®—äº†ä¸¤é
         for (int i = 5; i < tetrominoCounts.Length; i += 7)
         {
             tetrominoCounts[i] /= 2;
         }
-        //ZĞÍÖØ¸´¼ÆËãÁËÁ½±é
+        //Zå‹é‡å¤è®¡ç®—äº†ä¸¤é
         for (int i = 6; i < tetrominoCounts.Length; i += 7)
         {
             tetrominoCounts[i] /= 2;
@@ -246,7 +255,7 @@ public class TetrisStats : MonoBehaviour
             {
                 if (startX + shapeWidth > boardSize || startY + shapeHeight > boardSize)
                 {
-                    continue; // ·½¿é³¬³öÆåÅÌ·¶Î§£¬²»Æ¥Åä
+                    continue; // æ–¹å—è¶…å‡ºæ£‹ç›˜èŒƒå›´ï¼Œä¸åŒ¹é…
                 }
                 if (shape[i][j] == 1)
                 {
@@ -271,16 +280,16 @@ public class TetrisStats : MonoBehaviour
                 unrotatedY = rotatedY;
                 break;
             case 1:
-                unrotatedX = boardSize - rotatedY - 1;
-                unrotatedY = rotatedX;
+                unrotatedX = rotatedY;
+                unrotatedY = boardSize - rotatedX - 1;
                 break;
             case 2:
                 unrotatedX = boardSize - rotatedX - 1;
                 unrotatedY = boardSize - rotatedY - 1;
                 break;
             case 3:
-                unrotatedX = rotatedY;
-                unrotatedY = boardSize - rotatedX - 1;
+                unrotatedX = boardSize - rotatedY - 1;
+                unrotatedY = rotatedX;
                 break;
             default:
                 unrotatedX = 0;
@@ -297,7 +306,7 @@ public class TetrisStats : MonoBehaviour
         int tetrominoHeight = tetromino.Shape.Length;
         if (startX + tetrominoWidth > boardSize || startY + tetrominoHeight > boardSize)
         {
-            return false; // ·½¿é³¬³öÆåÅÌ·¶Î§£¬²»Æ¥Åä
+            return false; // æ–¹å—è¶…å‡ºæ£‹ç›˜èŒƒå›´ï¼Œä¸åŒ¹é…
         }
 
         int startColor = board[startX, startY];
@@ -313,13 +322,13 @@ public class TetrisStats : MonoBehaviour
 
                     if (board[boardX, boardY] != startColor)
                     {
-                        return false; // ·½¿éÎ»ÖÃ²»Æ¥Åä
+                        return false; // æ–¹å—ä½ç½®ä¸åŒ¹é…
                     }
                 }
             }
         }
         //SWDebug.Log("x" + (startX + 1) + "y" + (startY + 1));
-        return true; // ·½¿éÆ¥Åä³É¹¦
+        return true; // æ–¹å—åŒ¹é…æˆåŠŸ
     }
 
     public void PrintTetrominoCounts()
@@ -329,25 +338,67 @@ public class TetrisStats : MonoBehaviour
             for (int j = 0; j < tetrominoNames.Length; j++)
             {
                 int tetrominoIndex = i * tetrominoNames.Length + j;
-                Debug.Log("ÑÕÉ« " + colorNames[i] + " µÄ·½¿éÍ¼ĞÎ " + tetrominoNames[j] + " ³öÏÖ " + tetrominoCounts[tetrominoIndex] + " ´Î");
+                Debug.Log("é¢œè‰² " + colorNames[i] + " çš„æ–¹å—å›¾å½¢ " + tetrominoNames[j] + " å‡ºç° " + tetrominoCounts[tetrominoIndex] + " æ¬¡");
             }
         }
     }
 
     private void UpdateBoardWithMatches(List<Vector2Int> matchedBlocks)
     {
-        foreach (Vector2Int block in matchedBlocks)
+        // ä½¿ç”¨ HashSet å­˜å‚¨å”¯ä¸€çš„æ ¼å­ä½ç½®
+        HashSet<Vector2Int> uniqueBlocks = new HashSet<Vector2Int>(matchedBlocks);
+
+        // å°†åŒ¹é…æˆåŠŸçš„æ ¼å­ä½ç½®æŒ‰ç…§çºµåæ ‡è¿›è¡Œæ’åºï¼Œä»ä¸Šåˆ°ä¸‹éå†
+        sortedBlocks = new List<Vector2Int>(uniqueBlocks);
+        sortedBlocks.Sort((a, b) => b.y.CompareTo(a.y));
+
+        foreach (Vector2Int block in sortedBlocks)
         {
             int x = block.x;
             int y = block.y;
             board[x, y] = -1;
         }
+
+        for(int i = 0; i < boardSize; i++)
+        {
+            for(int j = 0; j < boardSize; j++)
+            {
+                board1[i, j] = board[i, j];
+            }
+        }
+
+        //// éå†åŒ¹é…æˆåŠŸçš„æ ¼å­ä½ç½®
+        //foreach (Vector2Int block in sortedBlocks)
+        //{
+        //    int x = block.x;
+        //    int y = block.y;
+
+        //    // ä»å½“å‰æ ¼å­ä½ç½®å¼€å§‹å‘ä¸Šéå†ï¼Œå¯»æ‰¾æœ€è¿‘çš„é-1å…ƒç´ 
+        //    int row = y - 1;
+        //    while (row >= 0 && board[row, x] == -1)
+        //    {
+        //        row--;
+        //    }
+
+        //    if (row >= 0)
+        //    {
+        //        // å°†æ‰¾åˆ°çš„é-1å…ƒç´ ç§»åŠ¨åˆ°å½“å‰æ ¼å­ä½ç½®
+        //        board[y, x] = board[row, x];
+        //        board[row, x] = -1;
+        //    }
+        //    else
+        //    {
+        //        // ç”Ÿæˆéšæœºé¢œè‰²ç´¢å¼•
+        //        int randomColorIndex = Random.Range(0, colors.Length);
+        //        board[y, x] = randomColorIndex;
+        //    }
+        //}
     }
 
-    //³õÊ¼»¯ÆåÅÌ
+    //åˆå§‹åŒ–æ£‹ç›˜
     void InitializeBoard()
     {
-        // ³õÊ¼»¯ÆåÅÌÑÕÉ«Ë÷ÒıÎªÎŞĞ§Öµ
+        // åˆå§‹åŒ–æ£‹ç›˜é¢œè‰²ç´¢å¼•ä¸ºæ— æ•ˆå€¼
         for (int i = 0; i < boardSize; i++)
         {
             for (int j = 0; j < boardSize; j++)
@@ -361,12 +412,14 @@ public class TetrisStats : MonoBehaviour
     {
         matchedBlocksInInspector = new List<Vector2Int>();
 
-        foreach (Vector2Int block in matchedBlocks)
+        foreach (Vector2Int block in sortedBlocks)
         {
             int transformedX = block.x + 1;
             int transformedY = block.y + 1;
             matchedBlocksInInspector.Add(new Vector2Int(transformedX, transformedY));
         }
     }
+
+
 
 }
