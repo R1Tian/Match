@@ -15,15 +15,27 @@ public class TetrisStats : MonoBehaviour
 
     public Transform boardContainer;
 
-    [ShowInInspector]
+    
     List<Vector2Int> matchedBlocks;
+
+    [ShowInInspector]
+    List<Vector2Int> matchedBlocksInInspector;
+
+    public void Start()
+    {
+        board = new int[boardSize, boardSize];
+        InitializeBoard();
+
+        matchedBlocks = new List<Vector2Int>();
+    }
+
 
     public void OnButtonClick()
     {
         float startTime = Time.realtimeSinceStartup;
 
         // 初始化棋盘和计数器
-        board = new int[boardSize, boardSize];
+        //board = new int[boardSize, boardSize];
         tetrominoCounts = new int[colors.Length * tetrominoNames.Length];
 
         // 初始化方块图形数组
@@ -92,6 +104,10 @@ public class TetrisStats : MonoBehaviour
         float endTime = Time.realtimeSinceStartup;
         float elapsedTime = (endTime - startTime) * 1000f;
         Debug.Log("用时：" + elapsedTime.ToString("F2") + " ms");
+
+        UpdateBoardWithMatches(matchedBlocks);
+        ShowMatchedBlocksInInspector();
+        //matchedBlocks.Clear();
     }
 
     public void GenerateBoardColors()
@@ -112,17 +128,18 @@ public class TetrisStats : MonoBehaviour
                     cube.GetComponent<SpriteRenderer>().color = randomColor;
                     cube.transform.SetParent(boardContainer);
                 }
-                else // 未消除的格子
-                {
-                    Color color = colors[board[i, j]];
-                    GameObject cube = Instantiate(cubePrefab, new Vector3(-j + xOffset, -i + yOffset, 0), Quaternion.identity);
-                    cube.GetComponent<SpriteRenderer>().color = color;
-                    cube.transform.SetParent(boardContainer);
-                }
+                //else // 未消除的格子
+                //{
+                //    Color color = colors[board[i, j]];
+                //    GameObject cube = Instantiate(cubePrefab, new Vector3(-j + xOffset, -i + yOffset, 0), Quaternion.identity);
+                //    cube.GetComponent<SpriteRenderer>().color = color;
+                //    cube.transform.SetParent(boardContainer);
+                //}
             }
         }
 
-        boardContainer.transform.Rotate(new Vector3(0, 0, 90));
+        boardContainer.transform.eulerAngles = new Vector3(0, 0, 90);
+        //boardContainer.transform.Rotate(new Vector3(0, 0, 90));
     }
 
     private int[][,] GenerateRotatedBoard(int[,] originalBoard)
@@ -163,22 +180,36 @@ public class TetrisStats : MonoBehaviour
 
     public void CountTetrominoes()
     {
+        int[][,] rotatedBoard = GenerateRotatedBoard(board);
         foreach (Tetromino tetromino in tetrominoes)
         {
             for (int i = 0; i < boardSize; i++)
             {
                 for (int j = 0; j < boardSize; j++)
                 {
-                    foreach(int[,]board in GenerateRotatedBoard(board))
+                    for (int k = 0; k < 4; k++)
                     {
-                        if (CheckTetromino(board, tetromino, i, j))
+
+                        //List<Vector2Int> matchedBlocks = new List<Vector2Int>(); // 使用 List 替代 HashSet
+
+                        if (CheckTetromino(rotatedBoard[k], tetromino, i, j))
                         {
-                            int colorIndex = board[i, j];
+                            int colorIndex = rotatedBoard[k][i, j];
                             int tetrominoCountIndex = tetromino.Index + colorIndex * tetrominoes.Length;
                             tetrominoCounts[tetrominoCountIndex]++;
+
+                            // 将匹配成功的位置转换成原始未旋转的坐标
+                            int originalX = i;
+                            int originalY = j;
+                            ConvertToOriginalCoordinates(originalX, originalY, k, out int originalXUnrotated, out int originalYUnrotated);
+
+
+                            // 将匹配成功的格子位置和形状中的格子位置都记录下来
+                            matchedBlocks.Add(new Vector2Int(originalXUnrotated, originalYUnrotated));
+                            RecordShapeBlocks(originalX, originalY, tetromino.Shape, matchedBlocks, k);
                         }
+
                     }
-                        
                 }
             }
         }
@@ -203,6 +234,62 @@ public class TetrisStats : MonoBehaviour
             tetrominoCounts[i] /= 2;
         }
     }
+
+    private void RecordShapeBlocks(int startX, int startY, int[][] shape, List<Vector2Int> blocks, int rotationIndex)
+    {
+        int shapeWidth = shape[0].Length;
+        int shapeHeight = shape.Length;
+
+        for (int i = 0; i < shapeHeight; i++)
+        {
+            for (int j = 0; j < shapeWidth; j++)
+            {
+                if (startX + shapeWidth > boardSize || startY + shapeHeight > boardSize)
+                {
+                    continue; // 方块超出棋盘范围，不匹配
+                }
+                if (shape[i][j] == 1)
+                {
+                    int rotatedX = startX + j;
+                    int rotatedY = startY + i;
+
+                    int unrotatedX, unrotatedY;
+                    ConvertToOriginalCoordinates(rotatedX, rotatedY, rotationIndex, out unrotatedX, out unrotatedY);
+
+                    blocks.Add(new Vector2Int(unrotatedX, unrotatedY));
+                }
+            }
+        }
+    }
+
+    private void ConvertToOriginalCoordinates(int rotatedX, int rotatedY, int rotationIndex, out int unrotatedX, out int unrotatedY)
+    {
+        switch (rotationIndex)
+        {
+            case 0:
+                unrotatedX = rotatedX;
+                unrotatedY = rotatedY;
+                break;
+            case 1:
+                unrotatedX = boardSize - rotatedY - 1;
+                unrotatedY = rotatedX;
+                break;
+            case 2:
+                unrotatedX = boardSize - rotatedX - 1;
+                unrotatedY = boardSize - rotatedY - 1;
+                break;
+            case 3:
+                unrotatedX = rotatedY;
+                unrotatedY = boardSize - rotatedX - 1;
+                break;
+            default:
+                unrotatedX = 0;
+                unrotatedY = 0;
+                break;
+        }
+    }
+
+
 
     private bool CheckTetromino(int[,] board, Tetromino tetromino, int startX, int startY)
     {
@@ -246,4 +333,40 @@ public class TetrisStats : MonoBehaviour
             }
         }
     }
+
+    private void UpdateBoardWithMatches(List<Vector2Int> matchedBlocks)
+    {
+        foreach (Vector2Int block in matchedBlocks)
+        {
+            int x = block.x;
+            int y = block.y;
+            board[x, y] = -1;
+        }
+    }
+
+    //初始化棋盘
+    void InitializeBoard()
+    {
+        // 初始化棋盘颜色索引为无效值
+        for (int i = 0; i < boardSize; i++)
+        {
+            for (int j = 0; j < boardSize; j++)
+            {
+                board[i, j] = -1;
+            }
+        }
+    }
+
+    void ShowMatchedBlocksInInspector()
+    {
+        matchedBlocksInInspector = new List<Vector2Int>();
+
+        foreach (Vector2Int block in matchedBlocks)
+        {
+            int transformedX = block.x + 1;
+            int transformedY = block.y + 1;
+            matchedBlocksInInspector.Add(new Vector2Int(transformedX, transformedY));
+        }
+    }
+
 }

@@ -520,9 +520,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1008423116}
-  - component: {fileID: 1008423117}
-  - component: {fileID: 1008423118}
   - component: {fileID: 1008423119}
+  - component: {fileID: 1008423120}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -545,39 +544,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1008423117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1008423114}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1101b65f4f7cb5c44bf3fd36ab4f85cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellPrefabs:
-  - {fileID: 6183837692891308622, guid: 95aead0d6f737f446b97231cc01e7f6a, type: 3}
-  - {fileID: 6183837692891308622, guid: 0dae4638b2e52f24eaf570c7bf9b40f7, type: 3}
-  - {fileID: 6183837692891308622, guid: 74a24cef8105617449171771c16288dc, type: 3}
-  - {fileID: 6183837692891308622, guid: 7815b0e4cb27be84fb9b0c2868846ca3, type: 3}
-  boardContainer: {fileID: 1050242459}
---- !u!114 &1008423118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1008423114}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b9b677e7be43ad4cb56ba274cc981d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellPrefab: {fileID: 6183837692891308622, guid: 95aead0d6f737f446b97231cc01e7f6a, type: 3}
-  container: {fileID: 1050242459}
-  spacing: 1
 --- !u!114 &1008423119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,6 +559,21 @@ MonoBehaviour:
   cubePrefab: {fileID: 6183837692891308622, guid: 7664852b633eb934c9ba0a924909a5cc, type: 3}
   boardSize: 8
   boardContainer: {fileID: 1050242459}
+--- !u!114 &1008423120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008423114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a09c0f96897649e448812a156426d7e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubePrefab: {fileID: 6183837692891308622, guid: 7664852b633eb934c9ba0a924909a5cc, type: 3}
+  boardSize: 6
+  boardContainer: {fileID: 1008423116}
 --- !u!1 &1050242458
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,11 +640,11 @@ RectTransform:
   m_Father: {fileID: 603171982}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -360.2, y: -155.6}
-  m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 150, y: 50}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &1779385282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,8 +689,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1008423119}
-        m_TargetAssemblyTypeName: TetrisStats2, Assembly-CSharp
+      - m_Target: {fileID: 1008423120}
+        m_TargetAssemblyTypeName: TetrisStats, Assembly-CSharp
         m_MethodName: OnButtonClick
         m_Mode: 1
         m_Arguments:
