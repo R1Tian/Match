@@ -350,44 +350,51 @@ public class TetrisStats : MonoBehaviour
 
     private void UpdateBoardWithMatches(List<Vector2Int> matchedBlocks)
     {
+
         // 使用 HashSet 存储唯一的格子位置
         HashSet<Vector2Int> uniqueBlocks = new HashSet<Vector2Int>(matchedBlocks);
 
         // 将匹配成功的格子位置按照纵坐标进行排序，从上到下遍历
         sortedBlocks = new List<Vector2Int>(uniqueBlocks);
-        sortedBlocks.Sort((a, b) => b.y.CompareTo(a.y));
+        sortedBlocks.Sort((a, b) => {
+            return b.y - a.y;
+        });
 
-        foreach (Vector2Int block in sortedBlocks)
+        foreach (var item in sortedBlocks)
         {
-            int x = block.x;
-            int y = block.y;
-            board[x, y] = -1;
+            board[item.x, item.y] = -1;
         }
 
-        for(int i = 0; i < boardSize; i++)
+        for (int i = 0; i < boardSize; i++)
         {
-            for(int j = 0; j < boardSize; j++)
+            for (int j = 0; j < boardSize; j++)
             {
                 board1[i, j] = board[i, j];
             }
         }
 
-        // 遍历匹配成功的格子位置
-        foreach (Vector2Int block in sortedBlocks)
-        {
-            int x = block.x;
-            int y = block.y;
-
-            ChangeColor(x, y, Random.Range(0, colors.Length));
-        }
-
+        ChangeColor();
     }
 
 
-    public void ChangeColor(int x, int y, int index)
+    public void ChangeColor()
     {
-        cubeMatrix[x, y].GetComponent<SpriteRenderer>().color = colors[index];
-        board1[x, y] = index;
+        for (int i = 0; i < boardSize; i++) {
+            int slow = boardSize - 1;
+
+            for (int fast = boardSize - 1; fast >= 0; fast--) {
+                if (board1[i, fast] != -1) {
+                    board1[i, slow] = board1[i, fast];
+                    slow--;
+                }
+            }
+
+            for (; slow >= 0; slow--) {
+                int index = Random.Range(0, colors.Length);
+                cubeMatrix[i, slow].GetComponent<SpriteRenderer>().color = colors[index];
+                board1[i, slow] = index;
+            }
+        }
     }
 
     //初始化棋盘
@@ -405,14 +412,14 @@ public class TetrisStats : MonoBehaviour
 
     void ShowMatchedBlocksInInspector()
     {
-        matchedBlocksInInspector = new List<Vector2Int>();
+        //matchedBlocksInInspector = new List<Vector2Int>();
 
-        foreach (Vector2Int block in sortedBlocks)
-        {
-            int transformedX = block.x + 1;
-            int transformedY = block.y + 1;
-            matchedBlocksInInspector.Add(new Vector2Int(transformedX, transformedY));
-        }
+        //foreach (Vector2Int block in sortedBlocks)
+        //{
+        //    int transformedX = block.x;
+        //    int transformedY = block.y;
+        //    matchedBlocksInInspector.Add(new Vector2Int(transformedX, transformedY));
+        //}
     }
 
 
