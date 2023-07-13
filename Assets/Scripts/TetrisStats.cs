@@ -1,6 +1,7 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
+using System.Collections;
 
 public class TetrisStats : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class TetrisStats : MonoBehaviour
     public int[,] board;
     [ShowInInspector]
     public int[,] board1;//置为-1之后的棋盘数据
-
+    private GameObject[,] cubeMatrix;
 
     
     private int[] tetrominoCounts;
@@ -31,6 +32,7 @@ public class TetrisStats : MonoBehaviour
     public void Start()
     {
         board = new int[boardSize, boardSize];
+        cubeMatrix = new GameObject[boardSize, boardSize];
         InitializeBoard();
 
         board1 = new int[boardSize, boardSize];
@@ -136,6 +138,7 @@ public class TetrisStats : MonoBehaviour
                     GameObject cube = Instantiate(cubePrefab, new Vector3(-j + xOffset, -i + yOffset, 0), Quaternion.identity);
                     cube.GetComponent<SpriteRenderer>().color = randomColor;
                     cube.transform.SetParent(boardContainer);
+                    cubeMatrix[i, j] = cube;
                 }
                 //else // 未消除的格子
                 //{
@@ -150,6 +153,7 @@ public class TetrisStats : MonoBehaviour
         boardContainer.transform.eulerAngles = new Vector3(0, 0, 90);
         //boardContainer.transform.Rotate(new Vector3(0, 0, 90));
     }
+
 
     private int[][,] GenerateRotatedBoard(int[,] originalBoard)
     {
@@ -343,6 +347,7 @@ public class TetrisStats : MonoBehaviour
         }
     }
 
+
     private void UpdateBoardWithMatches(List<Vector2Int> matchedBlocks)
     {
         // 使用 HashSet 存储唯一的格子位置
@@ -367,32 +372,22 @@ public class TetrisStats : MonoBehaviour
             }
         }
 
-        //// 遍历匹配成功的格子位置
-        //foreach (Vector2Int block in sortedBlocks)
-        //{
-        //    int x = block.x;
-        //    int y = block.y;
+        // 遍历匹配成功的格子位置
+        foreach (Vector2Int block in sortedBlocks)
+        {
+            int x = block.x;
+            int y = block.y;
 
-        //    // 从当前格子位置开始向上遍历，寻找最近的非-1元素
-        //    int row = y - 1;
-        //    while (row >= 0 && board[row, x] == -1)
-        //    {
-        //        row--;
-        //    }
+            ChangeColor(x, y, Random.Range(0, colors.Length));
+        }
 
-        //    if (row >= 0)
-        //    {
-        //        // 将找到的非-1元素移动到当前格子位置
-        //        board[y, x] = board[row, x];
-        //        board[row, x] = -1;
-        //    }
-        //    else
-        //    {
-        //        // 生成随机颜色索引
-        //        int randomColorIndex = Random.Range(0, colors.Length);
-        //        board[y, x] = randomColorIndex;
-        //    }
-        //}
+    }
+
+
+    public void ChangeColor(int x, int y, int index)
+    {
+        cubeMatrix[x, y].GetComponent<SpriteRenderer>().color = colors[index];
+        board1[x, y] = index;
     }
 
     //初始化棋盘
