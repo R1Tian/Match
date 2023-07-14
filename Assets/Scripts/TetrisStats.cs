@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System;
-
+using DG.Tweening;
 public class TetrisStats : MonoBehaviour
 {
     public GameObject cubePrefab;
