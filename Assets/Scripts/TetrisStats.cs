@@ -1,8 +1,7 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using System.Collections;
-
+using UnityEngine.UI;
 public class TetrisStats : MonoBehaviour
 {
     public GameObject cubePrefab;
@@ -22,6 +21,9 @@ public class TetrisStats : MonoBehaviour
 
     public Transform boardContainer;
 
+    public Button deleteBtn;
+    public Button randomBtn;
+
     
     List<Vector2Int> matchedBlocks;
     List<Vector2Int> sortedBlocks;
@@ -38,6 +40,10 @@ public class TetrisStats : MonoBehaviour
         board1 = new int[boardSize, boardSize];
 
         matchedBlocks = new List<Vector2Int>();
+
+        deleteBtn.onClick.AddListener(ChangeColor);
+        randomBtn.onClick.AddListener(RandomColor);
+
     }
 
 
@@ -372,8 +378,6 @@ public class TetrisStats : MonoBehaviour
                 board1[i, j] = board[i, j];
             }
         }
-
-        ChangeColor();
     }
 
 
@@ -394,6 +398,13 @@ public class TetrisStats : MonoBehaviour
                 cubeMatrix[i, slow].GetComponent<SpriteRenderer>().color = colors[index];
                 board1[i, slow] = index;
             }
+        }
+    }
+
+    public void RandomColor() {
+        foreach (var item in cubeMatrix)
+        {
+            item.GetComponent<SpriteRenderer>().color = colors[Random.Range(0, colors.Length)];
         }
     }
 
