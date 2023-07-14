@@ -8,6 +8,8 @@ public class TetrisStats : MonoBehaviour
 {
     public GameObject cubePrefab;
     public int boardSize = 8; // 自定义棋盘大小
+    public float blockSize = 1f;//格子大小
+
     private Color[] colors = { Color.red, Color.green, Color.blue, Color.yellow };
     private string[] colorNames = { "红色", "绿色" ,"蓝色", "黄色" };
     private Tetromino[] tetrominoes;
@@ -36,9 +38,9 @@ public class TetrisStats : MonoBehaviour
     List<Vector2Int> matchedBlocksInInspector;
 
     [ShowInInspector]
-    private Vector2Int selectedBlock1;
+    private Vector2Int? selectedBlock1;
     [ShowInInspector]
-    private Vector2Int selectedBlock2;
+    private Vector2Int? selectedBlock2;
 
     public void Start()
     {
@@ -123,6 +125,7 @@ public class TetrisStats : MonoBehaviour
 
         // 输出统计结果
         PrintTetrominoCounts();
+
 
         // 输出程序执行时间
 
@@ -453,64 +456,67 @@ public class TetrisStats : MonoBehaviour
         //}
     }
 
-    //void Update()
-    //{
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        // 获取鼠标点击位置的世界坐标
-    //        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    //        // 将世界坐标转换为棋盘格子坐标
-    //        Vector2Int clickedBlock = GetClickedBlock(mousePosition);
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            // 获取鼠标点击位置的世界坐标
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 offset = boardContainer.position; // 棋盘的中心位置偏移
+            Vector3 normalizedPosition = worldPosition - offset; // 将鼠标点击的世界坐标与棋盘中心位置进行偏移
+            Vector3 scaledPosition = normalizedPosition / blockSize; // 根据每个块的大小进行缩放
+            // 将世界坐标转换为棋盘格子坐标
+            int row = Mathf.FloorToInt(scaledPosition.y); // 鼠标点击的行索引
+            int column = Mathf.FloorToInt(scaledPosition.x); // 鼠标点击的列索引
 
-    //        // 检查点击的格子是否在有效范围内
-    //        if (IsValidBlock(clickedBlock))
-    //        {
-    //            // 如果还没有选中第一个格子，则选中它
-    //            if (selectedBlock1 == null)
-    //            {
-    //                selectedBlock1 = clickedBlock;
-    //            }
-    //            // 如果已经选中了一个格子，则选中第二个格子，并进行交换
-    //            else
-    //            {
-    //                selectedBlock2 = clickedBlock;
-    //                SwapBlocks(selectedBlock1, selectedBlock2);
+            // 根据棋盘尺寸进行调整
+            row += boardSize / 2;
+            row = boardSize - row -1;
+            column += boardSize / 2;
 
-    //                // 重置选中的格子
-    //                selectedBlock1 = null;
-    //                selectedBlock2 = null;
-    //            }
-    //        }
-    //    }
-    //}
+            Debug.Log(new Vector2Int(row, column));
+            Vector2Int curPosition = new Vector2Int(row, column);
+            // 检查索引是否在有效范围内
+            if (IsValidBlock(curPosition))
+            {
+                if (selectedBlock1 == null)
+                {
+                    selectedBlock1 = curPosition;
+                }
+                else if(selectedBlock1.Value == curPosition)
+                {
+                    selectedBlock1 = null;
+                }
+                else if (selectedBlock2 == null)
+                {
+                    selectedBlock2 = curPosition;
+                    // 执行块交换逻辑
+                    SwapBlocks(selectedBlock1.Value, selectedBlock2.Value);
+                    // 重置选定的块
+                    selectedBlock1 = null;
+                    selectedBlock2 = null;
+                }
+            }
+        }
+    
+    }
 
-    ///// <summary>
-    ///// 将世界坐标转换为棋盘格子坐标：
-    ///// </summary>
-    ///// <param name="position">世界坐标</param>
-    ///// <returns></returns>
-    //private Vector2Int GetClickedBlock(Vector3 position)
-    //{
-    //    int x = Mathf.RoundToInt(position.x);
-    //    int y = Mathf.RoundToInt(position.y);
+    private bool IsValidBlock(Vector2Int block)
+    {
+        int x = block.x;
+        int y = block.y;
 
-    //    return new Vector2Int(x, y);
-    //}
+        return x >= 0 && x < boardSize && y >= 0 && y < boardSize;
+    }
 
-    //private bool IsValidBlock(Vector2Int block)
-    //{
-    //    int x = block.x;
-    //    int y = block.y;
-
-    //    return x >= 0 && x < boardSize && y >= 0 && y < boardSize;
-    //}
-
-    //private void SwapBlocks(Vector2Int block1, Vector2Int block2)
-    //{
-    //    int temp = board[block1.x, block1.y];
-    //    board[block1.x, block1.y] = board[block2.x, block2.y];
-    //    board[block2.x, block2.y] = temp;
-    //}
+    private void SwapBlocks(Vector2Int block1, Vector2Int block2)
+    {
+        int temp = board[block1.y, block1.x];
+        board[block1.y, block1.x] = board[block2.y, block2.x];
+        board[block2.y, block2.x] = temp;
+        cubeMatrix[block1.y, block1.x].GetComponent<SpriteRenderer>().color = colors[board[block1.y, block1.x]];
+        cubeMatrix[block2.y, block2.x].GetComponent<SpriteRenderer>().color = colors[board[block2.y, block2.x]];
+    }
 
 
 }

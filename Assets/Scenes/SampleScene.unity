@@ -857,6 +857,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubePrefab: {fileID: 6183837692891308622, guid: 7664852b633eb934c9ba0a924909a5cc, type: 3}
   boardSize: 6
+  blockSize: 1
   boardContainer: {fileID: 1050242459}
   deleteBtn: {fileID: 1658431950}
   randomBtn: {fileID: 464383815}
