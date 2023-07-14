@@ -2,6 +2,8 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
+
 public class TetrisStats : MonoBehaviour
 {
     public GameObject cubePrefab;
@@ -394,25 +396,32 @@ public class TetrisStats : MonoBehaviour
             int slow = boardSize - 1;
 
             for (int fast = boardSize - 1; fast >= 0; fast--) {
-                if (board1[i, fast] != -1) {
-                    board1[i, slow] = board1[i, fast];
+                if (board[i, fast] != -1) {
+                    board[i, slow] = board[i, fast];
                     slow--;
                 }
             }
 
             for (; slow >= 0; slow--) {
-                int index = Random.Range(0, colors.Length);
+                int index = ColorRandom();
                 cubeMatrix[i, slow].GetComponent<SpriteRenderer>().color = colors[index];
-                board1[i, slow] = index;
+                board[i, slow] = index;
             }
         }
     }
 
     public void RandomColor() {
-        foreach (var item in cubeMatrix)
-        {
-            item.GetComponent<SpriteRenderer>().color = colors[Random.Range(0, colors.Length)];
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                int index = ColorRandom();
+                cubeMatrix[i,j].GetComponent<SpriteRenderer>().color = colors[index];
+                board[i, j] = index;
+            }
         }
+    }
+
+    public int ColorRandom() {
+        return Random.Range(0, colors.Length);
     }
 
     //初始化棋盘
