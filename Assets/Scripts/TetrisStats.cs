@@ -24,12 +24,19 @@ public class TetrisStats : MonoBehaviour
     public Button deleteBtn;
     public Button randomBtn;
 
-    
+    //要消除的格子（有重复计算的格子）
     List<Vector2Int> matchedBlocks;
+    //排好序后要消除的格子（按y坐标倒叙排列，无重复）
     List<Vector2Int> sortedBlocks;
 
+    //在Inspector中显示的要消除的格子
     [ShowInInspector]
     List<Vector2Int> matchedBlocksInInspector;
+
+    [ShowInInspector]
+    private Vector2Int selectedBlock1;
+    [ShowInInspector]
+    private Vector2Int selectedBlock2;
 
     public void Start()
     {
@@ -421,6 +428,9 @@ public class TetrisStats : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 在Inspector中显示要消除的格子
+    /// </summary>
     void ShowMatchedBlocksInInspector()
     {
         //matchedBlocksInInspector = new List<Vector2Int>();
@@ -433,6 +443,64 @@ public class TetrisStats : MonoBehaviour
         //}
     }
 
+    //void Update()
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        // 获取鼠标点击位置的世界坐标
+    //        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //        // 将世界坐标转换为棋盘格子坐标
+    //        Vector2Int clickedBlock = GetClickedBlock(mousePosition);
+
+    //        // 检查点击的格子是否在有效范围内
+    //        if (IsValidBlock(clickedBlock))
+    //        {
+    //            // 如果还没有选中第一个格子，则选中它
+    //            if (selectedBlock1 == null)
+    //            {
+    //                selectedBlock1 = clickedBlock;
+    //            }
+    //            // 如果已经选中了一个格子，则选中第二个格子，并进行交换
+    //            else
+    //            {
+    //                selectedBlock2 = clickedBlock;
+    //                SwapBlocks(selectedBlock1, selectedBlock2);
+
+    //                // 重置选中的格子
+    //                selectedBlock1 = null;
+    //                selectedBlock2 = null;
+    //            }
+    //        }
+    //    }
+    //}
+
+    ///// <summary>
+    ///// 将世界坐标转换为棋盘格子坐标：
+    ///// </summary>
+    ///// <param name="position">世界坐标</param>
+    ///// <returns></returns>
+    //private Vector2Int GetClickedBlock(Vector3 position)
+    //{
+    //    int x = Mathf.RoundToInt(position.x);
+    //    int y = Mathf.RoundToInt(position.y);
+
+    //    return new Vector2Int(x, y);
+    //}
+
+    //private bool IsValidBlock(Vector2Int block)
+    //{
+    //    int x = block.x;
+    //    int y = block.y;
+
+    //    return x >= 0 && x < boardSize && y >= 0 && y < boardSize;
+    //}
+
+    //private void SwapBlocks(Vector2Int block1, Vector2Int block2)
+    //{
+    //    int temp = board[block1.x, block1.y];
+    //    board[block1.x, block1.y] = board[block2.x, block2.y];
+    //    board[block2.x, block2.y] = temp;
+    //}
 
 
 }
