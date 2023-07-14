@@ -2,7 +2,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
+using System;
 
 public class TetrisStats : MonoBehaviour
 {
@@ -140,7 +140,7 @@ public class TetrisStats : MonoBehaviour
             {
                 if (board[i, j] == -1) // 已消除的格子
                 {
-                    int randomColorIndex = Random.Range(0, colors.Length);
+                    int randomColorIndex = ColorRandom();
                     Color randomColor = colors[randomColorIndex];
                     board[i, j] = randomColorIndex;
                     GameObject cube = Instantiate(cubePrefab, new Vector3(-j + xOffset, -i + yOffset, 0), Quaternion.identity);
@@ -391,6 +391,7 @@ public class TetrisStats : MonoBehaviour
             for (int fast = boardSize - 1; fast >= 0; fast--) {
                 if (board[i, fast] != -1) {
                     board[i, slow] = board[i, fast];
+                    cubeMatrix[i, slow].GetComponent<SpriteRenderer>().color = colors[board[i,fast]];
                     slow--;
                 }
             }
@@ -414,7 +415,7 @@ public class TetrisStats : MonoBehaviour
     }
 
     public int ColorRandom() {
-        return Random.Range(0, colors.Length);
+        return UnityEngine.Random.Range(0, colors.Length);
     }
 
     //初始化棋盘
