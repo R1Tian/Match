@@ -28,6 +28,8 @@ public class TetrisStats : MonoBehaviour
     public Button deleteBtn;
     public Button randomBtn;
 
+    private float startTime;
+
     //要消除的格子（有重复计算的格子）
     List<Vector2Int> matchedBlocks;
     //排好序后要消除的格子（按y坐标倒叙排列，无重复）
@@ -57,10 +59,18 @@ public class TetrisStats : MonoBehaviour
 
     }
 
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            SwitchBlock();
+        }
+    
+    }
 
     public void OnButtonClick()
     {
-        float startTime = Time.realtimeSinceStartup;
+        startTime = Time.realtimeSinceStartup;
 
         // 初始化棋盘和计数器
         //board = new int[boardSize, boardSize];
@@ -119,24 +129,6 @@ public class TetrisStats : MonoBehaviour
 
         // 生成棋盘颜色
         GenerateBoardColors();
-
-        // 统计方块图形个数
-        CountTetrominoes();
-
-        // 输出统计结果
-        PrintTetrominoCounts();
-
-
-        // 输出程序执行时间
-
-
-        float endTime = Time.realtimeSinceStartup;
-        float elapsedTime = (endTime - startTime) * 1000f;
-        Debug.Log("用时：" + elapsedTime.ToString("F2") + " ms");
-
-        UpdateBoardWithMatches(matchedBlocks);
-        ShowMatchedBlocksInInspector();
-        matchedBlocks.Clear();
     }
 
     public void GenerateBoardColors()
@@ -158,18 +150,10 @@ public class TetrisStats : MonoBehaviour
                     cube.transform.SetParent(boardContainer);
                     cubeMatrix[i, j] = cube;
                 }
-                //else // 未消除的格子
-                //{
-                //    Color color = colors[board[i, j]];
-                //    GameObject cube = Instantiate(cubePrefab, new Vector3(-j + xOffset, -i + yOffset, 0), Quaternion.identity);
-                //    cube.GetComponent<SpriteRenderer>().color = color;
-                //    cube.transform.SetParent(boardContainer);
-                //}
             }
         }
 
         boardContainer.transform.eulerAngles = new Vector3(0, 0, 90);
-        //boardContainer.transform.Rotate(new Vector3(0, 0, 90));
     }
 
 
@@ -227,6 +211,8 @@ public class TetrisStats : MonoBehaviour
                         {
                             int colorIndex = rotatedBoard[k][i, j];
                             int tetrominoCountIndex = tetromino.Index + colorIndex * tetrominoes.Length;
+                            Debug.Log(tetrominoCounts.Length);
+                            Debug.Log(tetrominoCountIndex);
                             tetrominoCounts[tetrominoCountIndex]++;
 
                             // 将匹配成功的位置转换成原始未旋转的坐标
@@ -456,49 +442,44 @@ public class TetrisStats : MonoBehaviour
         //}
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
+
+    private void SwitchBlock() {
+        // 获取鼠标点击位置的世界坐标
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 offset = boardContainer.position; // 棋盘的中心位置偏移
+        Vector3 normalizedPosition = worldPosition - offset; // 将鼠标点击的世界坐标与棋盘中心位置进行偏移
+        Vector3 scaledPosition = normalizedPosition / blockSize; // 根据每个块的大小进行缩放
+                                                                 // 将世界坐标转换为棋盘格子坐标
+        int row = Mathf.FloorToInt(scaledPosition.y); // 鼠标点击的行索引
+        int column = Mathf.FloorToInt(scaledPosition.x); // 鼠标点击的列索引
+
+        // 根据棋盘尺寸进行调整
+        row += boardSize / 2;
+        row = boardSize - row - 1;
+        column += boardSize / 2;
+
+        Vector2Int curPosition = new Vector2Int(row, column);
+        // 检查索引是否在有效范围内
+        if (IsValidBlock(curPosition))
         {
-            // 获取鼠标点击位置的世界坐标
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 offset = boardContainer.position; // 棋盘的中心位置偏移
-            Vector3 normalizedPosition = worldPosition - offset; // 将鼠标点击的世界坐标与棋盘中心位置进行偏移
-            Vector3 scaledPosition = normalizedPosition / blockSize; // 根据每个块的大小进行缩放
-            // 将世界坐标转换为棋盘格子坐标
-            int row = Mathf.FloorToInt(scaledPosition.y); // 鼠标点击的行索引
-            int column = Mathf.FloorToInt(scaledPosition.x); // 鼠标点击的列索引
-
-            // 根据棋盘尺寸进行调整
-            row += boardSize / 2;
-            row = boardSize - row -1;
-            column += boardSize / 2;
-
-            Debug.Log(new Vector2Int(row, column));
-            Vector2Int curPosition = new Vector2Int(row, column);
-            // 检查索引是否在有效范围内
-            if (IsValidBlock(curPosition))
+            if (selectedBlock1 == null)
             {
-                if (selectedBlock1 == null)
-                {
-                    selectedBlock1 = curPosition;
-                }
-                else if(selectedBlock1.Value == curPosition)
-                {
-                    selectedBlock1 = null;
-                }
-                else if (selectedBlock2 == null)
-                {
-                    selectedBlock2 = curPosition;
-                    // 执行块交换逻辑
-                    SwapBlocks(selectedBlock1.Value, selectedBlock2.Value);
-                    // 重置选定的块
-                    selectedBlock1 = null;
-                    selectedBlock2 = null;
-                }
+                selectedBlock1 = curPosition;
+            }
+            else if (selectedBlock1.Value == curPosition)
+            {
+                selectedBlock1 = null;
+            }
+            else if (selectedBlock2 == null)
+            {
+                selectedBlock2 = curPosition;
+                // 执行块交换逻辑
+                SwapBlocks(selectedBlock1.Value, selectedBlock2.Value);
+                // 重置选定的块
+                selectedBlock1 = null;
+                selectedBlock2 = null;
             }
         }
-    
     }
 
     private bool IsValidBlock(Vector2Int block)
@@ -516,6 +497,24 @@ public class TetrisStats : MonoBehaviour
         board[block2.y, block2.x] = temp;
         cubeMatrix[block1.y, block1.x].GetComponent<SpriteRenderer>().color = colors[board[block1.y, block1.x]];
         cubeMatrix[block2.y, block2.x].GetComponent<SpriteRenderer>().color = colors[board[block2.y, block2.x]];
+
+        // 统计方块图形个数
+        CountTetrominoes();
+
+        // 输出统计结果
+        PrintTetrominoCounts();
+
+
+        // 输出程序执行时间
+
+
+        float endTime = Time.realtimeSinceStartup;
+        float elapsedTime = (endTime - startTime) * 1000f;
+        //Debug.Log("用时：" + elapsedTime.ToString("F2") + " ms");
+
+        UpdateBoardWithMatches(matchedBlocks);
+        //ShowMatchedBlocksInInspector();
+        matchedBlocks.Clear();
     }
 
 
