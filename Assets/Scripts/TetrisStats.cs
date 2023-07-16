@@ -18,6 +18,7 @@ public class TetrisStats : MonoBehaviour
     public int[,] board;
     [ShowInInspector]
     public int[,] board1;//置为-1之后的棋盘数据
+    [ShowInInspector]
     private GameObject[,] cubeMatrix;
 
     
@@ -42,6 +43,9 @@ public class TetrisStats : MonoBehaviour
     [ShowInInspector]
     private Vector2Int? selectedBlock2;
 
+    float xOffset;
+    float yOffset;
+
     public void Start()
     {
         board = new int[boardSize, boardSize];
@@ -55,6 +59,8 @@ public class TetrisStats : MonoBehaviour
         deleteBtn.onClick.AddListener(ChangeColor);
         randomBtn.onClick.AddListener(RandomColor);
 
+        xOffset = 0.5f * (boardSize - 1);
+        yOffset = 0.5f * (boardSize - 1);
     }
 
 
@@ -141,8 +147,6 @@ public class TetrisStats : MonoBehaviour
 
     public void GenerateBoardColors()
     {
-        float xOffset = 0.5f * (boardSize - 1);
-        float yOffset = 0.5f * (boardSize - 1);
 
         for (int i = 0; i < boardSize; i++)
         {
@@ -153,7 +157,7 @@ public class TetrisStats : MonoBehaviour
                     int randomColorIndex = ColorRandom();
                     Color randomColor = colors[randomColorIndex];
                     board[i, j] = randomColorIndex;
-                    GameObject cube = Instantiate(cubePrefab, new Vector3(-j + xOffset, -i + yOffset, 0), Quaternion.identity);
+                    GameObject cube = Instantiate(cubePrefab, new Vector3(-boardSize + i + xOffset + 1, -j + yOffset, 0), Quaternion.identity);
                     cube.GetComponent<SpriteRenderer>().color = randomColor;
                     cube.transform.SetParent(boardContainer);
                     cubeMatrix[i, j] = cube;
@@ -168,7 +172,7 @@ public class TetrisStats : MonoBehaviour
             }
         }
 
-        boardContainer.transform.eulerAngles = new Vector3(0, 0, 90);
+        //boardContainer.transform.eulerAngles = new Vector3(0, 0, 90);
         //boardContainer.transform.Rotate(new Vector3(0, 0, 90));
     }
 
@@ -400,16 +404,34 @@ public class TetrisStats : MonoBehaviour
 
             for (int fast = boardSize - 1; fast >= 0; fast--) {
                 if (board[i, fast] != -1) {
+
+                    Vector3 target = cubeMatrix[i, slow].transform.position;
+                    //动画效果
+                    cubeMatrix[i, fast].transform.DOMove(target, (slow -fast)* 0.2f);
+
+                    // 将不为-1的颜色值移动到慢指针所在的位置，并更新方块颜色
                     board[i, slow] = board[i, fast];
-                    cubeMatrix[i, slow].GetComponent<SpriteRenderer>().color = colors[board[i,fast]];
+                    cubeMatrix[i, slow] = cubeMatrix[i, fast];
+                    //cubeMatrix[i, slow].GetComponent<SpriteRenderer>().color = colors[board[i,fast]];
                     slow--;
+                }
+                else
+                {
+                    Destroy(cubeMatrix[i, fast]);
                 }
             }
 
-            for (; slow >= 0; slow--) {
+            for (int now = 0; slow >= 0; slow--) {
+                //now是当前应该在棋盘外多少格处生成一个新的
                 int index = ColorRandom();
-                cubeMatrix[i, slow].GetComponent<SpriteRenderer>().color = colors[index];
+                GameObject cube = Instantiate(cubePrefab, new Vector3(-boardSize + i + xOffset + 1, now + yOffset, 0), Quaternion.identity, boardContainer);
+                cubeMatrix[i, slow] = cube;
+                cube.GetComponent<SpriteRenderer>().color = colors[index];
                 board[i, slow] = index;
+                //动画效果
+                cubeMatrix[i, slow].transform.DOMoveY(-slow + yOffset,(now + slow) * 0.2f);
+
+                now++;
             }
         }
     }
@@ -511,11 +533,22 @@ public class TetrisStats : MonoBehaviour
 
     private void SwapBlocks(Vector2Int block1, Vector2Int block2)
     {
+        //更新board数据
         int temp = board[block1.y, block1.x];
         board[block1.y, block1.x] = board[block2.y, block2.x];
         board[block2.y, block2.x] = temp;
-        cubeMatrix[block1.y, block1.x].GetComponent<SpriteRenderer>().color = colors[board[block1.y, block1.x]];
-        cubeMatrix[block2.y, block2.x].GetComponent<SpriteRenderer>().color = colors[board[block2.y, block2.x]];
+        //cubeMatrix[block1.y, block1.x].GetComponent<SpriteRenderer>().color = colors[board[block1.y, block1.x]];
+        //cubeMatrix[block2.y, block2.x].GetComponent<SpriteRenderer>().color = colors[board[block2.y, block2.x]];
+
+        //动画效果
+        cubeMatrix[block1.y, block1.x].transform.DOMove(cubeMatrix[block2.y, block2.x].transform.position, 0.2f);
+        cubeMatrix[block2.y, block2.x].transform.DOMove(cubeMatrix[block1.y, block1.x].transform.position, 0.2f);
+
+        //更新cubeMatrix数据
+        GameObject temp1 = cubeMatrix[block1.y, block1.x];
+        cubeMatrix[block1.y, block1.x] = cubeMatrix[block2.y, block2.x];
+        cubeMatrix[block2.y, block2.x] = temp1;
+
     }
 
 
