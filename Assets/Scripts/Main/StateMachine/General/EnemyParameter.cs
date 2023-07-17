@@ -12,6 +12,8 @@ public class EnemyParameter
     public float maxHealth;
     [Tooltip("治愈值")]
     public float treatMent;
+    [Tooltip("是否为活动状态")]
+    public bool isActived;
 
 
 
