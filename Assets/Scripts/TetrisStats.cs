@@ -59,6 +59,8 @@ public class TetrisStats : MonoBehaviour
     [ShowInInspector]
     private Skill skill;
 
+    
+
     public void Start()
     {
         board = new int[boardSize, boardSize];
@@ -86,7 +88,7 @@ public class TetrisStats : MonoBehaviour
                     new int[] { 1, 0 },
                     new int[] { 1, 0 },
                     new int[] { 1, 1 }
-         }, 0), skill.Damage)};
+         }, 0),skill.Damage)};
     }
 
     void Update()

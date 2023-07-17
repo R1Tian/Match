@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    // ¿¨ÅÆÃû³Æ
+    // å¡ç‰Œåç§°
     public string Name { get; set; }
     
-    // ÑÕÉ«ÊôĞÔ
+    // é¢œè‰²å±æ€§
     public Color Color { get; set; }
 
-    // TetrominoÊôĞÔ
+    // Tetrominoå±æ€§
     public Tetromino Tetromino { get; set; }
 
-    // ¼¼ÄÜĞ§¹ûº¯ÊıÊôĞÔ
+    // æŠ€èƒ½æ•ˆæœå‡½æ•°å±æ€§
     public System.Action SkillEffect { get; set; }
 
-    // ÆäËûÊôĞÔºÍ·½·¨...
+    // å…¶ä»–å±æ€§å’Œæ–¹æ³•...
 
     public Card(string name,Color color, Tetromino tetromino, System.Action skillEffect)
     {
@@ -25,13 +25,10 @@ public class Card : MonoBehaviour
         Tetromino = tetromino;
         SkillEffect = skillEffect;
     }
-
-    
-
-    // Ê¾Àı£ºÊ¹ÓÃÑÕÉ«¡¢TetrominoºÍ¼¼ÄÜĞ§¹ûº¯Êı
+    // ç¤ºä¾‹ï¼šä½¿ç”¨é¢œè‰²ã€Tetrominoå’ŒæŠ€èƒ½æ•ˆæœå‡½æ•°
     public void UseCard()
     {
-        Debug.Log("Ê¹ÓÃ¿¨ÅÆ£º" + "ÑÕÉ«£º" + Color.ToString() + "Tetromino£º" + Tetromino.ToString() + "Ö´ĞĞ¼¼ÄÜĞ§¹û...");
+        Debug.Log("ä½¿ç”¨å¡ç‰Œï¼š" + "é¢œè‰²ï¼š" + Color.ToString() + "Tetrominoï¼š" + Tetromino.ToString() + "æ‰§è¡ŒæŠ€èƒ½æ•ˆæœ...");
         SkillEffect?.Invoke();
     }
 }
