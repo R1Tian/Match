@@ -11,20 +11,21 @@ public class AttackState : IState
     public AttackState(FSM _manager)
     {
         manager = _manager;
+        enemyParameter=manager.enemyParameter;
     }
     public void OnEnter()
     {
-        Debug.Log("AttackState OnEnter");
+        //TODO:播放攻击动画，播放结束后对玩家造成伤害
     }
 
     public void OnExit()
     {
-        Debug.Log("AttackState OnExit");
+        
     }
 
     public void OnUpdate()
     {
-        Debug.Log("AttackState OnUpdate");
+        
     }
 }
 

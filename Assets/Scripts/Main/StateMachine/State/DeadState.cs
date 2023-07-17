@@ -11,20 +11,22 @@ public class DeadState : IState
     public DeadState(FSM _manager)
     {
         manager = _manager;
+        enemyParameter=manager.enemyParameter;
     }
     public void OnEnter()
     {
-        Debug.Log("DeadState OnEnter");
+        //播放死亡动画
+        
     }
 
     public void OnExit()
     {
-        Debug.Log("DeadState OnExit");
+        
     }
 
     public void OnUpdate()
     {
-        Debug.Log("DeadState OnUpdate");
+        
     }
 }
 
