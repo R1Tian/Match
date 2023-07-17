@@ -11,19 +11,20 @@ public class IdleState : IState
     public IdleState(FSM _manager)
     {
         manager = _manager;
+        enemyParameter=manager.enemyParameter;
     }
     public void OnEnter()
     {
-        Debug.Log("IdleState OnEnter");
+        //TODO:播放怪物Idle动画
     }
 
     public void OnExit()
     {
-        Debug.Log("IdleState OnExit");
+        
     }
 
     public void OnUpdate()
     {
-        Debug.Log("IdleState OnUpdate");
+        
     }
 }

@@ -180,7 +180,7 @@ public class TetrisStats : MonoBehaviour
     {
         while (matchedBlocks.Count > 0)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.25f);
             UpdateBoardWithMatches(matchedBlocks);
             matchedBlocks.Clear();
             ChangeColor();
