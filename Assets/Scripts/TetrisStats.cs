@@ -52,6 +52,13 @@ public class TetrisStats : MonoBehaviour
     [ShowInInspector]
     private Card[] bag;
 
+    //是否可以点击交换
+    [ShowInInspector]
+    private bool canSwap = false;
+
+    [ShowInInspector]
+    private Skill skill;
+
     public void Start()
     {
         board = new int[boardSize, boardSize];
@@ -69,21 +76,29 @@ public class TetrisStats : MonoBehaviour
         xOffset = 0.5f * (boardSize - 1);
         yOffset = 0.5f * (boardSize - 1);
 
-        //    bag = { new Card("打1", Color.red,
-        //         new Tetromino("L型", new int[][] // L型方块
-        //         {
-        //            new int[] { 1, 0 },
-        //            new int[] { 1, 0 },
-        //            new int[] { 1, 1 }
-        //         }, 0), Skill.Damage()}
+        skill = new Skill();
+
+        bag = new Card[]
+        {
+            new Card("打1", Color.red,
+         new Tetromino("L型", new int[][] // L型方块
+         {
+                    new int[] { 1, 0 },
+                    new int[] { 1, 0 },
+                    new int[] { 1, 1 }
+         }, 0), skill.Damage)};
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (canSwap)
         {
-            SwitchBlock();
+            if (Input.GetMouseButtonDown(0))
+            {
+                SwitchBlock();
+            }
         }
+        
     
     }
 
@@ -151,8 +166,14 @@ public class TetrisStats : MonoBehaviour
 
         CountTetrominoes();
 
-        StartCoroutine(Loop());
-        
+        if (matchedBlocks.Count == 0)
+        {
+            canSwap = true;
+        }
+        else
+        {
+            StartCoroutine(Loop());
+        }
     }
 
     public IEnumerator<WaitForSeconds> Loop()
@@ -166,6 +187,8 @@ public class TetrisStats : MonoBehaviour
             yield return new WaitForSeconds(1);
             CountTetrominoes();
         }
+
+        canSwap = true;
     }
 
     public void DestroyMatchedBlocks()
@@ -239,8 +262,10 @@ public class TetrisStats : MonoBehaviour
     public void CountTetrominoes()
     {
         int[][,] rotatedBoard = GenerateRotatedBoard(board);
-        foreach (Tetromino tetromino in tetrominoes)
+        foreach(Card card in bag)
         {
+            //foreach (Tetromino tetromino in tetrominoes)
+            //{
             for (int i = 0; i < boardSize; i++)
             {
                 for (int j = 0; j < boardSize; j++)
@@ -250,30 +275,37 @@ public class TetrisStats : MonoBehaviour
 
                         //List<Vector2Int> matchedBlocks = new List<Vector2Int>(); // 使用 List 替代 HashSet
 
-                        if (CheckTetromino(rotatedBoard[k], tetromino, i, j))
+                        if (CheckTetromino(rotatedBoard[k], card.Tetromino, i, j))
                         {
                             int colorIndex = rotatedBoard[k][i, j];
-                            //交换-1的格子会导致tetrominoCountIndex为负数
-                            int tetrominoCountIndex = tetromino.Index + colorIndex * tetrominoes.Length;
-                            Debug.Log(tetrominoCounts.Length);
-                            Debug.Log(tetrominoCountIndex);
-                            tetrominoCounts[tetrominoCountIndex]++;
+                            if(card.Color == colors[colorIndex])
+                            {
+                                //交换-1的格子会导致tetrominoCountIndex为负数
+                                int tetrominoCountIndex = card.Tetromino.Index + colorIndex * tetrominoes.Length;
+                                Debug.Log(tetrominoCounts.Length);
+                                Debug.Log(tetrominoCountIndex);
+                                tetrominoCounts[tetrominoCountIndex]++;
+                                card.UseCard();
 
-                            // 将匹配成功的位置转换成原始未旋转的坐标
-                            int originalX = i;
-                            int originalY = j;
-                            ConvertToOriginalCoordinates(originalX, originalY, k, out int originalXUnrotated, out int originalYUnrotated);
+                                // 将匹配成功的位置转换成原始未旋转的坐标
+                                int originalX = i;
+                                int originalY = j;
+                                ConvertToOriginalCoordinates(originalX, originalY, k, out int originalXUnrotated, out int originalYUnrotated);
 
 
-                            // 将匹配成功的格子位置和形状中的格子位置都记录下来
-                            matchedBlocks.Add(new Vector2Int(originalXUnrotated, originalYUnrotated));
-                            RecordShapeBlocks(originalX, originalY, tetromino.Shape, matchedBlocks, k);
+                                // 将匹配成功的格子位置和形状中的格子位置都记录下来
+                                matchedBlocks.Add(new Vector2Int(originalXUnrotated, originalYUnrotated));
+                                RecordShapeBlocks(originalX, originalY, card.Tetromino.Shape, matchedBlocks, k);
+                            }
+                            
                         }
 
                     }
                 }
             }
+            //}
         }
+        
         //O型重复计算了四遍
         for (int i = 2; i < tetrominoCounts.Length; i += 7)
         {
@@ -538,8 +570,24 @@ public class TetrisStats : MonoBehaviour
                 // 重置选定的块
                 selectedBlock1 = null;
                 selectedBlock2 = null;
-                Debug.Log(selectedBlock1);
-                Debug.Log(selectedBlock2);
+                canSwap = false;
+
+                // 统计方块图形个数
+                CountTetrominoes();
+
+                // 输出统计结果
+                //PrintTetrominoCounts();
+
+                if (matchedBlocks.Count == 0)
+                {
+                    canSwap = true;
+                }
+                else
+                {
+                    StartCoroutine(Loop());
+                }
+                //Debug.Log(selectedBlock1);
+                //Debug.Log(selectedBlock2);
             }
         }
     }
@@ -569,15 +617,9 @@ public class TetrisStats : MonoBehaviour
         cubeMatrix[block1.y, block1.x] = cubeMatrix[block2.y, block2.x];
         cubeMatrix[block2.y, block2.x] = temp1;
 
-        // 统计方块图形个数
-        CountTetrominoes();
+        
 
-        // 输出统计结果
-        //PrintTetrominoCounts();
-
-
-        StartCoroutine(Loop());
-
+        
         //// 输出程序执行时间
 
 
