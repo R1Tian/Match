@@ -10,7 +10,9 @@ namespace StateMachine.General
         {
             Idle,
             Attack,
-            Dead
+            Dead,
+            Treat,
+            Charging
         }
     public class FSM : SerializedMonoBehaviour
     {
@@ -18,11 +20,12 @@ namespace StateMachine.General
         public IState currentState;
         public Dictionary<StateType, IState> stateDic = new Dictionary<StateType, IState>();
 
-        private void Start() 
+        private void Awake() 
         {
             stateDic.Add(StateType.Idle, new IdleState(this));
             stateDic.Add(StateType.Attack, new AttackState(this));
             stateDic.Add(StateType.Dead, new DeadState(this));
+            //TransitState(StateType.Idle);
         }
         public void TransitState(StateType type)
 		{

@@ -16,6 +16,7 @@ public class IdleState : IState
     public void OnEnter()
     {
         //TODO:播放怪物Idle动画
+        enemyParameter.enemyAnimator.Play("Idle");
     }
 
     public void OnExit()
@@ -25,6 +26,29 @@ public class IdleState : IState
 
     public void OnUpdate()
     {
+        if(enemyParameter.currentStep>2)
+        {
+            enemyParameter.currentStep=0;
+            enemyParameter.attackCoefficien++;
+        }
+        if(enemyParameter.isActived&&enemyParameter.currentStep==0)
+        {
+            enemyParameter.isActived=false;
+            enemyParameter.currentStep++;
+            manager.TransitState(StateType.Attack);
+        }
+        else if(enemyParameter.isActived&&enemyParameter.currentStep==1)
+        {
+            enemyParameter.isActived=false;
+            enemyParameter.currentStep++;
+            manager.TransitState(StateType.Treat);
+        }
+        else if(enemyParameter.isActived&&enemyParameter.currentStep==2)
+        {
+            enemyParameter.isActived=false;
+            enemyParameter.currentStep++;
+            manager.TransitState(StateType.Charging);
+        }
         
     }
 }
