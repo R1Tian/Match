@@ -48,6 +48,10 @@ public class TetrisStats : MonoBehaviour
     float xOffset;
     float yOffset;
 
+    //玩家当局战斗的背包（卡组）
+    [ShowInInspector]
+    private Card[] bag;
+
     public void Start()
     {
         board = new int[boardSize, boardSize];
@@ -64,6 +68,14 @@ public class TetrisStats : MonoBehaviour
 
         xOffset = 0.5f * (boardSize - 1);
         yOffset = 0.5f * (boardSize - 1);
+
+        //    bag = { new Card("打1", Color.red,
+        //         new Tetromino("L型", new int[][] // L型方块
+        //         {
+        //            new int[] { 1, 0 },
+        //            new int[] { 1, 0 },
+        //            new int[] { 1, 1 }
+        //         }, 0), Skill.Damage()}
     }
 
     void Update()
@@ -136,6 +148,32 @@ public class TetrisStats : MonoBehaviour
 
         // 生成棋盘颜色
         GenerateBoardColors();
+
+        CountTetrominoes();
+
+        StartCoroutine(Loop());
+        
+    }
+
+    public IEnumerator<WaitForSeconds> Loop()
+    {
+        while (matchedBlocks.Count > 0)
+        {
+            yield return new WaitForSeconds(1);
+            UpdateBoardWithMatches(matchedBlocks);
+            matchedBlocks.Clear();
+            ChangeColor();
+            yield return new WaitForSeconds(1);
+            CountTetrominoes();
+        }
+    }
+
+    public void DestroyMatchedBlocks()
+    {
+        foreach(Vector2Int vector in matchedBlocks)
+        {
+            Destroy(cubeMatrix[vector.x, vector.y]);
+        }
     }
 
     public void GenerateBoardColors()
@@ -215,6 +253,7 @@ public class TetrisStats : MonoBehaviour
                         if (CheckTetromino(rotatedBoard[k], tetromino, i, j))
                         {
                             int colorIndex = rotatedBoard[k][i, j];
+                            //交换-1的格子会导致tetrominoCountIndex为负数
                             int tetrominoCountIndex = tetromino.Index + colorIndex * tetrominoes.Length;
                             Debug.Log(tetrominoCounts.Length);
                             Debug.Log(tetrominoCountIndex);
@@ -407,7 +446,7 @@ public class TetrisStats : MonoBehaviour
                 }
             }
 
-            for (int now = 0; slow >= 0; slow--) {
+            for (int now = 1; slow >= 0; slow--) {
                 //now是现在应该在棋盘上方几格处生成一个新的
                 int index = ColorRandom();
                 GameObject cube = Instantiate(cubePrefab, new Vector3(-boardSize + i + xOffset + 1, -slow + yOffset + now, 0), Quaternion.identity,boardContainer);
@@ -499,6 +538,8 @@ public class TetrisStats : MonoBehaviour
                 // 重置选定的块
                 selectedBlock1 = null;
                 selectedBlock2 = null;
+                Debug.Log(selectedBlock1);
+                Debug.Log(selectedBlock2);
             }
         }
     }
@@ -532,19 +573,21 @@ public class TetrisStats : MonoBehaviour
         CountTetrominoes();
 
         // 输出统计结果
-        PrintTetrominoCounts();
+        //PrintTetrominoCounts();
 
 
-        // 输出程序执行时间
+        StartCoroutine(Loop());
+
+        //// 输出程序执行时间
 
 
-        float endTime = Time.realtimeSinceStartup;
-        float elapsedTime = (endTime - startTime) * 1000f;
-        //Debug.Log("用时：" + elapsedTime.ToString("F2") + " ms");
+        //float endTime = Time.realtimeSinceStartup;
+        //float elapsedTime = (endTime - startTime) * 1000f;
+        ////Debug.Log("用时：" + elapsedTime.ToString("F2") + " ms");
 
-        UpdateBoardWithMatches(matchedBlocks);
-        //ShowMatchedBlocksInInspector();
-        matchedBlocks.Clear();
+        //UpdateBoardWithMatches(matchedBlocks);
+        ////ShowMatchedBlocksInInspector();
+        //matchedBlocks.Clear();
     }
 
 
