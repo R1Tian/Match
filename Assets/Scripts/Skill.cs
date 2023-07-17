@@ -1,21 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill : MonoBehaviour
+public class Skill
 {
     /// <summary>
     /// 造成伤害
     /// </summary>
-    public void Damage()
+    public static void Damage()
     {
-        Debug.Log("打1");
+        Debug.Log(TestFunc.EnemyHP);
+        TestFunc.EnemyHP -= PlayerState.instance.GetDamage();
+        Debug.Log(TestFunc.EnemyHP);
     }
     /// <summary>
     /// 治疗
     /// </summary>
-    public void Heal()
+    public static void Heal()
     {
+        PlayerState.instance.HealHealth(10);
+        Debug.Log(PlayerState.instance.GetHP());
+    }
+
+
+    public static void Power() {
+        PlayerState.instance.AddAttackBuff(2);
 
     }
 }

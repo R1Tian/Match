@@ -12,7 +12,6 @@ public class TetrisStats : MonoBehaviour
 
     private Color[] colors = { Color.red, Color.green, Color.blue, Color.yellow };
     private string[] colorNames = { "红色", "绿色" ,"蓝色", "黄色" };
-    private Tetromino[] tetrominoes;
     private string[] tetrominoNames = { "L型", "J型", "O型", "I型", "T型", "S型", "Z型" };
     [ShowInInspector]
     public int[,] board;
@@ -56,16 +55,18 @@ public class TetrisStats : MonoBehaviour
     [ShowInInspector]
     private bool canSwap = false;
 
-    [ShowInInspector]
-    private Skill skill;
-
-    
+    private void Awake()
+    {
+        Main.instance.OnSingletonInit();
+        PlayerState.instance.OnSingletonInit();
+    }
 
     public void Start()
     {
         board = new int[boardSize, boardSize];
         cubeMatrix = new GameObject[boardSize, boardSize];
         InitializeBoard();
+        InitBag();
 
         board1 = new int[boardSize, boardSize];
 
@@ -77,18 +78,13 @@ public class TetrisStats : MonoBehaviour
 
         xOffset = 0.5f * (boardSize - 1);
         yOffset = 0.5f * (boardSize - 1);
+    }
 
-        skill = new Skill();
-
-        bag = new Card[]
-        {
-            new Card("打1", Color.red,
-         new Tetromino("L型", new int[][] // L型方块
-         {
-                    new int[] { 1, 0 },
-                    new int[] { 1, 0 },
-                    new int[] { 1, 1 }
-         }, 0),skill.Damage)};
+    public void InitBag() {
+        Tetromino test = Main.instance.GetTetShape("L型");
+        Card testCard = new Card("AA", Color.red, test, Skill.Power);
+        testCard.SkillEffect += Skill.Damage;
+        bag = new Card[] {testCard};
     }
 
     void Update()
@@ -109,59 +105,7 @@ public class TetrisStats : MonoBehaviour
         startTime = Time.realtimeSinceStartup;
 
         // 初始化棋盘和计数器
-        //board = new int[boardSize, boardSize];
         tetrominoCounts = new int[colors.Length * tetrominoNames.Length];
-
-        // 初始化方块图形数组
-        tetrominoes = new Tetromino[]
-        {
-            new Tetromino("L型",new int[][] // L型方块
-            {
-                new int[] { 1, 0 },
-                new int[] { 1, 0 },
-                new int[] { 1, 1 }
-            },0),
-
-            new Tetromino("J型",new int[][] // J型方块
-            {
-                new int[] { 1, 0, 0 },
-                new int[] { 1, 1, 1 }
-                },1),
-
-            new Tetromino("O型",new int[][] // O型方块
-            {
-                new int[] { 1, 1 },
-                new int[] { 1, 1 }
-            },2),
-
-            new Tetromino("I型",new int[][] // I型方块
-            {
-                new int[] { 1, 1, 1, 1 }
-            },3),
-
-            new Tetromino("T型",new int[][] // T型方块
-            {
-                new int[] { 1, 0 },
-                new int[] { 1, 1 },
-                new int[] { 1, 0 }
-            },4),
-
-            new Tetromino("S型",new int[][] // S型方块
-            {
-                new int[] { 1, 0 },
-                new int[] { 1, 1 },
-                new int[] { 0, 1 }
-            },5),
-
-            new Tetromino("Z型",new int[][] // Z型方块
-            {
-                new int[] { 1, 1, 0 },
-                new int[] { 0, 1, 1 }
-            },6),
-        };
-
-
-
 
         // 生成棋盘颜色
         GenerateBoardColors();
@@ -177,6 +121,8 @@ public class TetrisStats : MonoBehaviour
             StartCoroutine(Loop());
         }
     }
+
+
 
     public IEnumerator<WaitForSeconds> Loop()
     {
@@ -220,8 +166,6 @@ public class TetrisStats : MonoBehaviour
                 }
             }
         }
-
-        //boardContainer.transform.eulerAngles = new Vector3(0, 0, 90);
     }
 
 
@@ -264,26 +208,22 @@ public class TetrisStats : MonoBehaviour
     public void CountTetrominoes()
     {
         int[][,] rotatedBoard = GenerateRotatedBoard(board);
+        //Debug.Log(bag==null);
         foreach(Card card in bag)
         {
-            //foreach (Tetromino tetromino in tetrominoes)
-            //{
             for (int i = 0; i < boardSize; i++)
             {
                 for (int j = 0; j < boardSize; j++)
                 {
                     for (int k = 0; k < 4; k++)
                     {
-
-                        //List<Vector2Int> matchedBlocks = new List<Vector2Int>(); // 使用 List 替代 HashSet
-
                         if (CheckTetromino(rotatedBoard[k], card.Tetromino, i, j))
                         {
                             int colorIndex = rotatedBoard[k][i, j];
                             if(card.Color == colors[colorIndex])
                             {
                                 //交换-1的格子会导致tetrominoCountIndex为负数
-                                int tetrominoCountIndex = card.Tetromino.Index + colorIndex * tetrominoes.Length;
+                                int tetrominoCountIndex = card.Tetromino.Index + colorIndex * Main.instance.GeTetLen();
                                 Debug.Log(tetrominoCounts.Length);
                                 Debug.Log(tetrominoCountIndex);
                                 tetrominoCounts[tetrominoCountIndex]++;
@@ -305,7 +245,6 @@ public class TetrisStats : MonoBehaviour
                     }
                 }
             }
-            //}
         }
         
         //O型重复计算了四遍
@@ -413,7 +352,6 @@ public class TetrisStats : MonoBehaviour
                 }
             }
         }
-        //SWDebug.Log("x" + (startX + 1) + "y" + (startY + 1));
         return true; // 方块匹配成功
     }
 
@@ -470,8 +408,6 @@ public class TetrisStats : MonoBehaviour
                     cubeMatrix[i, fast].transform.DOMove(cubeMatrix[i, slow].transform.position, (slow - fast) * 0.2f);
                     //更新cubeMatrix数据
                     cubeMatrix[i, slow] = cubeMatrix[i, fast];
-
-                    //cubeMatrix[i, slow].GetComponent<SpriteRenderer>().color = colors[board[i,fast]];
                     slow--;
                 }
                 else
@@ -607,8 +543,6 @@ public class TetrisStats : MonoBehaviour
         int temp = board[block1.y, block1.x];
         board[block1.y, block1.x] = board[block2.y, block2.x];
         board[block2.y, block2.x] = temp;
-        //cubeMatrix[block1.y, block1.x].GetComponent<SpriteRenderer>().color = colors[board[block1.y, block1.x]];
-        //cubeMatrix[block2.y, block2.x].GetComponent<SpriteRenderer>().color = colors[board[block2.y, block2.x]];
 
         //动画效果
         cubeMatrix[block1.y, block1.x].transform.DOMove(cubeMatrix[block2.y, block2.x].transform.position, 0.2f);
