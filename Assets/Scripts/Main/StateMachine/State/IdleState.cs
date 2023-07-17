@@ -16,7 +16,7 @@ public class IdleState : IState
     public void OnEnter()
     {
         //TODO:播放怪物Idle动画
-        
+        enemyParameter.enemyAnimator.Play("Idle");
     }
 
     public void OnExit()
