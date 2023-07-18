@@ -62,9 +62,8 @@ public class PlayerState : ISingleton
         Damage += damage;
     }
 
-    public int GetDamage() {
-        int res = Damage + AttackBuffLayer;
-        Damage = 0;
+    public int GetDamageBuff() {
+        int res = AttackBuffLayer;
         AttackBuffLayer = 0;
         return res;
     }

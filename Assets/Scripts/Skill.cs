@@ -8,7 +8,7 @@ public class Skill
     public static void Damage()
     {
         Debug.Log(TestFunc.EnemyHP);
-        TestFunc.EnemyHP -= PlayerState.instance.GetDamage();
+        TestFunc.EnemyHP -= 2 + PlayerState.instance.GetDamageBuff();
         Debug.Log(TestFunc.EnemyHP);
     }
     /// <summary>
