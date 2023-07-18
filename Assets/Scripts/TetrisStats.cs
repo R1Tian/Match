@@ -70,12 +70,16 @@ public class TetrisStats : MonoBehaviour
     //玩家血条
     public Slider playerHP;
 
+    //怪物血条
+    public Slider enemyHP;
 
     private void Awake()
     {
         Main.instance.OnSingletonInit();
         PlayerState.instance.OnSingletonInit();
         playerHP.value = 1;
+        EnemyState.instance.OnSingletonInit();
+        enemyHP.value = 1;
     }
 
     public void Start()
@@ -125,6 +129,7 @@ public class TetrisStats : MonoBehaviour
         defendBuff.text = PlayerState.instance.GetDefenceBuffLayer().ToString();
 
         playerHP.value = (float)PlayerState.instance.GetHP() / PlayerState.instance.GetMaxHP();
+        enemyHP.value = (float)EnemyState.instance.GetHP() / EnemyState.instance.GetMaxHP();
     }
 
     public void OnButtonClick()
@@ -236,7 +241,8 @@ public class TetrisStats : MonoBehaviour
     {
         int[][,] rotatedBoard = GenerateRotatedBoard(board);
         //Debug.Log(bag==null);
-        foreach(Card card in bag)
+        //只检测背包
+        foreach (Card card in bag)
         {
             for (int i = 0; i < boardSize; i++)
             {
@@ -247,7 +253,7 @@ public class TetrisStats : MonoBehaviour
                         if (CheckTetromino(rotatedBoard[k], card.Tetromino, i, j))
                         {
                             int colorIndex = rotatedBoard[k][i, j];
-                            if(card.Color == colors[colorIndex])
+                            if (card.Color == colors[colorIndex])
                             {
                                 //交换-1的格子会导致tetrominoCountIndex为负数
                                 int tetrominoCountIndex = card.Tetromino.Index + colorIndex * Main.instance.GeTetLen();
@@ -266,14 +272,40 @@ public class TetrisStats : MonoBehaviour
                                 matchedBlocks.Add(new Vector2Int(originalXUnrotated, originalYUnrotated));
                                 RecordShapeBlocks(originalX, originalY, card.Tetromino.Shape, matchedBlocks, k);
                             }
-                            
+
                         }
 
                     }
                 }
             }
         }
-        
+        ////检测所有类型
+        //foreach (Tetromino tetromino in Main.instance.GetTetrominoes())
+        //{
+        //    for (int i = 0; i < boardSize; i++)
+        //    {
+        //        for (int j = 0; j < boardSize; j++)
+        //        {
+        //            for (int k = 0; k < 4; k++)
+        //            {
+        //                if (CheckTetromino(rotatedBoard[k], tetromino, i, j))
+        //                {
+        //                    int colorIndex = rotatedBoard[k][i, j];
+        //                    int tetrominoCountIndex = tetromino.Index + colorIndex * Main.instance.GeTetLen();
+        //                    tetrominoCounts[tetrominoCountIndex]++;
+        //                    // 将匹配成功的位置转换成原始未旋转的坐标
+        //                    int originalX = i;
+        //                    int originalY = j;
+        //                    ConvertToOriginalCoordinates(originalX, originalY, k, out int originalXUnrotated, out int originalYUnrotated);
+        //                    // 将匹配成功的格子位置和形状中的格子位置都记录下来
+        //                    matchedBlocks.Add(new Vector2Int(originalXUnrotated, originalYUnrotated));
+        //                    RecordShapeBlocks(originalX, originalY, tetromino.Shape, matchedBlocks, k);
+        //                }
+
+        //            }
+        //        }
+        //    }
+        //}
         //O型重复计算了四遍
         for (int i = 2; i < tetrominoCounts.Length; i += 7)
         {

@@ -7,9 +7,10 @@ public class Skill
     /// </summary>
     public static void Damage()
     {
-        Debug.Log(TestFunc.EnemyHP);
-        TestFunc.EnemyHP -= 2 + PlayerState.instance.GetDamageBuff();
-        Debug.Log(TestFunc.EnemyHP);
+        //Debug.Log(TestFunc.EnemyHP);
+        //TestFunc.EnemyHP -= 2 + PlayerState.instance.GetDamageBuff();
+        EnemyState.instance.TakeDamge(2 + PlayerState.instance.GetDamageBuff());
+        //Debug.Log(TestFunc.EnemyHP);
     }
     /// <summary>
     /// 治疗

@@ -38,6 +38,10 @@ public class EnemyState : ISingleton
     public int GetHP() {
         return EnemyHP;
     }
+    public int GetMaxHP()
+    {
+        return EnemyMaxHP;
+    }
     public void AddAttackBuff(int layer) {
         AttackBuffLayer += layer;
     }
