@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System;
 using DG.Tweening;
+using TMPro;
+
 public class TetrisStats : MonoBehaviour
 {
     public GameObject cubePrefab;
@@ -55,19 +57,36 @@ public class TetrisStats : MonoBehaviour
     [ShowInInspector]
     private bool canSwap = false;
 
+    //当前回合数
+    [ShowInInspector]
+    public TextMeshProUGUI turn;
+
+    //当前AttackBuff
+    public TextMeshProUGUI attackBuff;
+
+    //当前DefendBuff
+    public TextMeshProUGUI defendBuff;
+
+    //玩家血条
+    public Slider playerHP;
+
+
     private void Awake()
     {
         Main.instance.OnSingletonInit();
         PlayerState.instance.OnSingletonInit();
+        playerHP.value = 1;
     }
 
     public void Start()
     {
+        turn.text = Main.instance.GetTurn().ToString();
+
         board = new int[boardSize, boardSize];
         cubeMatrix = new GameObject[boardSize, boardSize];
         InitializeBoard();
         InitBag();
-
+        
         board1 = new int[boardSize, boardSize];
 
         matchedBlocks = new List<Vector2Int>();
@@ -81,10 +100,14 @@ public class TetrisStats : MonoBehaviour
     }
 
     public void InitBag() {
-        Tetromino test = Main.instance.GetTetShape("L型");
-        Card testCard = new Card("AA", Color.red, test, Skill.Power);
-        testCard.SkillEffect += Skill.Damage;
-        bag = new Card[] {testCard};
+        Tetromino LShape = Main.instance.GetTetShape("L型");
+        Card Card1 = new Card("AA", Color.red, LShape, Skill.Damage);
+        //Card1.SkillEffect += Skill.Damage;
+        Card Card2 = new Card("BB", Color.yellow, LShape, Skill.Power);
+        Card Card3 = new Card("CC", Color.blue, LShape, Skill.Defend);
+        Card Card4 = new Card("DD", Color.green, LShape, Skill.Heal);
+
+        bag = new Card[] {Card1,Card2,Card3,Card4};
     }
 
     void Update()
@@ -96,8 +119,12 @@ public class TetrisStats : MonoBehaviour
                 SwitchBlock();
             }
         }
-        
-    
+
+
+        attackBuff.text = PlayerState.instance.GetAttackBuff().ToString();
+        defendBuff.text = PlayerState.instance.GetDefenceBuffLayer().ToString();
+
+        playerHP.value = (float)PlayerState.instance.GetHP() / PlayerState.instance.GetMaxHP();
     }
 
     public void OnButtonClick()
@@ -524,6 +551,13 @@ public class TetrisStats : MonoBehaviour
                 {
                     StartCoroutine(Loop());
                 }
+                Main.instance.AddOne();
+                turn.text = Main.instance.GetTurn().ToString();
+
+                if (Main.instance.GetTurn() % 3 == 0 && Main.instance.GetTurn() != 0)
+                {
+                    Hurt();
+                }
                 //Debug.Log(selectedBlock1);
                 //Debug.Log(selectedBlock2);
             }
@@ -567,6 +601,18 @@ public class TetrisStats : MonoBehaviour
         ////ShowMatchedBlocksInInspector();
         //matchedBlocks.Clear();
     }
+
+    public void Hurt()
+    {
+        PlayerState.instance.TakeDamge(1);
+
+    }
+
+    public void UpdatePlayerUI()
+    {
+        playerHP.value = PlayerState.instance.GetHP() / PlayerState.instance.GetMaxHP();
+    }
+
 
 
 }
