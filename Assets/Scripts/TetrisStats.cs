@@ -75,11 +75,7 @@ public class TetrisStats : MonoBehaviour
 
     private void Awake()
     {
-        Main.instance.OnSingletonInit();
-        PlayerState.instance.OnSingletonInit();
-        playerHP.value = 1;
-        EnemyState.instance.OnSingletonInit();
-        enemyHP.value = 1;
+        BattleInitiate();
     }
 
     public void Start()
@@ -134,7 +130,9 @@ public class TetrisStats : MonoBehaviour
 
     public void OnButtonClick()
     {
-        startTime = Time.realtimeSinceStartup;
+
+        BattleInitiate();
+        //startTime = Time.realtimeSinceStartup;
 
         // 初始化棋盘和计数器
         tetrominoCounts = new int[colors.Length * tetrominoNames.Length];
@@ -645,6 +643,15 @@ public class TetrisStats : MonoBehaviour
         playerHP.value = PlayerState.instance.GetHP() / PlayerState.instance.GetMaxHP();
     }
 
+    private void BattleInitiate()
+    {
+        Main.instance.OnSingletonInit();
+        PlayerState.instance.OnSingletonInit();
+        playerHP.value = 1;
+        EnemyState.instance.OnSingletonInit();
+        enemyHP.value = 1;
+        turn.text = Main.instance.GetTurn().ToString();
+    }
 
 
 }
