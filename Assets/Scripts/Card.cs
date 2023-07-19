@@ -18,15 +18,19 @@ public class Card
     // 技能效果函数属性
     public Action SkillEffect { get; set; }
 
+    //技能说明
+    public string SkillDes { get; set; }
+
     // 其他属性和方法...
 
-    public Card(string name,Color color, Tetromino tetromino, Action skillEffect, string shape)
+    public Card(string name,Color color, Tetromino tetromino, Action skillEffect, string shape, string skilldes)
     {
         Name = name;
         Color = color;
         Tetromino = tetromino;
         SkillEffect = skillEffect;
         Shape = shape;
+        SkillDes = skilldes;
     }
     // 示例：使用颜色、Tetromino和技能效果函数
     public void UseCard()

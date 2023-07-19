@@ -5,24 +5,30 @@ using UnityEngine.UI;
 
 public class ShowCardInBattle : MonoBehaviour
 {
-    public CardShow[] ShowList = new CardShow[4];
+    public GameObject Prefeb;
     private Card[] PlayerCards;
+    private float Offset = 120f;
+    private float CurOffset = 0f;
     // Start is called before the first frame update
     void Start()
     {
         PlayerCards = PlayerState.instance.GetCards();
+        GameObject parent = GameObject.Find("CardShow");
 
         for (int i = 0; i < PlayerCards.Length; i++) {
-            ShowList[i].Name.text = PlayerCards[i].Name;
-            ShowList[i].Shape.text = PlayerCards[i].Shape;
-            ShowList[i].BG.color = PlayerCards[i].Color;
-            ShowList[i].gameObject.SetActive(true);
-        }
-    }
+            GameObject obj = Instantiate(Prefeb);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            obj.transform.SetParent(parent.transform, false);
+            obj.transform.localPosition = new Vector3(obj.transform.localPosition.x, obj.transform.localPosition.y - CurOffset, 0f);
+            CurOffset += Offset;
+
+            CardShow instance = obj.GetComponent<CardShow>();
+
+            instance.Name.text = PlayerCards[i].Name;
+            instance.Shape.text = PlayerCards[i].Shape;
+            instance.BG.color = PlayerCards[i].Color;
+            instance.Description.text = PlayerCards[i].SkillDes;
+            instance.gameObject.SetActive(true);
+        }
     }
 }
