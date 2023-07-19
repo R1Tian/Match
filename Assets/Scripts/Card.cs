@@ -5,6 +5,9 @@ public class Card
 {
     // 卡牌名称
     public string Name { get; set; }
+
+    //型状
+    public string Shape { get; set; }
     
     // 颜色属性
     public Color Color { get; set; }
@@ -17,12 +20,13 @@ public class Card
 
     // 其他属性和方法...
 
-    public Card(string name,Color color, Tetromino tetromino, Action skillEffect)
+    public Card(string name,Color color, Tetromino tetromino, Action skillEffect, string shape)
     {
         Name = name;
         Color = color;
         Tetromino = tetromino;
         SkillEffect = skillEffect;
+        Shape = shape;
     }
     // 示例：使用颜色、Tetromino和技能效果函数
     public void UseCard()

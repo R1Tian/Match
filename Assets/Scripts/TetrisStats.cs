@@ -76,16 +76,18 @@ public class TetrisStats : MonoBehaviour
     private void Awake()
     {
         BattleInitiate();
+        
     }
 
     public void Start()
     {
+        InitBag();
         turn.text = Main.instance.GetTurn().ToString();
 
         board = new int[boardSize, boardSize];
         cubeMatrix = new GameObject[boardSize, boardSize];
         InitializeBoard();
-        InitBag();
+        
         
         board1 = new int[boardSize, boardSize];
 
@@ -100,14 +102,7 @@ public class TetrisStats : MonoBehaviour
     }
 
     public void InitBag() {
-        Tetromino LShape = Main.instance.GetTetShape("L型");
-        Card Card1 = new Card("AA", Color.red, LShape, Skill.Damage);
-        //Card1.SkillEffect += Skill.Damage;
-        Card Card2 = new Card("BB", Color.yellow, LShape, Skill.Power);
-        Card Card3 = new Card("CC", Color.blue, LShape, Skill.Defend);
-        Card Card4 = new Card("DD", Color.green, LShape, Skill.Heal);
-
-        bag = new Card[] {Card1,Card2,Card3,Card4};
+        bag = PlayerState.instance.GetCards();
     }
 
     void Update()
