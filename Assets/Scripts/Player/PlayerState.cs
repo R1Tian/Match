@@ -63,9 +63,11 @@ public class PlayerState : ISingleton
     }
 
     public int GetDamageBuff() {
-        int res = AttackBuffLayer;
+        return  AttackBuffLayer;
+    }
+
+    public void DeleteDamageBuff() {
         AttackBuffLayer = 0;
-        return res;
     }
 
     public void Dispose() { SingletonProperty<PlayerState>.Instance.Dispose(); }
