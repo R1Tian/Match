@@ -1,4 +1,5 @@
 using QFramework;
+using UnityEngine;
 
 public class PlayerState : ISingleton
 {
@@ -14,6 +15,7 @@ public class PlayerState : ISingleton
     private int AttackBuffLayer;
     private int DefenceBuffLayer;
     private int Damage;
+    private Card[] PlayerCards;
     #endregion
 
     public void OnSingletonInit()
@@ -22,6 +24,23 @@ public class PlayerState : ISingleton
         PlayerMaxHP = 10;
         AttackBuffLayer = 0;
         DefenceBuffLayer = 0;
+
+        InitBag();
+    }
+
+    private void InitBag()
+    {
+        Tetromino LShape = Main.instance.GetTetShape("L型");
+        Card Card1 = new Card("AA",Color.red, LShape, Skill.Damage, "L型");
+        Card Card2 = new Card("BB", Color.yellow, LShape, Skill.Power, "L型");
+        Card Card3 = new Card("CC", Color.blue, LShape, Skill.Defend, "L型");
+        Card Card4 = new Card("DD", Color.green, LShape, Skill.Heal, "L型");
+
+        PlayerCards = new Card[] { Card1, Card2, Card3 , Card4};
+    }
+
+    public Card[] GetCards() {
+        return PlayerCards;
     }
 
     public void HealHealth(int hp) {
