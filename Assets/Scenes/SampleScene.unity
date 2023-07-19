@@ -1733,7 +1733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubePrefab: {fileID: 6183837692891308622, guid: 7664852b633eb934c9ba0a924909a5cc, type: 3}
-  blankPrefab: {fileID: 6183837692891308622, guid: 7664852b633eb934c9ba0a924909a5cc, type: 3}
+  blankPrefab: {fileID: 1040574174538716268, guid: ac37149fde884ee47bb082e3aacf216e, type: 3}
   blank: {fileID: 0}
   boardSize: 6
   blockSize: 1
