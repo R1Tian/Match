@@ -10,6 +10,7 @@ public class PlayerState : ISingleton
 
     #region Attribute
     private int PlayerHP;
+    private int PlayerMaxHP;
     private int AttackBuffLayer;
     private int DefenceBuffLayer;
     private int Damage;
@@ -18,6 +19,7 @@ public class PlayerState : ISingleton
     public void OnSingletonInit()
     {
         PlayerHP = 10;
+        PlayerMaxHP = 10;
         AttackBuffLayer = 0;
         DefenceBuffLayer = 0;
     }
@@ -28,6 +30,11 @@ public class PlayerState : ISingleton
 
     public void TakeDamge(int hp) {
         PlayerHP -= hp;
+    }
+
+    public int GetMaxHP()
+    {
+        return PlayerMaxHP;
     }
 
     public int GetHP() {

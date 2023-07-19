@@ -7,9 +7,10 @@ public class Skill
     /// </summary>
     public static void Damage()
     {
-        Debug.Log(TestFunc.EnemyHP);
-        TestFunc.EnemyHP -= 2 + PlayerState.instance.GetDamageBuff();
-        Debug.Log(TestFunc.EnemyHP);
+        //Debug.Log(TestFunc.EnemyHP);
+        //TestFunc.EnemyHP -= 2 + PlayerState.instance.GetDamageBuff();
+        EnemyState.instance.TakeDamge(2 + PlayerState.instance.GetDamageBuff());
+        //Debug.Log(TestFunc.EnemyHP);
     }
     /// <summary>
     /// 治疗
@@ -17,6 +18,10 @@ public class Skill
     public static void Heal()
     {
         PlayerState.instance.HealHealth(10);
+        if(PlayerState.instance.GetHP() > PlayerState.instance.GetMaxHP())
+        {
+            PlayerState.instance.HealHealth(PlayerState.instance.GetMaxHP() - PlayerState.instance.GetHP());
+        }
         Debug.Log(PlayerState.instance.GetHP());
     }
 
@@ -24,5 +29,10 @@ public class Skill
     public static void Power() {
         PlayerState.instance.AddAttackBuff(2);
 
+    }
+
+    public static void Defend()
+    {
+        PlayerState.instance.AddDefenceBuffLayer(2);
     }
 }

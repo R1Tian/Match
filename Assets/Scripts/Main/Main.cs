@@ -80,5 +80,10 @@ public class Main : ISingleton
         return null;
     }
 
+
+    public Tetromino[] GetTetrominoes()
+    {
+        return tetrominoes;
+    }
     public void Dispose() { SingletonProperty<Main>.Instance.Dispose(); }
 }
