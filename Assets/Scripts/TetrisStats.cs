@@ -9,8 +9,10 @@ using TMPro;
 public class TetrisStats : MonoBehaviour
 {
     public GameObject cubePrefab;
+    public GameObject blankPrefab;// 选中框预制体
+    public GameObject blank;
     public int boardSize = 8; // 自定义棋盘大小
-    public float blockSize = 1f;//格子大小
+    public float blockSize = 1f;// 格子大小
 
     private Color[] colors = { Color.red, Color.green, Color.blue, Color.yellow };
     private string[] colorNames = { "红色", "绿色" ,"蓝色", "黄色" };
@@ -490,6 +492,21 @@ public class TetrisStats : MonoBehaviour
                 board[i, j] = index;
             }
         }
+        if(selectedBlock1 != null)
+        {
+            selectedBlock1 = null;
+        }
+
+        CountTetrominoes();
+
+        if (matchedBlocks.Count == 0)
+        {
+            canSwap = true;
+        }
+        else
+        {
+            StartCoroutine(Loop());
+        }
     }
 
     public int ColorRandom() {
@@ -547,13 +564,16 @@ public class TetrisStats : MonoBehaviour
             if (selectedBlock1 == null)
             {
                 selectedBlock1 = curPosition;
+                blank = Instantiate(blankPrefab,cubeMatrix[curPosition.y, curPosition.x].transform.position, Quaternion.identity);
             }
             else if (selectedBlock1.Value == curPosition)
             {
                 selectedBlock1 = null;
+                Destroy(blank);
             }
             else if (selectedBlock2 == null)
             {
+                Destroy(blank);
                 selectedBlock2 = curPosition;
                 // 执行块交换逻辑
                 SwapBlocks(selectedBlock1.Value, selectedBlock2.Value);
