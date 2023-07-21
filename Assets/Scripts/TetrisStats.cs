@@ -27,7 +27,6 @@ public class TetrisStats : MonoBehaviour
 
     public Transform boardContainer;
 
-    public Button deleteBtn;
     public Button randomBtn;
 
     private float startTime;
@@ -75,12 +74,17 @@ public class TetrisStats : MonoBehaviour
 
     private void Awake()
     {
+<<<<<<< Updated upstream
         Main.instance.OnSingletonInit();
         PlayerState.instance.OnSingletonInit();
         playerHP.value = 1;
         EnemyState.instance.OnSingletonInit();
         enemyHP.value = 1;
         
+=======
+        BattleInitiate();
+        boardContainer = GameObject.Find("BoardContainer").transform;
+>>>>>>> Stashed changes
     }
 
     public void Start()
@@ -97,7 +101,6 @@ public class TetrisStats : MonoBehaviour
 
         matchedBlocks = new List<Vector2Int>();
 
-        deleteBtn.onClick.AddListener(ChangeColor);
         randomBtn.onClick.AddListener(RandomColor);
 
 
@@ -125,6 +128,8 @@ public class TetrisStats : MonoBehaviour
 
         playerHP.value = (float)PlayerState.instance.GetHP() / PlayerState.instance.GetMaxHP();
         enemyHP.value = (float)EnemyState.instance.GetHP() / EnemyState.instance.GetMaxHP();
+
+        if (EnemyState.instance.GetHP() <= 0) PanelManager.Open<RewardPanel>();
     }
 
     public void OnButtonClick()
