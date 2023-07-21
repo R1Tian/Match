@@ -53,7 +53,7 @@ public class TetrisStats : MonoBehaviour
 
     //玩家当局战斗的背包（卡组）
     [ShowInInspector]
-    private Card[] bag;
+    private List<Card> bag;
 
     //是否可以点击交换
     [ShowInInspector]
@@ -104,7 +104,7 @@ public class TetrisStats : MonoBehaviour
     }
 
     public void InitBag() {
-        bag = PlayerState.instance.GetCards();
+        bag = PlayerState.instance.GetBattleCards();
     }
 
     void Update()

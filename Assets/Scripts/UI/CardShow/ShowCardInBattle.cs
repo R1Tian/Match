@@ -6,16 +6,16 @@ using UnityEngine.UI;
 public class ShowCardInBattle : MonoBehaviour
 {
     public GameObject Prefeb;
-    private Card[] PlayerCards;
+    private List<Card> PlayerCards;
     private float Offset = 120f;
     private float CurOffset = 0f;
     // Start is called before the first frame update
     void Start()
     {
-        PlayerCards = PlayerState.instance.GetCards();
+        PlayerCards = PlayerState.instance.GetBattleCards();
         GameObject parent = GameObject.Find("CardShow");
 
-        for (int i = 0; i < PlayerCards.Length; i++) {
+        for (int i = 0; i < PlayerCards.Count; i++) {
             GameObject obj = Instantiate(Prefeb);
 
             obj.transform.SetParent(parent.transform, false);
