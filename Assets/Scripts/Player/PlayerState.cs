@@ -1,5 +1,6 @@
 using QFramework;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class PlayerState : ISingleton
 {
@@ -15,7 +16,8 @@ public class PlayerState : ISingleton
     private int AttackBuffLayer;
     private int DefenceBuffLayer;
     private int Damage;
-    private Card[] PlayerCards;
+    private List<Card> PlayerCards;
+    private CardRepository CardRepository;
     #endregion
 
     public void OnSingletonInit()
@@ -24,7 +26,7 @@ public class PlayerState : ISingleton
         PlayerMaxHP = 10;
         AttackBuffLayer = 0;
         DefenceBuffLayer = 0;
-
+        CardRepository = new CardRepository();
         InitBag();
     }
 
@@ -36,11 +38,22 @@ public class PlayerState : ISingleton
         Card Card3 = new Card("CC", Color.blue, LShape, Skill.Defend, "L型", "消除时，生成2/3/4点防御值");
         Card Card4 = new Card("DD", Color.green, LShape, Skill.Heal, "L型", "消除时，恢复2/3/4点生命值");
 
-        PlayerCards = new Card[] { Card1, Card2, Card3 , Card4};
+        CardRepository.AddCard(Card1);
+        CardRepository.AddCard(Card2);
+        CardRepository.AddCard(Card3);
+        CardRepository.AddCard(Card4);
+
+        PlayerCards = new List<Card> { Card1, Card2, Card3 , Card4};
     }
 
-    public Card[] GetCards() {
+    public List<Card> GetBattleCards() {
         return PlayerCards;
+    }
+
+
+    public List<Card> GetAllCards()
+    {
+        return CardRepository.GetAllCards();
     }
 
     public void HealHealth(int hp) {
