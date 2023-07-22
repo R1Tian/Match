@@ -12,7 +12,6 @@ public class StartPanel : BasePanel
 
     public override void OnShow(params object[] objects)
     {
-        nextBtn = skin.transform.Find("Start").GetComponent<Button>();
 
         nextBtn.onClick.AddListener(() =>
         {

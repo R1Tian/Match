@@ -176,6 +176,7 @@ MonoBehaviour:
   skinPath: 
   skin: {fileID: 0}
   layer: 0
+  nextBtn: {fileID: 7846275324361115459}
 --- !u!1 &7846275325522783138
 GameObject:
   m_ObjectHideFlags: 0
