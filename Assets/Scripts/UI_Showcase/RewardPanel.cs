@@ -8,7 +8,7 @@ public class RewardPanel : BasePanel
 
     public override void OnInit()
     {
-        skinPath = "Reward";
+        //skinPath = "Reward";
         layer = PanelManager.Layer.TIP;
     }
 

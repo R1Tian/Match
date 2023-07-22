@@ -122,7 +122,7 @@ public class TetrisStats : MonoBehaviour
         playerHP.value = (float)PlayerState.instance.GetHP() / PlayerState.instance.GetMaxHP();
         enemyHP.value = (float)EnemyState.instance.GetHP() / EnemyState.instance.GetMaxHP();
 
-        if (EnemyState.instance.GetHP() <= 0) PanelManager.Open<RewardPanel>();
+        if (EnemyState.instance.GetHP() <= 0) PanelManager.Open<RewardPanel>("Reward");
     }
 
     public void OnButtonClick()

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class TipPanel : BasePanel
 {
-    public override void OnInit()
-    {
-        skinPath = "TipPanel";
-        layer = PanelManager.Layer.TIP;
-    }
+    //public override void OnInit()
+    //{
+    //    skinPath = "TipPanel";
+    //    layer = PanelManager.Layer.TIP;
+    //}
 }

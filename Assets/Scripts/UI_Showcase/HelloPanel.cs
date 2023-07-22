@@ -5,25 +5,25 @@ using UnityEngine.UI;
 
 public class HelloPanel : BasePanel
 {
-    private Button nextBtn;
-    private Button closeBtn;
+    //private Button nextBtn;
+    //private Button closeBtn;
 
-    public override void OnInit()
-    {
-        skinPath = "test01";
-        layer = PanelManager.Layer.panel;
-    }
+    //public override void OnInit()
+    //{
+    //    skinPath = "test01";
+    //    layer = PanelManager.Layer.panel;
+    //}
 
-    public override void OnShow(params object[] objects)
-    {
-        nextBtn = skin.transform.Find("Hello").GetComponent<Button>();
-        closeBtn = skin.transform.Find("Close").GetComponent<Button>();
+    //public override void OnShow(params object[] objects)
+    //{
+    //    nextBtn = skin.transform.Find("Hello").GetComponent<Button>();
+    //    closeBtn = skin.transform.Find("Close").GetComponent<Button>();
 
-        nextBtn.onClick.AddListener(OnClickTip);
-        closeBtn.onClick.AddListener(Close);
-    }
+    //    nextBtn.onClick.AddListener(OnClickTip);
+    //    closeBtn.onClick.AddListener(Close);
+    //}
 
-    public void OnClickTip() {
-        PanelManager.Open<TipPanel>();
-    }
+    //public void OnClickTip() {
+    //    PanelManager.Open<TipPanel>();
+    //}
 }

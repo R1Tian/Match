@@ -2,11 +2,11 @@ using UnityEngine.UI;
 
 public class StartPanel : BasePanel
 {
-    private Button nextBtn;
+    public Button nextBtn;
 
     public override void OnInit()
     {
-        skinPath = "Start";
+        //skinPath = "Start";
         layer = PanelManager.Layer.panel;
     }
 
@@ -15,7 +15,7 @@ public class StartPanel : BasePanel
 
         nextBtn.onClick.AddListener(() =>
         {
-            PanelManager.Open<BattlePanel>();
+            PanelManager.Open<BattlePanel>("BattleField");
             Close();
         });
     }

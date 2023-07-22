@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class BasePanel : MonoBehaviour
 {
-    public string skinPath;
+    //public string skinPath;
     public GameObject skin;
     public PanelManager.Layer layer = PanelManager.Layer.panel;
 
-    public void Init()
-    {
-        skin = Instantiate(ResourcesManager.LoadPrefeb(skinPath));
-    }
+    //public void Init()
+    //{
+    //    skin = Instantiate(ResourcesManager.LoadPrefeb(skinPath));
+    //}
 
     public void Close()
     {
