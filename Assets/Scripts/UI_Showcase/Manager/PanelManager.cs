@@ -29,18 +29,18 @@ public class PanelManager
 
     public static void EnrollPath() {
         NameToPath = new Dictionary<string, string> {
-            { "Start", "Start"},
-            { "BattleField", "BattleField"},
-            { "Reward", "Reward"}
+            { "StartPanel", "Start"},
+            { "BattlePanel", "BattleField"},
+            { "RewardPanel", "Reward"}
         };
     }
 
-    public static void Open<T>(string skinPath,params object[] objects) where T : BasePanel
+    public static void Open<T>(params object[] objects) where T : BasePanel
     {
         string name = typeof(T).ToString();
         if (panels.ContainsKey(name)) return;
 
-        GameObject skin = Object.Instantiate(ResourcesManager.LoadPrefeb(NameToPath[skinPath]));
+        GameObject skin = Object.Instantiate(ResourcesManager.LoadPrefeb(NameToPath[name]));
         
 
         BasePanel panel = skin.GetComponent<BasePanel>();
