@@ -3,6 +3,9 @@ using System;
 
 public class Card
 {
+    // 仓库中卡牌在本局游戏中的唯一 id
+    public int id;
+    
     // 卡牌名称
     public string Name { get; set; }
 

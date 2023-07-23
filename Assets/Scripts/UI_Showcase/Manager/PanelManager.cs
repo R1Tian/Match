@@ -27,11 +27,14 @@ public class PanelManager
         EnrollPath();
     }
 
-    public static void EnrollPath() {
-        NameToPath = new Dictionary<string, string> {
-            { "StartPanel", "Start"},
-            { "BattlePanel", "BattleField"},
-            { "RewardPanel", "Reward"}
+    private static void EnrollPath()
+    {
+        NameToPath = new Dictionary<string, string>
+        {
+            { "StartPanel", "Start" },
+            { "BattlePanel", "BattleField" },
+            { "RewardPanel", "Reward" },
+            { "UI_Showcase.ChooseBattleCardPanel", "ChooseBattleCardPanel" }
         };
     }
 
