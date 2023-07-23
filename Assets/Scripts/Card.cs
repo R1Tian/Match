@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 
+[Serializable]
 public class Card
 {
     // 仓库中卡牌在本局游戏中的唯一 id
@@ -35,6 +36,18 @@ public class Card
         Shape = shape;
         SkillDes = skilldes;
     }
+    
+    public Card(int id, string name,Color color, Tetromino tetromino, Action skillEffect, string shape, string skilldes)
+    {
+        this.id = id;
+        Name = name;
+        Color = color;
+        Tetromino = tetromino;
+        SkillEffect = skillEffect;
+        Shape = shape;
+        SkillDes = skilldes;
+    }
+    
     // 示例：使用颜色、Tetromino和技能效果函数
     public void UseCard()
     {
