@@ -1,33 +1,45 @@
-using UnityEngine;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-[Serializable]
-public class Card
+public enum ColorType
 {
-    // ä»“åº“ä¸­å¡ç‰Œåœ¨æœ¬å±€æ¸¸æˆä¸­çš„å”¯ä¸€ id
+    red,
+    blue,
+    yellow,
+    green,
+}
+[SerializeField]
+public class Card : MonoBehaviour
+{
+    // ²Ö¿âÖĞ¿¨ÅÆÔÚ±¾¾ÖÓÎÏ·ÖĞµÄÎ¨Ò» id
     public int id;
-    
-    // å¡ç‰Œåç§°
+
+    //ÑÕÉ«ÖÖÀà(ÓÃÃ¶¾ÙÀàÑ¡ÔñÑÕÉ«£¬²»ÓÃÃ¿´ÎÔÙÉèÖÃÑÕÉ«£©
+    public ColorType ColorType { get; set; }
+
+    // ¿¨ÅÆÃû³Æ
     public string Name { get; set; }
 
-    //å‹çŠ¶
+    //ĞÍ×´
     public string Shape { get; set; }
-    
-    // é¢œè‰²å±æ€§
+
+    // ÑÕÉ«ÊôĞÔ
     public Color Color { get; set; }
 
-    // Tetrominoå±æ€§
+    // TetrominoÊôĞÔ
     public Tetromino Tetromino { get; set; }
 
-    // æŠ€èƒ½æ•ˆæœå‡½æ•°å±æ€§
+    // ¼¼ÄÜĞ§¹ûº¯ÊıÊôĞÔ
     public Action SkillEffect { get; set; }
 
-    //æŠ€èƒ½è¯´æ˜
+    //¼¼ÄÜËµÃ÷
     public string SkillDes { get; set; }
 
-    // å…¶ä»–å±æ€§å’Œæ–¹æ³•...
+    // ÆäËûÊôĞÔºÍ·½·¨...
 
-    public Card(string name,Color color, Tetromino tetromino, Action skillEffect, string shape, string skilldes)
+    public Card(string name, Color color, Tetromino tetromino, Action skillEffect, string shape, string skilldes)
     {
         Name = name;
         Color = color;
@@ -36,8 +48,8 @@ public class Card
         Shape = shape;
         SkillDes = skilldes;
     }
-    
-    public Card(int id, string name,Color color, Tetromino tetromino, Action skillEffect, string shape, string skilldes)
+
+    public Card(int id, string name, Color color, Tetromino tetromino, Action skillEffect, string shape, string skilldes)
     {
         this.id = id;
         Name = name;
@@ -47,11 +59,24 @@ public class Card
         Shape = shape;
         SkillDes = skilldes;
     }
-    
-    // ç¤ºä¾‹ï¼šä½¿ç”¨é¢œè‰²ã€Tetrominoå’ŒæŠ€èƒ½æ•ˆæœå‡½æ•°
+
+    public Card(int id, string name, ColorType colorType, Color color, Tetromino tetromino, Action skillEffect, string shape, string skilldes)
+    {
+        this.id = id;
+        Name = name;
+        ColorType = colorType;
+        Color = color;
+        Tetromino = tetromino;
+        SkillEffect = skillEffect;
+        Shape = shape;
+        SkillDes = skilldes;
+    }
+
+
+    // Ê¾Àı£ºÊ¹ÓÃÑÕÉ«¡¢TetrominoºÍ¼¼ÄÜĞ§¹ûº¯Êı
     public void UseCard()
     {
-        Debug.Log("ä½¿ç”¨å¡ç‰Œï¼š" + "é¢œè‰²ï¼š" + Color.ToString() + "Tetrominoï¼š" + Tetromino.ToString() + "æ‰§è¡ŒæŠ€èƒ½æ•ˆæœ...");
+        Debug.Log("Ê¹ÓÃ¿¨ÅÆ£º" + "ÑÕÉ«£º" + Color.ToString() + "Tetromino£º" + Tetromino.ToString() + "Ö´ĞĞ¼¼ÄÜĞ§¹û...");
         if (SkillEffect != null) SkillEffect();
     }
 }

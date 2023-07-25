@@ -26,44 +26,44 @@ public class Main : ISingleton
                 new int[] { 1, 0 },
                 new int[] { 1, 0 },
                 new int[] { 1, 1 }
-            },0),
+            },0,TetrominoType.LType),
 
             new Tetromino("J型",new int[][] // J型方块
             {
                 new int[] { 1, 0, 0 },
                 new int[] { 1, 1, 1 }
-                },1),
+                },1,TetrominoType.JType),
 
             new Tetromino("O型",new int[][] // O型方块
             {
                 new int[] { 1, 1 },
                 new int[] { 1, 1 }
-            },2),
+            },2,TetrominoType.OType),
 
             new Tetromino("I型",new int[][] // I型方块
             {
                 new int[] { 1, 1, 1, 1 }
-            },3),
+            },3,TetrominoType.IType),
 
             new Tetromino("T型",new int[][] // T型方块
             {
                 new int[] { 1, 0 },
                 new int[] { 1, 1 },
                 new int[] { 1, 0 }
-            },4),
+            },4,TetrominoType.TType),
 
             new Tetromino("S型",new int[][] // S型方块
             {
                 new int[] { 1, 0 },
                 new int[] { 1, 1 },
                 new int[] { 0, 1 }
-            },5),
+            },5,TetrominoType.SType),
 
             new Tetromino("Z型",new int[][] // Z型方块
             {
                 new int[] { 1, 1, 0 },
                 new int[] { 0, 1, 1 }
-            },6),
+            },6,TetrominoType.ZType),
         };
     }
 
@@ -80,6 +80,15 @@ public class Main : ISingleton
         return null;
     }
 
+    public Tetromino GetTetType(TetrominoType tetrominoType)
+    {
+        foreach (var item in tetrominoes)
+        {
+            if (tetrominoType.Equals(item.TetrominoType)) return item;
+        }
+
+        return null;
+    }
 
     public Tetromino[] GetTetrominoes()
     {
