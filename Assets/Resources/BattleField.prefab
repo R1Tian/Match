@@ -1008,7 +1008,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8298117660656884465}
-  - component: {fileID: 8298117660656884466}
   - component: {fileID: 8298117660656884461}
   m_Layer: 0
   m_Name: GameObject
@@ -1032,21 +1031,6 @@ Transform:
   m_Father: {fileID: 8298117660772260678}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8298117660656884466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8298117660656884471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de129c4bd0743e242be34429f78a624a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cubePrefab: {fileID: 6183837692891308622, guid: 7664852b633eb934c9ba0a924909a5cc, type: 3}
-  boardSize: 8
-  boardContainer: {fileID: 0}
 --- !u!114 &8298117660656884461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1062,7 +1046,7 @@ MonoBehaviour:
   cubePrefab: {fileID: 6183837692891308622, guid: 7664852b633eb934c9ba0a924909a5cc, type: 3}
   blankPrefab: {fileID: 1040574174538716268, guid: ac37149fde884ee47bb082e3aacf216e, type: 3}
   blank: {fileID: 0}
-  boardSize: 6
+  boardSize: 8
   blockSize: 1
   boardContainer: {fileID: 0}
   randomBtn: {fileID: 8298117661203621242}

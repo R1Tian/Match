@@ -155,11 +155,11 @@ public class TetrisStats : MonoBehaviour
     {
         while (matchedBlocks.Count > 0)
         {
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.1f);
             UpdateBoardWithMatches(matchedBlocks);
             matchedBlocks.Clear();
             ChangeColor();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             CountTetrominoes();
         }
 
@@ -520,7 +520,7 @@ public class TetrisStats : MonoBehaviour
                     board[i, slow] = board[i, fast];
 
                     //动画效果
-                    cubeMatrix[i, fast].transform.DOMove(cubeMatrix[i, slow].transform.position, (slow - fast) * 0.2f);
+                    cubeMatrix[i, fast].transform.DOMove(cubeMatrix[i, slow].transform.position, (slow - fast) * 0.05f);
                     //更新cubeMatrix数据
                     cubeMatrix[i, slow] = cubeMatrix[i, fast];
                     slow--;
@@ -540,7 +540,7 @@ public class TetrisStats : MonoBehaviour
                 board[i, slow] = index;
 
                 //动画效果
-                cubeMatrix[i, slow].transform.DOMoveY(-slow + yOffset, (slow + now) * 0.2f);
+                cubeMatrix[i, slow].transform.DOMoveY(-slow + yOffset, (slow + now) * 0.05f);
             }
         }
     }
@@ -689,8 +689,8 @@ public class TetrisStats : MonoBehaviour
         board[block2.y, block2.x] = temp;
 
         //动画效果
-        cubeMatrix[block1.y, block1.x].transform.DOMove(cubeMatrix[block2.y, block2.x].transform.position, 0.2f);
-        cubeMatrix[block2.y, block2.x].transform.DOMove(cubeMatrix[block1.y, block1.x].transform.position, 0.2f);
+        cubeMatrix[block1.y, block1.x].transform.DOMove(cubeMatrix[block2.y, block2.x].transform.position, 0.05f);
+        cubeMatrix[block2.y, block2.x].transform.DOMove(cubeMatrix[block1.y, block1.x].transform.position, 0.05f);
 
         //更新cubeMatrix数据
         GameObject temp1 = cubeMatrix[block1.y, block1.x];
