@@ -1050,7 +1050,7 @@ MonoBehaviour:
   - {fileID: 1727240067667884421, guid: 9bb448e8f2e92ac47ab0078d2b56ded0, type: 3}
   blankPrefab: {fileID: 1040574174538716268, guid: ac37149fde884ee47bb082e3aacf216e, type: 3}
   blank: {fileID: 0}
-  boardSize: 6
+  boardSize: 8
   blockSize: 0.8
   boardContainer: {fileID: 0}
   randomBtn: {fileID: 8298117661203621242}
