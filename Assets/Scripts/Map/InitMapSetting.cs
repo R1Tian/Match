@@ -16,7 +16,7 @@ namespace Map {
     {
         public static Dictionary<Setting, Action> MapDic;
         public static List<MapSetting> PointList;
-        public static int AcivateIndex;
+        public static int LastNodeIndex = -1;
 
         private void Awake()
         {
