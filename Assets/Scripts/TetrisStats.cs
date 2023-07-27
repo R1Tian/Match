@@ -305,6 +305,8 @@ public class TetrisStats : MonoBehaviour
                             //Debug.Log(tetrominoCounts.Length);
                             //Debug.Log(tetrominoCountIndex);
                             tetrominoCounts[tetrominoCountIndex]++;
+
+                            //todo 某些形状卡牌会多次触发
                             foreach(Card card in bag)
                             {
                                 if (card.Color == colors[colorIndex])
@@ -551,8 +553,12 @@ public class TetrisStats : MonoBehaviour
     public void RandomColor() {
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
+                Vector2 pos = cubeMatrix[i, j].transform.position;
+                Destroy(cubeMatrix[i, j]);
                 int index = ColorRandom();
-                cubeMatrix[i,j].GetComponent<SpriteRenderer>().color = colors[index];
+                GameObject cube = Instantiate(cubePrefab[index], pos, Quaternion.identity, boardContainer);
+                cubeMatrix[i, j] = cube;
+                //cubeMatrix[i,j].GetComponent<SpriteRenderer>().color = colors[index];
                 board[i, j] = index;
             }
         }
@@ -613,14 +619,27 @@ public class TetrisStats : MonoBehaviour
         Vector3 offset = boardContainer.position; // 棋盘的中心位置偏移
         Vector3 normalizedPosition = worldPosition - offset; // 将鼠标点击的世界坐标与棋盘中心位置进行偏移
         Vector3 scaledPosition = normalizedPosition /** blockSize*/; // 根据每个块的大小进行缩放
-                                                                 // 将世界坐标转换为棋盘格子坐标
+
+        //Debug.Log(scaledPosition);
+
+        //奇数格棋盘变换一下
+        if (boardSize % 2 == 1)
+        {
+            scaledPosition += new Vector3(0.5f, 0.5f, 0);
+        }
+
+        // 将世界坐标转换为棋盘格子坐标
         int row = Mathf.FloorToInt(scaledPosition.y); // 鼠标点击的行索引
         int column = Mathf.FloorToInt(scaledPosition.x); // 鼠标点击的列索引
+
+        //Debug.Log(new Vector2Int(row, column));
 
         // 根据棋盘尺寸进行调整
         row += boardSize / 2;
         row = boardSize - row - 1;
         column += boardSize / 2;
+
+        //Debug.Log(new Vector2Int(row, column));
 
         Vector2Int curPosition = new Vector2Int(row, column);
 
@@ -636,7 +655,7 @@ public class TetrisStats : MonoBehaviour
             else if (selectedBlock1.Value == curPosition)
             {
                 selectedBlock1 = null;
-                Debug.Log(selectedBlock1.HasValue);
+                //Debug.Log(selectedBlock1.HasValue);
                 Destroy(blank);
             }
             else if (selectedBlock2 == null)
@@ -646,11 +665,13 @@ public class TetrisStats : MonoBehaviour
                     Destroy(blank);
                     selectedBlock2 = curPosition;
                     canSwap = false;
+                    //换回来的情况
                     if (isSwaped)
                     {
                         // 执行块交换逻辑
                         SwapBlocks(selectedBlock1.Value, selectedBlock2.Value);
                     }
+                    //不换回来的情况
                     else
                     {
                         SwapBlocks1(selectedBlock1.Value, selectedBlock2.Value);
@@ -677,6 +698,10 @@ public class TetrisStats : MonoBehaviour
                             Hurt();
                         }
                     }
+                    
+                    Debug.Log(CheckCanEliminate());
+                    
+                    
                     // 输出统计结果
                     //PrintTetrominoCounts();
 
@@ -811,4 +836,73 @@ public class TetrisStats : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
     }
+
+    public bool CheckCanEliminate()
+    {
+        board1 = board;
+        int[][,] orginBoard = GenerateRotatedBoard(board1);
+        int[][,] allBoard = GenerateRotatedBoard(board1);
+        for (int k = 0; k < allBoard.Length; k++)
+        {
+            foreach(Tetromino tetromino in Main.instance.GetTetrominoes())
+            {
+                for (int i = 0; i < boardSize; i++)
+                {
+                    for (int j = 0; j < boardSize; j++)
+                    {
+                        if (j - 1 >= 0)
+                        {
+                            int temp = allBoard[k][j, i];
+                            allBoard[k][j, i] = allBoard[k][j - 1, i];
+                            allBoard[k][j - 1, i] = temp;
+                            if (CheckTetromino(allBoard[k], tetromino, j - 1, i) || CheckTetromino(allBoard[k], tetromino, j, i))
+                            {
+                                return true;
+                            }
+                            allBoard[k] = orginBoard[k];
+                        }
+                        if (j + 1 < boardSize)
+                        {
+                            int temp = allBoard[k][j, i];
+                            allBoard[k][j, i] = allBoard[k][j + 1, i];
+                            allBoard[k][j + 1, i] = temp;
+                            if (CheckTetromino(allBoard[k], tetromino, j + 1, i) || CheckTetromino(allBoard[k], tetromino, j, i))
+                            {
+                                return true;
+                            }
+                            allBoard[k] = orginBoard[k];
+                        }
+                        if (i - 1 >= 0)
+                        {
+                            int temp = allBoard[k][j, i];
+                            allBoard[k][j, i] = allBoard[k][j, i - 1];
+                            allBoard[k][j, i - 1] = temp;
+                            if (CheckTetromino(allBoard[k], tetromino, j, i - 1) || CheckTetromino(allBoard[k], tetromino, j, i))
+                            {
+                                return true;
+                            }
+                            allBoard[k] = orginBoard[k];
+                        }
+                        if (i + 1 < boardSize)
+                        {
+                            int temp = allBoard[k][j, i];
+                            allBoard[k][j, i] = allBoard[k][j, i + 1];
+                            allBoard[k][j, i + 1] = temp;
+                            if (CheckTetromino(allBoard[k], tetromino, j, i + 1) || CheckTetromino(allBoard[k], tetromino, j, i))
+                            {
+                                return true;
+                            }
+                            allBoard[k] = orginBoard[k];
+                        }
+                    }
+                }
+            }
+            
+        }
+        
+
+        return false; 
+    }
+
+
 }

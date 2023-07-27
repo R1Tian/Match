@@ -13,35 +13,35 @@ public enum ColorType
 [SerializeField]
 public class Card : SerializedMonoBehaviour
 {
-    // ²Ö¿âÖĞ¿¨ÅÆÔÚ±¾¾ÖÓÎÏ·ÖĞµÄÎ¨Ò» id
+    // ä»“åº“ä¸­å¡ç‰Œåœ¨æœ¬å±€æ¸¸æˆä¸­çš„å”¯ä¸€ id
     [ShowInInspector]
     public int id;
     [ShowInInspector]
-    //ÑÕÉ«ÖÖÀà(ÓÃÃ¶¾ÙÀàÑ¡ÔñÑÕÉ«£¬²»ÓÃÃ¿´ÎÔÙÉèÖÃÑÕÉ«£©
+    //é¢œè‰²ç§ç±»(ç”¨æšä¸¾ç±»é€‰æ‹©é¢œè‰²ï¼Œä¸ç”¨æ¯æ¬¡å†è®¾ç½®é¢œè‰²ï¼‰
     public ColorType ColorType { get; set; }
     [ShowInInspector]
-    // ¿¨ÅÆÃû³Æ
+    // å¡ç‰Œåç§°
     public string Name { get; set; }
     [ShowInInspector]
-    //ĞÍ×´
+    //å‹çŠ¶
     public string Shape { get; set; }
     [ShowInInspector]
-    // ÑÕÉ«ÊôĞÔ
+    // é¢œè‰²å±æ€§
     public Color Color { get; set; }
     [ShowInInspector,OnValueChanged("OnTetrominoTypeChanged")]
-    // TetrominoÀàĞÍ
+    // Tetrominoç±»å‹
     public TetrominoType TetrominoType { get; set; }
     [ShowInInspector]
-    // TetrominoÊôĞÔ
+    // Tetrominoå±æ€§
     public Tetromino Tetromino { get; set; }
     [ShowInInspector]
-    // ¼¼ÄÜĞ§¹ûº¯ÊıÊôĞÔ
+    // æŠ€èƒ½æ•ˆæœå‡½æ•°å±æ€§
     public Action SkillEffect { get; set; }
     [ShowInInspector]
-    //¼¼ÄÜËµÃ÷
+    //æŠ€èƒ½è¯´æ˜
     public string SkillDes { get; set; }
 
-    // ÆäËûÊôĞÔºÍ·½·¨...
+    // å…¶ä»–å±æ€§å’Œæ–¹æ³•...
 
 
     public Card(string name, Color color, Tetromino tetromino, Action skillEffect, string shape, string skilldes)
@@ -95,10 +95,10 @@ public class Card : SerializedMonoBehaviour
         Tetromino = Main.instance.GetTetType(TetrominoType);
     }
 
-    // Ê¾Àı£ºÊ¹ÓÃÑÕÉ«¡¢TetrominoºÍ¼¼ÄÜĞ§¹ûº¯Êı
+    // ç¤ºä¾‹ï¼šä½¿ç”¨é¢œè‰²ã€Tetrominoå’ŒæŠ€èƒ½æ•ˆæœå‡½æ•°
     public void UseCard()
     {
-        Debug.Log("Ê¹ÓÃ¿¨ÅÆ£º" + "ÑÕÉ«£º" + Color.ToString() + "Tetromino£º" + Tetromino.ToString() + "Ö´ĞĞ¼¼ÄÜĞ§¹û...");
+        Debug.Log("ä½¿ç”¨å¡ç‰Œï¼š" + "é¢œè‰²ï¼š" + Color.ToString() + "Tetrominoï¼š" + Tetromino.ToString() + "æ‰§è¡ŒæŠ€èƒ½æ•ˆæœ...");
         if (SkillEffect != null) SkillEffect();
     }
 }
