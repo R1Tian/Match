@@ -335,8 +335,7 @@ MonoBehaviour:
   nameText: {fileID: 1433009159492572278}
   skillDesText: {fileID: 304723682493414667}
   clickButton: {fileID: 3646058066419847844}
-  card:
-    id: 0
+  card: {fileID: 0}
 --- !u!1 &6500273207139497750
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,7 +662,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 794dd689569b0b14ba363cedd9f60caf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
