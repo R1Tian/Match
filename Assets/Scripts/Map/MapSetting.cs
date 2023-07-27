@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 namespace Map {
@@ -21,6 +22,7 @@ namespace Map {
                 OnClickAction();
                 OnClickAction = null;
                 InitMapSetting.PointList[InitMapSetting.AcivateIndex].Finished = true;
+                gameObject.GetComponent<Image>().color = Color.red;
             }
         }
 
