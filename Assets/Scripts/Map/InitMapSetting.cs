@@ -15,10 +15,24 @@ namespace Map {
     public class InitMapSetting : MonoBehaviour
     {
         public static Dictionary<Setting, Action> MapDic;
+        public static List<MapSetting> PointList;
+        public static int AcivateIndex;
 
         private void Awake()
         {
             EnrollDic();
+            EnrollList();
+        }
+
+        private void EnrollList() {
+            PointList = new List<MapSetting>();
+            Transform parent = GameObject.Find("MapPointList").transform;
+
+            for (int i = 0; i < parent.childCount; i++) {
+                MapSetting child = parent.GetChild(i).GetComponent<MapSetting>();
+                child.index = i;
+                PointList.Add(child);
+            }
         }
 
         private void EnrollDic()

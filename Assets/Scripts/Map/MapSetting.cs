@@ -10,13 +10,27 @@ namespace Map {
         public Setting setting;
         private Action OnClickAction;
         public GameObject Tip;
+        public int index { get; set; }
+        public bool Finished { get; set; }
+        public MapSetting[] requirement;
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (OnClickAction != null) {
+            if (OnClickAction != null && CanBeClick()) {
+                InitMapSetting.AcivateIndex = index;
                 OnClickAction();
                 OnClickAction = null;
+                InitMapSetting.PointList[InitMapSetting.AcivateIndex].Finished = true;
             }
+        }
+
+        private bool CanBeClick() {
+            if (requirement.Length == 0) return true;
+
+            for (int i = 0; i < requirement.Length; i++) {
+                if (requirement[i].Finished) return true;
+            }
+            return false;
         }
 
         public void OnPointerEnter(PointerEventData eventData)
