@@ -9,6 +9,7 @@ using TMPro;
 public class TetrisStats : MonoBehaviour
 {
     public List<GameObject> cubePrefab = new List<GameObject>();
+    public CardObject testCude;
     public GameObject blankPrefab;// 选中框预制体
     public GameObject blank;
     public int boardSize = 8; // 自定义棋盘大小
@@ -322,7 +323,7 @@ public class TetrisStats : MonoBehaviour
                                             case "L型":
                                                 if(tetromino.Name == "J型")
                                                 {
-                                                    card.UseCard();
+                                                    testCude.Do();
                                                 }
                                                 break;
                                             case "J型":

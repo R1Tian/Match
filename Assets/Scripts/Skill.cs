@@ -10,7 +10,6 @@ public class Skill
         //Debug.Log(TestFunc.EnemyHP);
         //TestFunc.EnemyHP -= 2 + PlayerState.instance.GetDamageBuff();
         EnemyState.instance.TakeDamge(2 + PlayerState.instance.GetDamageBuff());
-        //Debug.Log(TestFunc.EnemyHP);
     }
     /// <summary>
     /// 治疗
@@ -28,7 +27,6 @@ public class Skill
 
     public static void Power() {
         PlayerState.instance.AddAttackBuff(2);
-
     }
 
     public static void Defend()
