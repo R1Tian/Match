@@ -1052,6 +1052,7 @@ MonoBehaviour:
   blank: {fileID: 0}
   boardSize: 3
   blockSize: 0.8
+  tipCube: {fileID: 0}
   boardContainer: {fileID: 0}
   randomBtn: {fileID: 8298117661203621242}
   isSwaped: 1

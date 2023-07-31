@@ -21,6 +21,15 @@ public class TetrisStats : MonoBehaviour
     public int[,] board;
     [ShowInInspector]
     public int[,] board1;//置为-1之后的棋盘数据
+
+    [ShowInInspector]
+    public List<int[,]> orginBoard;
+    [ShowInInspector]
+    public List<int[,]> allBoard;
+
+    [ShowInInspector]
+    public GameObject tipCube;
+
     [ShowInInspector]
     private GameObject[,] cubeMatrix;
 
@@ -77,10 +86,17 @@ public class TetrisStats : MonoBehaviour
     //怪物血条
     public Slider enemyHP;
 
+    bool[,] visited;
+    int connectedCount = 0;
+    bool[,] visited1;
+    int connectedCount1;
+
+
     private void Awake()
     {
         BattleInitiate();
         boardContainer = GameObject.Find("BoardContainer").transform;
+
     }
 
     public void Start()
@@ -102,6 +118,8 @@ public class TetrisStats : MonoBehaviour
 
         xOffset = 0.5f * (boardSize - 1);
         yOffset = 0.5f * (boardSize - 1);
+
+        visited = new bool[boardSize, boardSize];
     }
 
     public void InitBag() {
@@ -117,6 +135,11 @@ public class TetrisStats : MonoBehaviour
                 SwitchBlock();
             }
         }
+
+        Debug.Log(CheckCanEliminate());
+
+
+        //Debug.Log(SearchFourConnected(board1,0,0));
 
 
         attackBuff.text = PlayerState.instance.GetAttackBuff().ToString();
@@ -199,13 +222,13 @@ public class TetrisStats : MonoBehaviour
     }
 
 
-    private int[][,] GenerateRotatedBoard(int[,] originalBoard)
+    private List<int[,]> GenerateRotatedBoard(int[,] originalBoard)
     {
         int size = originalBoard.GetLength(0);
-        int[][,] rotatedBoard = new int[4][,];
+        List<int[,]> rotatedBoard = new List<int[,]>();
 
         // Store the original board as the first rotation
-        rotatedBoard[0] = originalBoard;
+        rotatedBoard.Add(originalBoard);
 
         // Generate the three remaining rotations
         for (int i = 1; i < 4; i++)
@@ -229,7 +252,7 @@ public class TetrisStats : MonoBehaviour
                     }
                 }
             }
-            rotatedBoard[i] = rotated;
+            rotatedBoard.Add(rotated);
         }
 
         return rotatedBoard;
@@ -237,7 +260,7 @@ public class TetrisStats : MonoBehaviour
 
     public void CountTetrominoes()
     {
-        int[][,] rotatedBoard = GenerateRotatedBoard(board);
+        List<int[,]> rotatedBoard = GenerateRotatedBoard(board);
         //Debug.Log(bag==null);
         //只检测背包
         //foreach (Card card in bag)
@@ -505,13 +528,13 @@ public class TetrisStats : MonoBehaviour
             board[item.x, item.y] = -1;
         }
 
-        for (int i = 0; i < boardSize; i++)
-        {
-            for (int j = 0; j < boardSize; j++)
-            {
-                board1[i, j] = board[i, j];
-            }
-        }
+        //for (int i = 0; i < boardSize; i++)
+        //{
+        //    for (int j = 0; j < boardSize; j++)
+        //    {
+        //        board1[i, j] = board[i, j];
+        //    }
+        //}
     }
 
 
@@ -699,7 +722,7 @@ public class TetrisStats : MonoBehaviour
                         }
                     }
                     
-                    Debug.Log(CheckCanEliminate());
+                    //Debug.Log(CheckCanEliminate());
                     
                     
                     // 输出统计结果
@@ -839,69 +862,139 @@ public class TetrisStats : MonoBehaviour
 
     public bool CheckCanEliminate()
     {
-        board1 = board;
-        int[][,] orginBoard = GenerateRotatedBoard(board1);
-        int[][,] allBoard = GenerateRotatedBoard(board1);
-        for (int k = 0; k < allBoard.Length; k++)
+        //for(int i = 0; i < boardSize; i++)
+        //{
+        //    for (int j = 0; j < boardSize; j++)
+        //    {
+        //        board1[i,j] = board[i,j];
+
+        //    }
+        //}
+        ////board1 = board;
+        //orginBoard = new List<int[,]>();
+        //allBoard = new List<int[,]>();
+        //foreach (int[,] board in GenerateRotatedBoard(board1))
+        //{
+        //    int[,] boardCopy = new int[boardSize, boardSize];
+        //    int[,] boardCopy1 = new int[boardSize, boardSize];
+        //    Array.Copy(board, boardCopy, board.Length);
+        //    Array.Copy(board, boardCopy1, board.Length);
+        //    orginBoard.Add(boardCopy);
+        //    allBoard.Add(boardCopy1);
+        //}
+        Array.Copy(board, board1, board.Length);
+        for (int i = 0; i < boardSize; i++)
         {
-            foreach(Tetromino tetromino in Main.instance.GetTetrominoes())
+            for (int j = 0; j < boardSize; j++)
             {
-                for (int i = 0; i < boardSize; i++)
+
+                //if(SearchFourConnected(board1, i, j) >= 4)
+                //{
+                //    return true;
+                //}
+
+                //ConvertToOriginalCoordinates(i, j, k, out int x, out int y);
+                if (i - 1 >= 0)
                 {
-                    for (int j = 0; j < boardSize; j++)
+                    int temp = board1[i, j];
+                    board1[i, j] = board1[i - 1, j];
+                    board1[i - 1, j] = temp;
+                    if (SearchFourConnected(board1, i - 1, j) >= 4 || SearchFourConnected(board1, i, j) >= 4)
                     {
-                        if (j - 1 >= 0)
-                        {
-                            int temp = allBoard[k][j, i];
-                            allBoard[k][j, i] = allBoard[k][j - 1, i];
-                            allBoard[k][j - 1, i] = temp;
-                            if (CheckTetromino(allBoard[k], tetromino, j - 1, i) || CheckTetromino(allBoard[k], tetromino, j, i))
-                            {
-                                return true;
-                            }
-                            allBoard[k] = orginBoard[k];
-                        }
-                        if (j + 1 < boardSize)
-                        {
-                            int temp = allBoard[k][j, i];
-                            allBoard[k][j, i] = allBoard[k][j + 1, i];
-                            allBoard[k][j + 1, i] = temp;
-                            if (CheckTetromino(allBoard[k], tetromino, j + 1, i) || CheckTetromino(allBoard[k], tetromino, j, i))
-                            {
-                                return true;
-                            }
-                            allBoard[k] = orginBoard[k];
-                        }
-                        if (i - 1 >= 0)
-                        {
-                            int temp = allBoard[k][j, i];
-                            allBoard[k][j, i] = allBoard[k][j, i - 1];
-                            allBoard[k][j, i - 1] = temp;
-                            if (CheckTetromino(allBoard[k], tetromino, j, i - 1) || CheckTetromino(allBoard[k], tetromino, j, i))
-                            {
-                                return true;
-                            }
-                            allBoard[k] = orginBoard[k];
-                        }
-                        if (i + 1 < boardSize)
-                        {
-                            int temp = allBoard[k][j, i];
-                            allBoard[k][j, i] = allBoard[k][j, i + 1];
-                            allBoard[k][j, i + 1] = temp;
-                            if (CheckTetromino(allBoard[k], tetromino, j, i + 1) || CheckTetromino(allBoard[k], tetromino, j, i))
-                            {
-                                return true;
-                            }
-                            allBoard[k] = orginBoard[k];
-                        }
+                        tipCube = cubeMatrix[i, j];
+                        return true;
                     }
+                    temp = board1[i, j];
+                    board1[i, j] = board1[i - 1, j];
+                    board1[i - 1, j] = temp;
+                }
+
+                if (i + 1 < boardSize)
+                {
+                    int temp = board1[i, j];
+                    board1[i, j] = board1[i + 1, j];
+                    board1[i + 1, j] = temp;
+                    if (SearchFourConnected(board1, i + 1, j) >= 4 || SearchFourConnected(board1, i, j) >= 4)
+                    {
+                        tipCube = cubeMatrix[i, j];
+                        return true;
+                    }
+                    temp = board1[i, j];
+                    board1[i, j] = board1[i + 1, j];
+                    board1[i + 1, j] = temp;
+                }
+
+                if (j - 1 >= 0)
+                {
+                    int temp = board1[i, j];
+                    board1[i, j] = board1[i, j - 1];
+                    board1[i, j - 1] = temp;
+                    if (SearchFourConnected(board1, i, j - 1) >= 4 || SearchFourConnected(board1, i, j) >= 4)
+                    {
+                        tipCube = cubeMatrix[i, j];
+                        return true;
+                    }
+                    temp = board1[i, j];
+                    board1[i, j] = board1[i, j - 1];
+                    board1[i, j - 1] = temp;
+                }
+
+                if (j + 1 < boardSize)
+                {
+                    int temp = board1[i, j];
+                    board1[i, j] = board1[i, j + 1];
+                    board1[i, j + 1] = temp;
+                    if (SearchFourConnected(board1, i, j + 1) >= 4 || SearchFourConnected(board1, i, j) >= 4)
+                    {
+                        tipCube = cubeMatrix[i, j];
+                        return true;
+                    }
+                    temp = board1[i, j];
+                    board1[i, j] = board1[i, j + 1];
+                    board1[i, j + 1] = temp;
                 }
             }
-            
+
         }
-        
+
 
         return false; 
+    }
+
+    int SearchFourConnected(int[,] board, int startX, int startY)
+    {
+        int connectedCount = 0;
+        bool[,] visited = new bool[boardSize, boardSize];
+        return DFS(board, startX, startY, visited, connectedCount);
+    }
+
+    int DFS(int[,] board, int x, int y, bool[,] visited, int connectedCount)
+    {
+        if (x < 0 || y < 0 || x >= boardSize || y >= boardSize || visited[x, y])
+        {
+            return connectedCount;
+        }
+
+        visited[x, y] = true;
+        int startColor = board[x, y];
+
+        int[] dx = { 1, -1, 0, 0 };
+        int[] dy = { 0, 0, 1, -1 };
+
+        connectedCount++;
+
+        for (int i = 0; i < 4; i++)
+        {
+            int nextX = x + dx[i];
+            int nextY = y + dy[i];
+
+            if (nextX >= 0 && nextX < boardSize && nextY >= 0 && nextY < boardSize && board[nextX, nextY] == startColor)
+            {
+                connectedCount = DFS(board, nextX, nextY, visited, connectedCount);
+            }
+        }
+
+        return connectedCount;
     }
 
 
