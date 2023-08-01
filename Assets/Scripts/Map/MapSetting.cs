@@ -27,7 +27,9 @@ namespace Map {
         }
 
         private bool CanBeClick() {
-            if (requirement.Length == 0) return true;
+            if (requirement.Length == 0) {
+                return true;
+            }
 
             for (int i = 0; i < requirement.Length; i++) {
                 if (requirement[i].Finished) return true;
