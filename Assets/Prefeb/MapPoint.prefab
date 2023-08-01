@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5681376926221790396}
   - component: {fileID: 5681376926221790398}
   - component: {fileID: 5681376926221790399}
-  - component: {fileID: 5681376926221790393}
+  - component: {fileID: 3949474228498208430}
   m_Layer: 5
   m_Name: MapPoint
   m_TagString: Untagged
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5681376926221790393
+--- !u!114 &3949474228498208430
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,11 +87,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5681376926221790397}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90bcc936dc23c4ab59cb85d28ce99cbc, type: 3}
+  m_Script: {fileID: 11500000, guid: 79f96791d18030c4088599ff389a6a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   setting: 0
   Tip: {fileID: 5681376928018460850}
+  requirement: []
 --- !u!1 &5681376927125866358
 GameObject:
   m_ObjectHideFlags: 0
