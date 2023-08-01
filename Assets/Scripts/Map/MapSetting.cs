@@ -13,27 +13,31 @@ namespace Map {
         public GameObject Tip;
         public int index { get; set; }
         public bool Finished { get; set; }
-        public MapSetting[] requirement;
+        public MapSetting[] NextNode;
 
         public void OnPointerClick(PointerEventData eventData)
         {
             if (OnClickAction != null && CanBeClick()) {
-                InitMapSetting.AcivateIndex = index;
+                InitMapSetting.LastNodeIndex = index;
                 OnClickAction();
                 OnClickAction = null;
-                InitMapSetting.PointList[InitMapSetting.AcivateIndex].Finished = true;
+                InitMapSetting.PointList[InitMapSetting.LastNodeIndex].Finished = true;
                 gameObject.GetComponent<Image>().color = Color.red;
             }
         }
 
         private bool CanBeClick() {
-            if (requirement.Length == 0) {
-                return true;
+            if (InitMapSetting.LastNodeIndex == -1)
+            {
+                if (index == 0) return true;
+            }
+            else {
+                foreach (var item in InitMapSetting.PointList[InitMapSetting.LastNodeIndex].NextNode) {
+                    if (item.GetHashCode() == GetHashCode()) return true;
+                }   
+
             }
 
-            for (int i = 0; i < requirement.Length; i++) {
-                if (requirement[i].Finished) return true;
-            }
             return false;
         }
 
