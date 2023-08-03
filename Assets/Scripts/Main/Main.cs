@@ -80,6 +80,35 @@ public class Main : ISingleton
         return null;
     }
 
+    /// <summary>
+    /// 返回Tetromino的名称缩写，如T型返回T，L型与J型都返回LJ
+    /// </summary>
+    /// <param name="tetromino"></param>
+    /// <returns></returns>
+    public string GetTetAbbName(Tetromino tetromino)
+    {
+        string abb;
+        switch (tetromino.TetrominoType)
+        {
+            case TetrominoType.JType:
+                abb = "LJ";
+                break;
+            case TetrominoType.LType:
+                abb = "LJ";
+                break;
+            case TetrominoType.SType:
+                abb = "SZ";
+                break;
+            case TetrominoType.ZType:
+                abb = "SZ";
+                break;
+            default:
+                abb = tetromino.Name[0].ToString();
+                break;
+        }
+
+        return abb;
+    }
     public Tetromino GetTetType(TetrominoType tetrominoType)
     {
         foreach (var item in tetrominoes)

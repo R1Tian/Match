@@ -2,8 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea38e703-71ab-4eac-aa5d-4a893e08aa36" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Card/Card1.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Card/Card1.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Card/CardObject.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Card/CardObject.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Match/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Match/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/UniTask/Runtime/EnumeratorAsyncExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/UniTask/Runtime/EnumeratorAsyncExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/BattleField.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BattleField.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Card.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Card.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Main/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Main/Main.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TetrisStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TetrisStats.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tetromino.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Tetromino.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI_Showcase/ChooseBattleCardPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI_Showcase/ChooseBattleCardPanel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,15 +29,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Discover.Launch.Via.Unity": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.6f1c1\Editor\Unity.exe" />
@@ -48,10 +58,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="34508">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="34508" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -69,6 +79,13 @@
       <updated>1689155427405</updated>
       <workItem from="1689155430828" duration="1000" />
       <workItem from="1690087627525" duration="4172000" />
+      <workItem from="1690873087890" duration="8465000" />
+      <workItem from="1690896342464" duration="2613000" />
+      <workItem from="1690947933981" duration="64000" />
+      <workItem from="1690948159891" duration="2000" />
+      <workItem from="1690948274297" duration="19227000" />
+      <workItem from="1690973167262" duration="10068000" />
+      <workItem from="1691033998902" duration="4699000" />
     </task>
     <servers />
   </component>
@@ -98,17 +115,14 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/UI_Showcase/ChooseBattleCardPanel.cs</url>
           <line>58</line>
-          <properties documentPath="E:\ForkWorkspace\Match\Assets\Scripts\UI_Showcase\ChooseBattleCardPanel.cs" initialLine="58" containingFunctionPresentation="method 'ReFillAllRepositoryCard'">
-            <startOffsets>
-              <option value="2447" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2502" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="E:\ForkWorkspace\Match\Assets\Scripts\UI_Showcase\ChooseBattleCardPanel.cs" initialLine="58" containingFunctionPresentation="method 'ReFillAllRepositoryCard'" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

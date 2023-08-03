@@ -11,6 +11,9 @@ public enum TetrominoType
     IType,
     SType,
     ZType,
+    LJType,
+    SZType,
+    
 }
 
 public class Tetromino

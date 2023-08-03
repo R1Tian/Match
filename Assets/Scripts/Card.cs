@@ -5,10 +5,10 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 public enum ColorType
 {
-    red,
-    blue,
-    yellow,
-    green,
+    Red,
+    Blue,
+    Yellow,
+    Green,
 }
 [SerializeField]
 public class Card : SerializedMonoBehaviour
