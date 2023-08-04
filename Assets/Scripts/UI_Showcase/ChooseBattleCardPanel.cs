@@ -9,6 +9,8 @@ namespace UI_Showcase
 {
     public class ChooseBattleCardPanel : BasePanel
     {
+        public GameObject boardBG;
+        
         public GameObject fullCardPrefab;
 
         public ScrollRect battleCardScrollRect; // 上方选中的卡牌
@@ -65,8 +67,8 @@ namespace UI_Showcase
             Tetromino sShape = Main.instance.GetTetShape("S型");
             Tetromino zShape = Main.instance.GetTetShape("Z型");
             
-            m_AllRepositoryCardList.Add(new Card(0, "0号牌",Color.red, lShape, Skill.Damage, "L型", "消除时，造成2/3/5的数值伤害"));
-            m_AllRepositoryCardList.Add(new Card(1,"1号牌", Color.yellow, jShape, Skill.Power, "J型", "消除时，生成1/2/3层力量buff（每增加1层力量buff攻击牌造成的伤害+1）"));
+            m_AllRepositoryCardList.Add(new Card(0, "0号牌",Color.red, tShape, Skill.Damage, "T型", "消除时，造成2/3/5的数值伤害"));
+            m_AllRepositoryCardList.Add(new Card(1,"1号牌", Color.yellow, iShape, Skill.Power, "I型", "消除时，生成1/2/3层力量buff（每增加1层力量buff攻击牌造成的伤害+1）"));
             m_AllRepositoryCardList.Add(new Card(2,"2号牌", Color.blue, oShape, Skill.Defend, "O型", "消除时，生成2/3/4点防御值"));
             m_AllRepositoryCardList.Add(new Card(3,"3号牌", Color.green, iShape, Skill.Heal, "I型", "消除时，恢复2/3/4点生命值"));
             m_AllRepositoryCardList.Add(new Card(4, "4号牌",Color.red, lShape, Skill.Damage, "L型", "消除时，造成2/3/5的数值伤害"));
@@ -272,7 +274,10 @@ namespace UI_Showcase
             foreach (var id in m_curBattleCardIdList)
             {
                 Debug.Log($"选择的战斗卡牌 Id {id}");
+                PlayerState.instance.AddBattleCards(GetCardById(id));
             }
+            PanelManager.Open<BattlePanel>("BattleField");
+            Instantiate(boardBG);
             Close();
         }
 

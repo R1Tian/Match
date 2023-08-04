@@ -16,7 +16,7 @@ public class PlayerState : ISingleton
     private int AttackBuffLayer;
     private int DefenceBuffLayer;
     private int Damage;
-    private List<Card> PlayerCards;
+    private List<Card> BattleCards;
     private CardRepository CardRepository;
     #endregion
 
@@ -32,24 +32,29 @@ public class PlayerState : ISingleton
 
     private void InitBag()
     {
-        Tetromino LShape = Main.instance.GetTetShape("L型");
-        Card Card1 = new Card("AA",Color.red, LShape, Skill.Damage, "L型", "消除时，造成2/3/5的数值伤害");
-        Card Card2 = new Card("BB", Color.yellow, LShape, Skill.Power, "L型", "消除时，生成1/2/3层力量buff（每增加1层力量buff攻击牌造成的伤害+1）");
-        Card Card3 = new Card("CC", Color.blue, LShape, Skill.Defend, "L型", "消除时，生成2/3/4点防御值");
-        Card Card4 = new Card("DD", Color.green, LShape, Skill.Heal, "L型", "消除时，恢复2/3/4点生命值");
-
-        CardRepository.AddCard(Card1);
-        CardRepository.AddCard(Card2);
-        CardRepository.AddCard(Card3);
-        CardRepository.AddCard(Card4);
-
-        PlayerCards = new List<Card> { Card1, Card2, Card3 , Card4};
+        // Tetromino LShape = Main.instance.GetTetShape("L型");
+        // Card Card1 = new Card("AA",Color.red, LShape, Skill.Damage, "L型", "消除时，造成2/3/5的数值伤害");
+        // Card Card2 = new Card("BB", Color.yellow, LShape, Skill.Power, "L型", "消除时，生成1/2/3层力量buff（每增加1层力量buff攻击牌造成的伤害+1）");
+        // Card Card3 = new Card("CC", Color.blue, LShape, Skill.Defend, "L型", "消除时，生成2/3/4点防御值");
+        // Card Card4 = new Card("DD", Color.green, LShape, Skill.Heal, "L型", "消除时，恢复2/3/4点生命值");
+        //
+        // CardRepository.AddCard(Card1);
+        // CardRepository.AddCard(Card2);
+        // CardRepository.AddCard(Card3);
+        // CardRepository.AddCard(Card4);
+        //
+        // BattleCards = new List<Card> { Card1, Card2, Card3 , Card4};
+        BattleCards = new List<Card>();
     }
 
     public List<Card> GetBattleCards() {
-        return PlayerCards;
+        return BattleCards;
     }
 
+    public void AddBattleCards(Card card)
+    {
+        BattleCards.Add(card);
+    }
 
     public List<Card> GetAllCards()
     {

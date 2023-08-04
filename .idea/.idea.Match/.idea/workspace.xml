@@ -2,18 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea38e703-71ab-4eac-aa5d-4a893e08aa36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Card/Card1.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Card/Card1.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Card/CardObject.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Card/CardObject.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Match/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Match/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/UniTask/Runtime/EnumeratorAsyncExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/UniTask/Runtime/EnumeratorAsyncExtensions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/BattleField.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BattleField.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Card.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Card.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Main/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Main/Main.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/ChooseBattleCardPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ChooseBattleCardPanel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Start.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Start.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TetrisStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TetrisStats.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tetromino.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Tetromino.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/CardShow/ShowCardInBattle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/CardShow/ShowCardInBattle.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI_Showcase/ChooseBattleCardPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI_Showcase/ChooseBattleCardPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI_Showcase/StartPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI_Showcase/StartPanel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +83,8 @@
       <workItem from="1690948159891" duration="2000" />
       <workItem from="1690948274297" duration="19227000" />
       <workItem from="1690973167262" duration="10068000" />
-      <workItem from="1691033998902" duration="4699000" />
+      <workItem from="1691033998902" duration="11235000" />
+      <workItem from="1691119259842" duration="10960000" />
     </task>
     <servers />
   </component>
@@ -108,18 +107,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/UI_Showcase/ChooseBattleCardPanel.cs</url>
-          <line>58</line>
-          <properties documentPath="E:\ForkWorkspace\Match\Assets\Scripts\UI_Showcase\ChooseBattleCardPanel.cs" initialLine="58" containingFunctionPresentation="method 'ReFillAllRepositoryCard'" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

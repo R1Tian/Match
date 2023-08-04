@@ -228,13 +228,13 @@ public class TetrisStats : MonoBehaviour
         //GenerateBoardColors();
 
         GenerateRuledBoard();
-        canSwap = true;
+        ChangeToCanSwap();;
         
         // await CountTetrominoesWithUsingCard();
         //
         // if (matchedBlocks.Count == 0)
         // {
-        //     canSwap = true;
+        //     ChangeToCanSwap();;
         // }
         // else
         // {
@@ -256,7 +256,12 @@ public class TetrisStats : MonoBehaviour
             await CountTetrominoesWithUsingCard();
         }
 
-        canSwap = true;
+        if (!await CheckCanEliminate())
+        {
+            GenerateRuledBoard();
+        }
+
+        ChangeToCanSwap();;
     }
 
     public async UniTask LoopWithoutUsingCards()
@@ -269,7 +274,7 @@ public class TetrisStats : MonoBehaviour
             await CountTetrominoesWithoutUsingCard();
         }
 
-        canSwap = true;
+        ChangeToCanSwap();;
     }
     public void DestroyMatchedBlocks()
     {
@@ -510,16 +515,14 @@ public class TetrisStats : MonoBehaviour
                  default:
                      break;
              }
-        
-            
-        }
 
+        }
         foreach (var pair in allCounts.ToList())
         {
             CurCountsType curKey = ToEnum<CurCountsType>("Cur" + pair.Key.ToString().Substring(3));
             allCounts[pair.Key] += curCounts[curKey];
         }
-        
+        UseCard();
         // //O型重复计算了四遍
         // for (int i = 2; i < tetrominoCounts.Length; i += 7)
         // {
@@ -546,21 +549,21 @@ public class TetrisStats : MonoBehaviour
     {
         foreach (var pair in curCounts.ToList())
         {
-            ColorType colorType;
-            TetrominoType tetrominoType;
-            switch (pair.Key.ToString().Substring(3,1))
-            {
+            Color color = default;
+            Tetromino tetromino = null;
+            switch (pair.Key.ToString().Length >=4 ? pair.Key.ToString()[3].ToString() : "")
+            { 
                 case "R":
-                    colorType = ColorType.Red;
+                    color = Color.red;
                     break;
                 case "B":
-                    colorType = ColorType.Blue;
+                    color = Color.blue;
                     break;
                 case "Y":
-                    colorType = ColorType.Yellow;
+                    color = Color.yellow;
                     break;
                 case "G":
-                    colorType = ColorType.Green;
+                    color = Color.green;
                     break;
                 default:
                     break;
@@ -568,26 +571,43 @@ public class TetrisStats : MonoBehaviour
             switch (pair.Key.ToString()[pair.Key.ToString().Length - 1].ToString())
             {
                 case "O":
-                    tetrominoType = TetrominoType.OType;
+                    tetromino = Main.instance.GetTetType(TetrominoType.OType);
                     break;
                 case "I":
-                    tetrominoType = TetrominoType.IType;
+                    tetromino = Main.instance.GetTetType(TetrominoType.IType);
                     break;
                 case "Z":
-                    tetrominoType = TetrominoType.SZType;
+                    tetromino = Main.instance.GetTetType(TetrominoType.SZType);
                     break;
                 case "T":
-                    tetrominoType = TetrominoType.TType;
+                    tetromino = Main.instance.GetTetType(TetrominoType.TType);
                     break;
                 case "J":
-                    tetrominoType = TetrominoType.LJType;
+                    tetromino = Main.instance.GetTetType(TetrominoType.LJType);
                     break;
                 default:
                     break;
             }
-        
+            
+            
+            foreach (Card card in bag)
+            {
+                if (tetromino != null)
+                {
+                    if (color == card.Color && tetromino.Name == card.Tetromino.Name)
+                    {
+                        for (; curCounts[pair.Key] > 0; curCounts[pair.Key]--)
+                        {
+                            card.UseCard();
+                        }
+                    }
+                }
+                
+            }
             
         }
+        InitCurCounts();
+        
     }
     
     public async UniTask CountTetrominoesWithoutUsingCard()
@@ -775,17 +795,20 @@ public class TetrisStats : MonoBehaviour
     public  async UniTask ChangeColor()
     {
         Sequence sequence = DOTween.Sequence();
+        sequence.SetAutoKill(false);
         List<UniTask> moveUniTasks = new List<UniTask>();
         for (int i = 0; i < boardSize; i++) {
             int slow = boardSize - 1;
 
             for (int fast = boardSize - 1; fast >= 0; fast--) {
-                if (board[i, fast] != -1) {
+                if (board[i, fast] != -1)
+                {
                     board[i, slow] = board[i, fast];
 
                     //动画效果
-                    //sequence
-                    moveUniTasks.Add(cubeMatrix[i, fast].transform.DOMove(cubeMatrix[i, slow].transform.position, (slow - fast) * fallTime).AsyncWaitForCompletion().AsUniTask());
+                    sequence.Join(cubeMatrix[i, fast].transform
+                        .DOMove(cubeMatrix[i, slow].transform.position, (slow - fast) * fallTime));
+                    //moveUniTasks.Add(cubeMatrix[i, fast].transform.DOMove(cubeMatrix[i, slow].transform.position, (slow - fast) * fallTime).AsyncWaitForCompletion().AsUniTask());
                     
                     //更新cubeMatrix数据
                     cubeMatrix[i, slow] = cubeMatrix[i, fast];
@@ -806,12 +829,16 @@ public class TetrisStats : MonoBehaviour
                 board[i, slow] = index;
 
                 //动画效果
-                moveUniTasks.Add(cubeMatrix[i, slow].transform.DOMoveY(-slow + yOffset, (slow + now) * fallTime).AsyncWaitForCompletion().AsUniTask());
+                sequence.Join(cubeMatrix[i, slow].transform.DOMoveY(-slow + yOffset, (slow + now) * fallTime));
+                //moveUniTasks.Add(cubeMatrix[i, slow].transform.DOMoveY(-slow + yOffset, (slow + now) * fallTime).AsyncWaitForCompletion().AsUniTask());
                 
             }
 
-            await UniTask.WhenAll(moveUniTasks);
+            
         }
+        moveUniTasks.Add(sequence.AsyncWaitForCompletion().AsUniTask());
+        await UniTask.WhenAll(moveUniTasks);
+        sequence.SetAutoKill(true);
     }
     
     public void ChangeColorOnlyBoard()
@@ -896,7 +923,7 @@ public class TetrisStats : MonoBehaviour
 
         if (matchedBlocks.Count == 0)
         {
-            canSwap = true;
+            ChangeToCanSwap();;
         }
         else
         {
@@ -1008,7 +1035,7 @@ public class TetrisStats : MonoBehaviour
 
                         if (matchedBlocks.Count == 0)
                         {
-                            canSwap = true;
+                            ChangeToCanSwap();;
                         }
                         else
                         {
@@ -1071,6 +1098,7 @@ public class TetrisStats : MonoBehaviour
         
         swapTaskList.Add(sequence.AsyncWaitForCompletion().AsUniTask());
         await UniTask.WhenAll(swapTaskList);
+        sequence.SetAutoKill(true);
         //更新cubeMatrix数据
         GameObject temp1 = cubeMatrix[block1.y, block1.x];
         cubeMatrix[block1.y, block1.x] = cubeMatrix[block2.y, block2.x];
@@ -1087,7 +1115,7 @@ public class TetrisStats : MonoBehaviour
             List<UniTask> reverseTaskList = new List<UniTask>();
             reverseTaskList.Add(reverseSequence.AsyncWaitForCompletion().AsUniTask());
             await UniTask.WhenAll(reverseTaskList);
-            
+            reverseSequence.SetAutoKill(true);
             // 还原数据，交换回来
             int reverseTemp = board[block1.y, block1.x];
             board[block1.y, block1.x] = board[block2.y, block2.x];
@@ -1099,7 +1127,7 @@ public class TetrisStats : MonoBehaviour
             cubeMatrix[block2.y, block2.x] = reverseTemp1;
 
             //允许再次交换
-            canSwap = true;
+            ChangeToCanSwap();;
         }
         else
         {
@@ -1167,7 +1195,7 @@ public class TetrisStats : MonoBehaviour
     //     //             cubeMatrix[block1.y, block1.x] = cubeMatrix[block2.y, block2.x];
     //     //             cubeMatrix[block2.y, block2.x] = reverseTemp1;
     //     //
-    //     //             canSwap = true;
+    //     //             ChangeToCanSwap();;
     //     //         });
     //     //     }
     //     //     else
@@ -1210,7 +1238,7 @@ public class TetrisStats : MonoBehaviour
     //                 cubeMatrix[block1.y, block1.x] = cubeMatrix[block2.y, block2.x];
     //                 cubeMatrix[block2.y, block2.x] = reverseTemp1;
     //
-    //                 canSwap = true;
+    //                 ChangeToCanSwap();;
     //             });
     //         }
     //         else
@@ -1267,7 +1295,7 @@ public class TetrisStats : MonoBehaviour
     private void BattleInitiate()
     {
         Main.instance.OnSingletonInit();
-        PlayerState.instance.OnSingletonInit();
+        //PlayerState.instance.OnSingletonInit();
         playerHP.value = 1;
         EnemyState.instance.OnSingletonInit();
         enemyHP.value = 1;
@@ -1419,8 +1447,7 @@ public class TetrisStats : MonoBehaviour
 
             await LoopWithoutUsingCards();
 
-            canSwap = true;
-
+            ChangeToCanSwap();
         } while (!await CheckCanEliminate());
         
         GenerateCubeWithBoard();
@@ -1430,7 +1457,7 @@ public class TetrisStats : MonoBehaviour
         //     await CountTetrominoesWithoutUsingCard();
         //     if (matchedBlocks.Count == 0)
         //     {
-        //         canSwap = true;
+        //         ChangeToCanSwap();;
         //     }
         //     else
         //     {
@@ -1439,6 +1466,14 @@ public class TetrisStats : MonoBehaviour
         // }
 
         isGeneratingRuledBoard = false;
+    }
+
+    private void ChangeToCanSwap()
+    {
+        canSwap = true;
+
+        selectedBlock1 = null;
+        selectedBlock2 = null;
     }
 
     void InitCurCounts()

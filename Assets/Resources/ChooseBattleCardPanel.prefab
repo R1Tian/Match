@@ -1837,6 +1837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skin: {fileID: 0}
   layer: 0
+  boardBG: {fileID: 4240809981759036172, guid: 97fd8f4eb6ce8cd47bf6f7312a5f56fd, type: 3}
   fullCardPrefab: {fileID: 2819297402106845164, guid: 9aee2c6db8febf74c939eba8ba8bcfee, type: 3}
   battleCardScrollRect: {fileID: 6863444707926123073}
   repositoryCardScrollRect: {fileID: 4233756800172850964}
