@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecc434194620c4a039d7aa3c31d34099, type: 3}
-  m_Name: Card1
+  m_Script: {fileID: 11500000, guid: 5f02ea13de62efc4a933ecc896e999c9, type: 3}
+  m_Name: test02
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  id: 0
+  id: 1
+  CardFace: {fileID: 0}
   SkillName:
-  - Damage
-  - Power
+  - Heal

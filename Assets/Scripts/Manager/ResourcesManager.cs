@@ -8,4 +8,8 @@ public class ResourcesManager
     {
         return Resources.Load<GameObject>(path);
     }
+
+    public static CardObject[] LoadAllCards(string path) {
+        return Resources.LoadAll<CardObject>(path);
+    }
 }

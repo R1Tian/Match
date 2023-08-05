@@ -25,6 +25,8 @@ public class StartPanel : BasePanel
             Destroy(gameObject);
             Close();
         });
+
+        
     }
 
     public override void OnClose()
