@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  id: 1
+  id: 2
   CardFace: {fileID: 0}
   SkillName:
   - Heal

@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  id: 0
+  id: 1
   CardFace: {fileID: 0}
   SkillName:
   - Damage
