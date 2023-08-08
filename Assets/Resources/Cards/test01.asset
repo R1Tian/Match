@@ -22,6 +22,12 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   id: 1
+  Name: asdf
+  Shape: asdfas
+  Quality: 0
+  Color: {r: 0, g: 0, b: 0, a: 0}
+  TetrominoType: 0
   CardFace: {fileID: 0}
   SkillName:
   - Damage
+  SkillDes: asdfasdf

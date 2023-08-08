@@ -7,39 +7,33 @@ using System.Reflection;
 public class CardObject : SerializedScriptableObject
 {
     // 仓库中卡牌在本局游戏中的唯一 id
-    [ShowInInspector]
     public int id;
 
     // 卡牌名称
-    [ShowInInspector]
-    public string Name { get; set; }
+    public string Name;
 
     //型状
-    [ShowInInspector]
-    public string Shape { get; set; }
 
-    [ShowInInspector]
-    public int Quality { get; set; }
+    public string Shape;
+
+
+    public int Quality;
 
     // 颜色属性
-    [ShowInInspector]
-    public Color Color { get; set; }
+    public Color Color;
 
     // Tetromino类型
-    [ShowInInspector]
-    public TetrominoType TetrominoType { get; set; }
+    public TetrominoType TetrominoType;
 
     public Sprite CardFace;
 
     // 技能效果函数属性
-    [ShowInInspector]
     public string[] SkillName;
 
     //技能说明
-    [ShowInInspector]
-    public string SkillDes { get; set; }
+    public string SkillDes;
 
-    private Action SkillEffect { get; set; }
+    private Action SkillEffect;
 
     public void Do() {
         if (SkillEffect == null) { InitEffect(); }
