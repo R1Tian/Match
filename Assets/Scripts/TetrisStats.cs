@@ -1,12 +1,14 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using System;
 using System.Linq;
 using DG.Tweening;
 using TMPro;
 using Cysharp.Threading.Tasks;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
+using Slider = UnityEngine.UI.Slider;
 
 public enum CurCountsType
 {
@@ -161,17 +163,17 @@ public class TetrisStats : MonoBehaviour
     [ShowInInspector]
     public float fallTime = 0.05f;
     
-    private void Awake()
+    //是否生成过奖励弹窗
+    private bool isRewarded = false;
+    
+    private void OnEnable()
     {
         BattleInitiate();
         boardContainer = GameObject.Find("BoardContainer").transform;
 
         InitCurCounts();
         InitAllCounts();
-    }
-
-    public void Start()
-    {
+        
         InitBag();
         turn.text = Main.instance.GetTurn().ToString();
 
@@ -189,8 +191,39 @@ public class TetrisStats : MonoBehaviour
 
         xOffset = 0.5f * (boardSize - 1);
         yOffset = 0.5f * (boardSize - 1);
-        
+
+        isRewarded = false;
     }
+
+    private void OnDestroy()
+    {
+        foreach (GameObject cube in cubeMatrix)
+        {
+            Destroy(cube);
+        }
+        Destroy(GameObject.Find("BoardBG(Clone)"));
+    }
+    // public void Start()
+    // {
+    //     InitBag();
+    //     turn.text = Main.instance.GetTurn().ToString();
+    //
+    //     board = new int[boardSize, boardSize];
+    //     cubeMatrix = new GameObject[boardSize, boardSize];
+    //     InitializeBoard();
+    //     
+    //     
+    //     board1 = new int[boardSize, boardSize];
+    //
+    //     matchedBlocks = new List<Vector2Int>();
+    //
+    //     randomBtn.onClick.AddListener(GenerateRuledBoard);
+    //
+    //
+    //     xOffset = 0.5f * (boardSize - 1);
+    //     yOffset = 0.5f * (boardSize - 1);
+    //     
+    // }
 
     public void InitBag() {
         bag = PlayerState.instance.GetBattleCards();
@@ -213,7 +246,14 @@ public class TetrisStats : MonoBehaviour
         playerHP.value = (float)PlayerState.instance.GetHP() / PlayerState.instance.GetMaxHP();
         enemyHP.value = (float)EnemyState.instance.GetHP() / EnemyState.instance.GetMaxHP();
 
-        if (EnemyState.instance.GetHP() <= 0) PanelManager.Open<RewardPanel>("Reward");
+        if (!isRewarded)
+        {
+            if (EnemyState.instance.GetHP() <= 0)
+            {
+                PanelManager.Open<RewardPanel>("Reward");
+                isRewarded = true;
+            }
+        }
     }
 
     public void OnButtonClick()

@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class CardManager
 {
-    private static List<CardObject> CardDatabase;
+    private static Dictionary<int, CardObject> CardDic = new Dictionary<int, CardObject>();
 
     public static void OnInitCardDatabase()
     {
-        CardDatabase = new List<CardObject>(ResourcesManager.LoadAllCards("Cards"));
+        List<CardObject> CardList = new List<CardObject>(ResourcesManager.LoadAllCards("Cards"));
+
+
+        foreach (var item in CardList) {
+            CardDic.TryAdd(item.id, item);
+        }
     }
 
     public static CardObject GetCardById(int ID)
     {
-        foreach (var item in CardDatabase)
-        {
-            if (item.id == ID) return item;
-        }
-
-        return null;
+        return CardDic[ID];
     }
 }

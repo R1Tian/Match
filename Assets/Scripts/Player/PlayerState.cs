@@ -47,6 +47,14 @@ public class PlayerState : ISingleton
         //BattleCards = new List<Card> { Card1, Card2, Card3, Card4 };
         BattleCards = new List<CardObject>();
         AllCards = new List<CardObject>();
+        
+        AddBattleCards(CardManager.GetCardById(0));
+        AddBattleCards(CardManager.GetCardById(1));
+        AddBattleCards(CardManager.GetCardById(2));
+        
+        AddAllCards(CardManager.GetCardById(0));
+        AddAllCards(CardManager.GetCardById(1));
+        AddAllCards(CardManager.GetCardById(2));
     }
 
     //private void TestForCardObject() {
@@ -61,11 +69,19 @@ public class PlayerState : ISingleton
         return BattleCards;
     }
 
+    public void RemoveAllBattleCards() {
+        BattleCards = new List<CardObject>();
+    }
     public void AddBattleCards(CardObject card)
     {
         BattleCards.Add(card);
     }
 
+    public void AddAllCards(CardObject card)
+    {
+        AllCards.Add(card);
+    }
+    
     public List<CardObject> GetAllCards()
     {
         //return CardRepository.GetAllCards();

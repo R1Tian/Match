@@ -34,7 +34,8 @@ public class PanelManager
             { "StartPanel", "Start" },
             { "BattlePanel", "BattleField" },
             { "RewardPanel", "Reward" },
-            { "UI_Showcase.ChooseBattleCardPanel", "ChooseBattleCardPanel" }
+            { "UI_Showcase.ChooseBattleCardPanel", "ChooseBattleCardPanel" },
+            { "MapPanel", "Map" },
         };
     }
 

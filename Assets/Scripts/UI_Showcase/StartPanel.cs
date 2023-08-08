@@ -20,7 +20,8 @@ public class StartPanel : BasePanel
         nextBtn.onClick.AddListener(() =>
         {
             //PanelManager.Open<BattlePanel>("BattleField");
-            PanelManager.Open<ChooseBattleCardPanel>("ChooseBattleCardPanel");
+            //PanelManager.Open<ChooseBattleCardPanel>("ChooseBattleCardPanel");
+            PanelManager.Open<MapPanel>("Map");
             //GameObject.Find("BoardBG").SetActive(false);
             Destroy(gameObject);
             Close();

@@ -55,8 +55,8 @@ public class EnemyState : ISingleton
     #endregion
     public void OnSingletonInit()
     {
-        EnemyMaxHP = 100;
-        EnemyHP = 100;
+        EnemyMaxHP = 1;
+        EnemyHP = 1;
         AttackBuffLayer = 0;
         DefenceBuffLayer = 0;
         WeakBuffLayer = 0;

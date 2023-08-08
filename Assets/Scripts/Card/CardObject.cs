@@ -20,26 +20,26 @@ public class CardObject : SerializedScriptableObject
 
     // 卡牌名称
     [ShowInInspector]
-    public string Name { get; set; }
+    public string Name ;
 
     //型状
     [ShowInInspector]
-    public string Shape { get; set; }
+    public string Shape ;
 
     [ShowInInspector]
-    public int Quality { get; set; }
+    public int Quality ;
 
     // 颜色属性
     [ShowInInspector]
-    public Color Color { get; set; }
+    public Color Color ;
 
     // 颜色类型
     [ShowInInspector]
-    public ColorType ColorType { get; set; }
+    public ColorType ColorType ;
     
     // Tetromino类型
     [ShowInInspector]
-    public TetrominoType TetrominoType { get; set; }
+    public TetrominoType TetrominoType ;
 
     public Sprite CardFace;
 
@@ -49,9 +49,9 @@ public class CardObject : SerializedScriptableObject
 
     //技能说明
     [ShowInInspector]
-    public string SkillDes { get; set; }
+    public string SkillDes ;
 
-    private Action SkillEffect { get; set; }
+    private Action SkillEffect ;
 
     public void Do() {
         if (SkillEffect == null) { InitEffect(); }

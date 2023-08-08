@@ -38,20 +38,26 @@ namespace UI_Showcase
             GetAllRepositoryCard();
             
             m_curBattleCardIdList.Clear();
-            m_curRepositoryCardIdList.AddRange(PlayerState.instance.GetBattleCards().ConvertAll(c => c.id));
+            //m_curBattleCardIdList.AddRange(PlayerState.instance.GetBattleCards().ConvertAll(c => c.id));
             
             m_curRepositoryCardIdList.Clear();
-            m_curRepositoryCardIdList.AddRange(m_AllRepositoryCardList.ConvertAll(c => c.id));
-            foreach (CardObject cardObject in PlayerState.instance.GetBattleCards())
-            {
-                m_curRepositoryCardIdList.Remove(cardObject.id);
-            }
+            // m_curRepositoryCardIdList.AddRange(m_AllRepositoryCardList.ConvertAll(c => c.id));
+            // foreach (CardObject cardObject in PlayerState.instance.GetBattleCards())
+            // {
+            //     m_curRepositoryCardIdList.Remove(cardObject.id);
+            // }
 
             
         }
 
         public override void OnShow(params object[] objects)
         {
+            GetAllRepositoryCard();
+            
+            m_curBattleCardIdList.Clear();
+
+            m_curRepositoryCardIdList.Clear();
+            
             ReFillCurRepositoryCard();
             ReFillBattleCard();
         }
@@ -92,16 +98,11 @@ namespace UI_Showcase
             //     m_AllRepositoryCardList.Add(cardObject);
             // }
 
-            if (PlayerState.instance.GetAllCards().Count <= 0)
+            foreach (CardObject cardObject in PlayerState.instance.GetAllCards())
             {
-                PlayerState.instance.AddBattleCards(CardManager.GetCardById(0));
-                PlayerState.instance.AddBattleCards(CardManager.GetCardById(1));
-                PlayerState.instance.AddBattleCards(CardManager.GetCardById(2));
-                
-                m_AllRepositoryCardList.Add(CardManager.GetCardById(0));
-                m_AllRepositoryCardList.Add(CardManager.GetCardById(1));
-                m_AllRepositoryCardList.Add(CardManager.GetCardById(2));
+                m_AllRepositoryCardList.Add(cardObject);
             }
+            
         }
 
         /// <summary>
@@ -109,6 +110,12 @@ namespace UI_Showcase
         /// </summary>
         private void ReFillCurRepositoryCard()
         {
+            
+            m_curRepositoryCardIdList.AddRange(m_AllRepositoryCardList.ConvertAll(c => c.id));
+            foreach (CardObject cardObject in PlayerState.instance.GetBattleCards())
+            {
+                m_curRepositoryCardIdList.Remove(cardObject.id);
+            }
             for (int i = 0; i < m_curRepositoryCardIdList.Count; i++)
             {
                 CreateRepositoryFullCard(GetCardById(m_curRepositoryCardIdList[i]), repositoryCardScrollRect.content);
@@ -119,6 +126,7 @@ namespace UI_Showcase
         /// </summary>
         private void ReFillBattleCard()
         {
+            m_curBattleCardIdList.AddRange(PlayerState.instance.GetBattleCards().ConvertAll(c => c.id));
             for (int i = 0; i < m_curBattleCardIdList.Count; i++)
             {
                 CreateBattleFullCard(GetCardById(m_curBattleCardIdList[i]), battleCardScrollRect.content);
@@ -304,10 +312,15 @@ namespace UI_Showcase
 
         public void SelectOver()
         {
+            PlayerState.instance.RemoveAllBattleCards();
             foreach (var id in m_curBattleCardIdList)
             {
                 Debug.Log($"选择的战斗卡牌 Id {id}");
-                PlayerState.instance.AddBattleCards(GetCardById(id));
+                if (!PlayerState.instance.GetBattleCards().Contains(GetCardById(id)))
+                {
+                    PlayerState.instance.AddBattleCards(GetCardById(id));
+                }
+                
             }
             PanelManager.Open<BattlePanel>("BattleField");
             Instantiate(boardBG);

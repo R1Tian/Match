@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using QFramework;
+using UI_Showcase;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -54,6 +56,18 @@ namespace Map {
         private void Start()
         {
             OnClickAction += InitMapSetting.MapDic[setting];
+            OnClickAction += OpenChooseBattleCardPanel;
+            OnClickAction += CloseMapPanel;
+        }
+
+        void OpenChooseBattleCardPanel()
+        {
+            PanelManager.Open<ChooseBattleCardPanel>("ChooseBattleCardPanel");
+        }
+        
+        void CloseMapPanel()
+        {
+            PanelManager.Close("MapPanel");
         }
     }
 }
