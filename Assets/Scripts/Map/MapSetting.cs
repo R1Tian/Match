@@ -67,7 +67,7 @@ namespace Map {
         
         void CloseMapPanel()
         {
-            PanelManager.Close("MapPanel");
+            PanelManager.MapPanel.SetActive(false);
         }
     }
 }

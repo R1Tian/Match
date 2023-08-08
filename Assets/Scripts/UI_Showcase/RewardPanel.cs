@@ -22,7 +22,7 @@ public class RewardPanel : BasePanel
         BackBtn.onClick.AddListener(() =>
         {
             PanelManager.Close("BattlePanel");
-            PanelManager.Open<MapPanel>("Map");
+            PanelManager.MapPanel.SetActive(true);
             Close();
         });
     }

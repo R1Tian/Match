@@ -15,6 +15,7 @@ public class PanelManager
     public static Dictionary<string, BasePanel> panels = new Dictionary<string, BasePanel>();
     public static Transform root;
     public static Transform canvas;
+    public static GameObject MapPanel;
 
     public static void Init()
     {

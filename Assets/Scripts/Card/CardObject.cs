@@ -12,7 +12,7 @@ public enum ColorType
 }
 
 [CreateAssetMenu(fileName = "Data", menuName = "Scriptable_Object/CardObject")]
-public class CardObject : SerializedScriptableObject
+public class CardObject : ScriptableObject
 {
     // 仓库中卡牌在本局游戏中的唯一 id
     [ShowInInspector]
@@ -54,7 +54,9 @@ public class CardObject : SerializedScriptableObject
     private Action SkillEffect ;
 
     public void Do() {
-        if (SkillEffect == null) { InitEffect(); }
+        if (SkillEffect == null) {
+            InitEffect();
+        }
         SkillEffect();
     }
 

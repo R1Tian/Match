@@ -18,6 +18,7 @@ namespace Map {
         public static List<MapSetting> PointList;
         public static int LastNodeIndex = -1;
 
+
         private void Awake()
         {
             EnrollDic();
