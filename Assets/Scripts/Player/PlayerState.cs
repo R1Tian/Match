@@ -16,7 +16,8 @@ public class PlayerState : ISingleton
     private int AttackBuffLayer;
     private int DefenceBuffLayer;
     private int Damage;
-    private List<Card> BattleCards;
+    private List<CardObject> BattleCards;
+    private List<CardObject> AllCards;
     private CardRepository CardRepository;
     #endregion
 
@@ -44,7 +45,8 @@ public class PlayerState : ISingleton
         //CardRepository.AddCard(Card4);
 
         //BattleCards = new List<Card> { Card1, Card2, Card3, Card4 };
-        BattleCards = new List<Card>();
+        BattleCards = new List<CardObject>();
+        AllCards = new List<CardObject>();
     }
 
     //private void TestForCardObject() {
@@ -55,18 +57,19 @@ public class PlayerState : ISingleton
     //    Debug.Log(test2.Shape);
     //}
 
-    public List<Card> GetBattleCards() {
+    public List<CardObject> GetBattleCards() {
         return BattleCards;
     }
 
-    public void AddBattleCards(Card card)
+    public void AddBattleCards(CardObject card)
     {
         BattleCards.Add(card);
     }
 
-    public List<Card> GetAllCards()
+    public List<CardObject> GetAllCards()
     {
-        return CardRepository.GetAllCards();
+        //return CardRepository.GetAllCards();
+        return AllCards;
     }
 
     public void HealHealth(int hp) {

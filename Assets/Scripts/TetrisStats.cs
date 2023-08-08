@@ -125,7 +125,7 @@ public class TetrisStats : MonoBehaviour
 
     //玩家当局战斗的背包（卡组）
     [ShowInInspector]
-    private List<Card> bag;
+    private List<CardObject> bag;
 
     //是否可以点击交换
     [ShowInInspector]
@@ -549,21 +549,21 @@ public class TetrisStats : MonoBehaviour
     {
         foreach (var pair in curCounts.ToList())
         {
-            Color color = default;
-            Tetromino tetromino = null;
+            ColorType colorType = default;
+            TetrominoType tetrominoType = default;
             switch (pair.Key.ToString().Length >=4 ? pair.Key.ToString()[3].ToString() : "")
             { 
                 case "R":
-                    color = Color.red;
+                    colorType = ColorType.Red;
                     break;
                 case "B":
-                    color = Color.blue;
+                    colorType = ColorType.Blue;
                     break;
                 case "Y":
-                    color = Color.yellow;
+                    colorType = ColorType.Yellow;
                     break;
                 case "G":
-                    color = Color.green;
+                    colorType = ColorType.Green;
                     break;
                 default:
                     break;
@@ -571,37 +571,38 @@ public class TetrisStats : MonoBehaviour
             switch (pair.Key.ToString()[pair.Key.ToString().Length - 1].ToString())
             {
                 case "O":
-                    tetromino = Main.instance.GetTetType(TetrominoType.OType);
+                    tetrominoType = TetrominoType.OType;
                     break;
                 case "I":
-                    tetromino = Main.instance.GetTetType(TetrominoType.IType);
+                    tetrominoType = TetrominoType.IType;
                     break;
                 case "Z":
-                    tetromino = Main.instance.GetTetType(TetrominoType.SZType);
+                    tetrominoType = TetrominoType.SZType;
                     break;
                 case "T":
-                    tetromino = Main.instance.GetTetType(TetrominoType.TType);
+                    tetrominoType = TetrominoType.TType;
                     break;
                 case "J":
-                    tetromino = Main.instance.GetTetType(TetrominoType.LJType);
+                    tetrominoType = TetrominoType.LJType;
                     break;
                 default:
                     break;
             }
             
             
-            foreach (Card card in bag)
+            foreach (CardObject card in bag)
             {
-                if (tetromino != null)
-                {
-                    if (color == card.Color && tetromino.Name == card.Tetromino.Name)
+                // if (tetrominoType != null)
+                // {
+                    if (colorType == card.ColorType && tetrominoType == card.TetrominoType)
                     {
                         for (; curCounts[pair.Key] > 0; curCounts[pair.Key]--)
                         {
-                            card.UseCard();
+                            Debug.Log(card.id);
+                            card.Do();
                         }
                     }
-                }
+                // }
                 
             }
             

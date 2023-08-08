@@ -55,8 +55,8 @@ public class EnemyState : ISingleton
     #endregion
     public void OnSingletonInit()
     {
-        EnemyMaxHP = 22222;
-        EnemyHP = 22222;
+        EnemyMaxHP = 100;
+        EnemyHP = 100;
         AttackBuffLayer = 0;
         DefenceBuffLayer = 0;
         WeakBuffLayer = 0;
@@ -126,13 +126,13 @@ public class EnemyState : ISingleton
 
     //private void InitTasks()
     //{
-    //    Task task1 = new Task("Task 1: Eliminate 5 red T-type", 5, TaskType.ColorAndTetromino, Color.red, Main.instance.GetTetShape("TÐÍ"), () =>
+    //    Task task1 = new Task("Task 1: Eliminate 5 red T-type", 5, TaskType.ColorAndTetromino, Color.red, Main.instance.GetTetShape("Tåž‹"), () =>
     //    {
     //        Debug.Log("Task 1 completed! Deal 5 damage to the player.");
     //        PlayerState.instance.TakeDamge(5);
     //    });
 
-    //    Task task2 = new Task("Task 2: Eliminate 5 green T-type", 5, TaskType.ColorAndTetromino, Color.green, Main.instance.GetTetShape("TÐÍ"), () =>
+    //    Task task2 = new Task("Task 2: Eliminate 5 green T-type", 5, TaskType.ColorAndTetromino, Color.green, Main.instance.GetTetShape("Tåž‹"), () =>
     //    {
     //        Debug.Log("Task 2 completed! Heal 5 HP for the enemy.");
     //        HealHealth(5);

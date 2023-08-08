@@ -3,6 +3,14 @@ using Sirenix.OdinInspector;
 using System;
 using System.Reflection;
 
+public enum ColorType
+{
+    Red,
+    Blue,
+    Yellow,
+    Green,
+}
+
 [CreateAssetMenu(fileName = "Data", menuName = "Scriptable_Object/CardObject")]
 public class CardObject : SerializedScriptableObject
 {
@@ -25,6 +33,10 @@ public class CardObject : SerializedScriptableObject
     [ShowInInspector]
     public Color Color { get; set; }
 
+    // 颜色类型
+    [ShowInInspector]
+    public ColorType ColorType { get; set; }
+    
     // Tetromino类型
     [ShowInInspector]
     public TetrominoType TetrominoType { get; set; }
@@ -43,7 +55,7 @@ public class CardObject : SerializedScriptableObject
 
     public void Do() {
         if (SkillEffect == null) { InitEffect(); }
-        else SkillEffect();
+        SkillEffect();
     }
 
     private void InitEffect() {

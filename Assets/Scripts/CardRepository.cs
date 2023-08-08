@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class CardRepository
 {
-    private List<Card> allCards;
-    private List<Card> battleCards;
+    private List<CardObject> allCards;
+    private List<CardObject> battleCards;
 
     public CardRepository()
     {
-        allCards = new List<Card>();
-        battleCards = new List<Card>();
+        allCards = new List<CardObject>();
+        battleCards = new List<CardObject>();
     }
     
-    public List<Card> GetAllCards()
+    public List<CardObject> GetAllCards()
     {
         return allCards;
     }
 
-    public void AddCard(Card card)
+    public void AddCard(CardObject card)
     {
         allCards.Add(card);
     }
 
-    public void RemoveCard(Card card)
+    public void RemoveCard(CardObject card)
     {
         allCards.Remove(card);
         if (battleCards.Contains(card))
@@ -34,9 +34,9 @@ public class CardRepository
 
     public void ShowAllCards()
     {
-        foreach (Card card in allCards)
+        foreach (CardObject card in allCards)
         {
-            Debug.Log("Card Name: " + card.Name + ", Color: " + card.Color.ToString() + ", Tetromino: " + card.Tetromino.ToString());
+            //Debug.Log("Card Name: " + card.Name + ", Color: " + card.Color.ToString() + ", Tetromino: " + card.Tetromino.ToString());
         }
     }
 
@@ -56,7 +56,7 @@ public class CardRepository
 
     }
 
-    public Card[] GetBattleCards()
+    public CardObject[] GetBattleCards()
     {
         return battleCards.ToArray();
     }

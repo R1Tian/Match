@@ -23,11 +23,11 @@ public class MonoFullCard : MonoBehaviour
     public Button clickButton;
 
 
-    public Card card;
+    public CardObject card;
 
     private FullCardState fullCardState;
 
-    public void RepositoryInit(Card card)
+    public void RepositoryInit(CardObject card)
     {
         this.card = card;
 

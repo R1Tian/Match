@@ -12,9 +12,9 @@ public class CardRepositoryUI : MonoBehaviour
     public ScrollRect battleCardScrollRect;
     public ScrollRect repositoryCardScrollRect;
 
-    private List<Card> battleCards;
-    private List<Card> repositoryCards;//allCards去除battleCards
-    private List<Card> allCards;
+    private List<CardObject> battleCards;
+    private List<CardObject> repositoryCards;//allCards去除battleCards
+    private List<CardObject> allCards;
 
     private float cardWidth;
 
@@ -42,7 +42,7 @@ public class CardRepositoryUI : MonoBehaviour
         battleCards = PlayerState.instance.GetBattleCards();
 
         // 初始化战斗卡牌列表
-        foreach (Card card in battleCards)
+        foreach (CardObject card in battleCards)
         {
             allCards.Remove(card);
             GameObject cardObj = Instantiate(cardPrefab, battleCardContainer);
@@ -53,7 +53,7 @@ public class CardRepositoryUI : MonoBehaviour
         repositoryCards = allCards;
 
         // 初始化仓库的卡牌列表
-        foreach (Card card in repositoryCards)
+        foreach (CardObject card in repositoryCards)
         {
             GameObject cardObj = Instantiate(cardPrefab, repositoryCardContainer);
             //todo 初始化仓库卡牌位置（一行一行生成，从左至右生成，两张卡牌之间要有一个间隙）
@@ -63,7 +63,7 @@ public class CardRepositoryUI : MonoBehaviour
         }
     }
 
-    private void AddToBattleCards(Card card, GameObject cardObj)
+    private void AddToBattleCards(CardObject card, GameObject cardObj)
     {
         Debug.Log(card.Name);
         Debug.Log(cardObj.name);
@@ -87,7 +87,7 @@ public class CardRepositoryUI : MonoBehaviour
         cardObj.GetComponent<Button>().onClick.AddListener(() => RemoveFromBattleCards(card, cardObj));
     }
 
-    private void RemoveFromBattleCards(Card card, GameObject cardObj)
+    private void RemoveFromBattleCards(CardObject card, GameObject cardObj)
     {
         battleCards.Remove(card);
         repositoryCards.Add(card);

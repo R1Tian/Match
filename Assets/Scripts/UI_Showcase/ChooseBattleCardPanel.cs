@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -22,7 +23,7 @@ namespace UI_Showcase
         /// <summary>
         /// 所有仓库中的卡牌
         /// </summary>
-        private List<Card> m_AllRepositoryCardList = new ();
+        private List<CardObject> m_AllRepositoryCardList = new ();
 
         private List<int> m_curBattleCardIdList = new (); // 现在选中的卡牌
         private List<int> m_curRepositoryCardIdList = new (); // 现在还未选中的卡牌
@@ -36,15 +37,23 @@ namespace UI_Showcase
         {
             GetAllRepositoryCard();
             
+            m_curBattleCardIdList.Clear();
+            m_curRepositoryCardIdList.AddRange(PlayerState.instance.GetBattleCards().ConvertAll(c => c.id));
+            
             m_curRepositoryCardIdList.Clear();
             m_curRepositoryCardIdList.AddRange(m_AllRepositoryCardList.ConvertAll(c => c.id));
+            foreach (CardObject cardObject in PlayerState.instance.GetBattleCards())
+            {
+                m_curRepositoryCardIdList.Remove(cardObject.id);
+            }
+
             
-            m_curBattleCardIdList.Clear();
         }
 
         public override void OnShow(params object[] objects)
         {
-            ReFillAllRepositoryCard();
+            ReFillCurRepositoryCard();
+            ReFillBattleCard();
         }
 
         public override void OnClose()
@@ -57,42 +66,66 @@ namespace UI_Showcase
         /// </summary>
         private void GetAllRepositoryCard()
         {
-            m_AllRepositoryCardList = new List<Card>();
+            m_AllRepositoryCardList = new List<CardObject>();
 
-            Tetromino lShape = Main.instance.GetTetShape("L型");
-            Tetromino jShape = Main.instance.GetTetShape("J型");
-            Tetromino oShape = Main.instance.GetTetShape("O型");
-            Tetromino iShape = Main.instance.GetTetShape("I型");
-            Tetromino tShape = Main.instance.GetTetShape("T型");
-            Tetromino sShape = Main.instance.GetTetShape("S型");
-            Tetromino zShape = Main.instance.GetTetShape("Z型");
+            // Tetromino lShape = Main.instance.GetTetShape("L型");
+            // Tetromino jShape = Main.instance.GetTetShape("J型");
+            // Tetromino oShape = Main.instance.GetTetShape("O型");
+            // Tetromino iShape = Main.instance.GetTetShape("I型");
+            // Tetromino tShape = Main.instance.GetTetShape("T型");
+            // Tetromino sShape = Main.instance.GetTetShape("S型");
+            // Tetromino zShape = Main.instance.GetTetShape("Z型");
             
-            m_AllRepositoryCardList.Add(new Card(0, "0号牌",Color.red, tShape, Skill.Damage, "T型", "消除时，造成2/3/5的数值伤害"));
-            m_AllRepositoryCardList.Add(new Card(1,"1号牌", Color.yellow, iShape, Skill.Power, "I型", "消除时，生成1/2/3层力量buff（每增加1层力量buff攻击牌造成的伤害+1）"));
-            m_AllRepositoryCardList.Add(new Card(2,"2号牌", Color.blue, oShape, Skill.Defend, "O型", "消除时，生成2/3/4点防御值"));
-            m_AllRepositoryCardList.Add(new Card(3,"3号牌", Color.green, iShape, Skill.Heal, "I型", "消除时，恢复2/3/4点生命值"));
-            m_AllRepositoryCardList.Add(new Card(4, "4号牌",Color.red, lShape, Skill.Damage, "L型", "消除时，造成2/3/5的数值伤害"));
-            m_AllRepositoryCardList.Add(new Card(5,"5号牌", Color.yellow, jShape, Skill.Power, "J型", "消除时，生成1/2/3层力量buff（每增加1层力量buff攻击牌造成的伤害+1）"));
-            m_AllRepositoryCardList.Add(new Card(6,"6号牌", Color.blue, oShape, Skill.Defend, "O型", "消除时，生成2/3/4点防御值"));
-            m_AllRepositoryCardList.Add(new Card(7,"7号牌", Color.green, iShape, Skill.Heal, "I型", "消除时，恢复2/3/4点生命值"));
-            m_AllRepositoryCardList.Add(new Card(8,"8号牌", Color.blue, iShape, Skill.Heal, "L型", "消除时，恢复2/3/4点生命值"));
-            m_AllRepositoryCardList.Add(new Card(9,"9号牌", Color.red, iShape, Skill.Heal, "O型", "消除时，恢复2/3/4点生命值"));
-            m_AllRepositoryCardList.Add(new Card(10,"10号牌", Color.yellow, iShape, Skill.Heal, "J型", "消除时，恢复2/3/4点生命值"));
-            
+            // m_AllRepositoryCardList.Add(new Card(0, "0号牌",Color.red, tShape, Skill.Damage, "T型", "消除时，造成2/3/5的数值伤害"));
+            // m_AllRepositoryCardList.Add(new Card(1,"1号牌", Color.yellow, iShape, Skill.Power, "I型", "消除时，生成1/2/3层力量buff（每增加1层力量buff攻击牌造成的伤害+1）"));
+            // m_AllRepositoryCardList.Add(new Card(2,"2号牌", Color.blue, oShape, Skill.Defend, "O型", "消除时，生成2/3/4点防御值"));
+            // m_AllRepositoryCardList.Add(new Card(3,"3号牌", Color.green, iShape, Skill.Heal, "I型", "消除时，恢复2/3/4点生命值"));
+            // m_AllRepositoryCardList.Add(new Card(4, "4号牌",Color.red, lShape, Skill.Damage, "L型", "消除时，造成2/3/5的数值伤害"));
+            // m_AllRepositoryCardList.Add(new Card(5,"5号牌", Color.yellow, jShape, Skill.Power, "J型", "消除时，生成1/2/3层力量buff（每增加1层力量buff攻击牌造成的伤害+1）"));
+            // m_AllRepositoryCardList.Add(new Card(6,"6号牌", Color.blue, oShape, Skill.Defend, "O型", "消除时，生成2/3/4点防御值"));
+            // m_AllRepositoryCardList.Add(new Card(7,"7号牌", Color.green, iShape, Skill.Heal, "I型", "消除时，恢复2/3/4点生命值"));
+            // m_AllRepositoryCardList.Add(new Card(8,"8号牌", Color.blue, iShape, Skill.Heal, "L型", "c"));
+            // m_AllRepositoryCardList.Add(new Card(9,"9号牌", Color.red, iShape, Skill.Heal, "O型", "消除时，恢复2/3/4点生命值"));
+            // m_AllRepositoryCardList.Add(new Card(10,"10号牌", Color.yellow, iShape, Skill.Heal, "J型", "消除时，恢复2/3/4点生命值"));
+            // foreach (CardObject cardObject in PlayerState.instance.GetAllCards())
+            // {
+            //     m_AllRepositoryCardList.Add(cardObject);
+            // }
+
+            if (PlayerState.instance.GetAllCards().Count <= 0)
+            {
+                PlayerState.instance.AddBattleCards(CardManager.GetCardById(0));
+                PlayerState.instance.AddBattleCards(CardManager.GetCardById(1));
+                PlayerState.instance.AddBattleCards(CardManager.GetCardById(2));
+                
+                m_AllRepositoryCardList.Add(CardManager.GetCardById(0));
+                m_AllRepositoryCardList.Add(CardManager.GetCardById(1));
+                m_AllRepositoryCardList.Add(CardManager.GetCardById(2));
+            }
         }
 
         /// <summary>
         /// 生成初始时仓库中所有卡牌
         /// </summary>
-        private void ReFillAllRepositoryCard()
+        private void ReFillCurRepositoryCard()
         {
             for (int i = 0; i < m_curRepositoryCardIdList.Count; i++)
             {
                 CreateRepositoryFullCard(GetCardById(m_curRepositoryCardIdList[i]), repositoryCardScrollRect.content);
             }
         }
+        /// <summary>
+        /// 生成初始时战斗中所有卡牌
+        /// </summary>
+        private void ReFillBattleCard()
+        {
+            for (int i = 0; i < m_curBattleCardIdList.Count; i++)
+            {
+                CreateBattleFullCard(GetCardById(m_curBattleCardIdList[i]), battleCardScrollRect.content);
+            }
+        }
 
-        private MonoFullCard CreateRepositoryFullCard(Card card, Transform parent)
+        private MonoFullCard CreateRepositoryFullCard(CardObject card, Transform parent)
         {
             MonoFullCard monoFullCard = Instantiate(fullCardPrefab, parent).GetComponent<MonoFullCard>();
             monoFullCard.RepositoryInit(card);
@@ -102,7 +135,7 @@ namespace UI_Showcase
             return monoFullCard;
         }
 
-        private MonoFullCard CreateBattleFullCard(Card card, Transform parent)
+        private MonoFullCard CreateBattleFullCard(CardObject card, Transform parent)
         {
             MonoFullCard monoFullCard = Instantiate(fullCardPrefab, parent).GetComponent<MonoFullCard>();
             monoFullCard.RepositoryInit(card);
@@ -112,7 +145,7 @@ namespace UI_Showcase
             return monoFullCard;
         }
 
-        private MonoFullCard CreateDoTweenFullCard(Card card, Transform parent)
+        private MonoFullCard CreateDoTweenFullCard(CardObject card, Transform parent)
         {
             MonoFullCard monoFullCard = Instantiate(fullCardPrefab, parent).GetComponent<MonoFullCard>();
             monoFullCard.RepositoryInit(card);
@@ -125,7 +158,7 @@ namespace UI_Showcase
         /// </summary>
         /// <param name="selectedCard">选中的卡牌的 Card 信息</param>
         /// <param name="disappearCardInRepository">原先在下面的消失的 MonoFullCard</param>
-        private async void SelectOneCard(Card selectedCard, MonoFullCard disappearCardInRepository)
+        private async void SelectOneCard(CardObject selectedCard, MonoFullCard disappearCardInRepository)
         {
             if (isOperateCard) return;
 
@@ -199,7 +232,7 @@ namespace UI_Showcase
         /// </summary>
         /// <param name="unSelectedCard">取消选中的卡牌的 Card 信息</param>
         /// <param name="disappearCardInBattle">原先在上面的消失的 MonoFullCard</param>
-        private async void UnSelectOneCard(Card unSelectedCard, MonoFullCard disappearCardInBattle)
+        private async void UnSelectOneCard(CardObject unSelectedCard, MonoFullCard disappearCardInBattle)
         {
             if (isOperateCard) return;
 
@@ -283,7 +316,7 @@ namespace UI_Showcase
 
         #region Tool
 
-        private Card GetCardById(int id)
+        private CardObject GetCardById(int id)
         {
             return m_AllRepositoryCardList.Find(card => card.id == id);
         }

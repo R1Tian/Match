@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ShowCardInBattle : MonoBehaviour
 {
     public GameObject Prefeb;
-    private List<Card> PlayerCards;
+    private List<CardObject> PlayerCards;
     private float Offset = 120f;
     private float CurOffset = 0f;
     // Start is called before the first frame update
