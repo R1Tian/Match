@@ -1147,7 +1147,7 @@ MonoBehaviour:
   - {fileID: 1727240067667884421, guid: 631715577a29f474b94e27e9cfa4f52b, type: 3}
   - {fileID: 1727240067667884421, guid: 9bb448e8f2e92ac47ab0078d2b56ded0, type: 3}
   blankPrefab: {fileID: 1040574174538716268, guid: ac37149fde884ee47bb082e3aacf216e, type: 3}
-  blank: {fileID: 0}
+  VanishEffectPrefab: {fileID: 3382936585215799674, guid: afa60a6215c279148ab9a1d7ce7eb44e, type: 3}
   boardSize: 5
   blockSize: 0.8
   tipCube: {fileID: 0}

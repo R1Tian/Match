@@ -72,10 +72,16 @@ public enum AllCountsType
 public class TetrisStats : MonoBehaviour
 {
     public List<GameObject> cubePrefab = new List<GameObject>();
+    
     public GameObject blankPrefab;// 选中框预制体
-    public GameObject blank;
+    GameObject blank;
+
+    public GameObject VanishEffectPrefab;//消除特效预制体
+    private List<GameObject> VanishEffects = new List<GameObject>();
+    
     public int boardSize = 8; // 自定义棋盘大小
     public float blockSize = 1f;// 格子大小
+
 
     private Color[] colors = { Color.red, Color.green, Color.blue, Color.yellow };
     private string[] colorNames = { "红色", "绿色" ,"蓝色", "黄色" };
@@ -197,10 +203,12 @@ public class TetrisStats : MonoBehaviour
 
     private void OnDestroy()
     {
+        
         foreach (GameObject cube in cubeMatrix)
         {
             Destroy(cube);
         }
+        Destroy(blank);
         Destroy(GameObject.Find("BoardBG(Clone)"));
     }
     // public void Start()
@@ -251,6 +259,7 @@ public class TetrisStats : MonoBehaviour
             if (EnemyState.instance.GetHP() <= 0)
             {
                 PanelManager.Open<RewardPanel>("Reward");
+                DOTween.KillAll();
                 isRewarded = true;
             }
         }
@@ -638,7 +647,7 @@ public class TetrisStats : MonoBehaviour
                     {
                         for (; curCounts[pair.Key] > 0; curCounts[pair.Key]--)
                         {
-                            Debug.Log(card.id);
+                            //Debug.Log(card.id);
                             card.Do();
                         }
                     }
@@ -838,6 +847,9 @@ public class TetrisStats : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
         sequence.SetAutoKill(false);
         List<UniTask> moveUniTasks = new List<UniTask>();
+
+        List<GameObject> destroyCubes = new List<GameObject>();
+        
         for (int i = 0; i < boardSize; i++) {
             int slow = boardSize - 1;
 
@@ -857,8 +869,14 @@ public class TetrisStats : MonoBehaviour
                 }
                 else
                 {
-                    Destroy(cubeMatrix[i, fast]);
+                    VanishEffects.Add(GameObject.Instantiate(VanishEffectPrefab,cubeMatrix[i, fast].transform.position + Vector3.back,Quaternion.identity));
+                    destroyCubes.Add(cubeMatrix[i, fast]);
                 }
+            }
+
+            foreach (GameObject cube in destroyCubes)
+            {
+                Destroy(cube);
             }
 
             for (int now = 1; slow >= 0; slow--) {
