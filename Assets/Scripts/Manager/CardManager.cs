@@ -12,6 +12,7 @@ public class CardManager
 
 
         foreach (var item in CardList) {
+            item.InitStrategy();
             CardDic.TryAdd(item.id, item);
         }
     }

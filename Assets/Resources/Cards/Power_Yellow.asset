@@ -12,23 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f02ea13de62efc4a933ecc896e999c9, type: 3}
   m_Name: Power_Yellow
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
   id: 2
   Name: "\u529B\u91CFI"
   Shape: "I\u578B"
   Quality: 0
   Color: {r: 1, g: 1, b: 0, a: 1}
+  Level: 1
   ColorType: 2
   TetrominoType: 4
   CardFace: {fileID: 0}
   SkillName:
-  - Power
+  - Power_Yellow_Power
   SkillDes: "\u6D88\u9664\u65F6\uFF0C\u751F\u62101/2/3\u5C42\u529B\u91CFbuff\uFF08\u6BCF\u589E\u52A01\u5C42\u529B\u91CFbuff\u653B\u51FB\u724C\u9020\u6210\u7684\u4F24\u5BB3+1\uFF09"
