@@ -25,6 +25,7 @@ namespace Map {
                 OnClickAction = null;
                 InitMapSetting.PointList[InitMapSetting.LastNodeIndex].Finished = true;
                 gameObject.GetComponent<Image>().color = Color.red;
+                Tip.SetActive(false);
             }
         }
 
