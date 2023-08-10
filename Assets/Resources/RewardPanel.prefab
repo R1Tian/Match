@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 5803473659891944620}
   - component: {fileID: 8596276086464346433}
   m_Layer: 0
-  m_Name: Reward
+  m_Name: RewardPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
