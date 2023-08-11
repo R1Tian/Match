@@ -3,6 +3,7 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using System.Threading;
 using DG.Tweening;
 using TMPro;
 using Cysharp.Threading.Tasks;
@@ -172,8 +173,22 @@ public class TetrisStats : MonoBehaviour
     //是否生成过奖励弹窗
     private bool isRewarded = false;
     
+    //取消令牌
+    static CancellationTokenSource cts = new CancellationTokenSource();
+    CancellationToken cancellationToken = cts.Token;
+
+    private void ResetToken()
+    {
+        cts.Cancel();
+        cts.Dispose();
+        cts = new CancellationTokenSource();
+        cancellationToken = cts.Token;
+    }
+    
+    
     private void OnEnable()
     {
+        ResetToken();
         BattleInitiate();
         boardContainer = GameObject.Find("BoardContainer").transform;
 
@@ -203,12 +218,19 @@ public class TetrisStats : MonoBehaviour
 
     private void OnDestroy()
     {
+        //取消所有UniTask
+        cts.Cancel();
         
         foreach (GameObject cube in cubeMatrix)
         {
             Destroy(cube);
         }
-        Destroy(blank);
+
+        if (blank != null)
+        {
+            Destroy(blank);
+        }
+        
         Destroy(GameObject.Find("BoardBG(Clone)"));
     }
     // public void Start()
@@ -293,19 +315,19 @@ public class TetrisStats : MonoBehaviour
 
 
 
-    public async UniTask LoopWithUsingCards()
+    public async UniTask LoopWithUsingCards(CancellationToken cancellationToken)
     {
         while (matchedBlocks.Count > 0)
         {
             //yield return new WaitForSeconds(0.1f);
-            await UpdateBoardWithMatches(matchedBlocks);
+            await UpdateBoardWithMatches(matchedBlocks,cancellationToken);
             matchedBlocks.Clear();
-            await ChangeColor();
+            await ChangeColor(cancellationToken);
             //yield return new WaitForSeconds(0.5f);
-            await CountTetrominoesWithUsingCard();
+            await CountTetrominoesWithUsingCard(cancellationToken);
         }
 
-        if (!await CheckCanEliminate())
+        if (!await CheckCanEliminate(cancellationToken))
         {
             GenerateRuledBoard();
         }
@@ -313,14 +335,14 @@ public class TetrisStats : MonoBehaviour
         ChangeToCanSwap();;
     }
 
-    public async UniTask LoopWithoutUsingCards()
+    public async UniTask LoopWithoutUsingCards(CancellationToken cancellationToken)
     {
         while (matchedBlocks.Count > 0)
         {
-            await UpdateBoardWithMatches(matchedBlocks);
+            await UpdateBoardWithMatches(matchedBlocks,cancellationToken);
             matchedBlocks.Clear();
             ChangeColorOnlyBoard();
-            await CountTetrominoesWithoutUsingCard();
+            await CountTetrominoesWithoutUsingCard(cancellationToken);
         }
 
         ChangeToCanSwap();;
@@ -391,7 +413,7 @@ public class TetrisStats : MonoBehaviour
         return rotatedBoard;
     }
 
-    public async UniTask CountTetrominoesWithUsingCard()
+    public async UniTask CountTetrominoesWithUsingCard(CancellationToken cancellationToken)
     {
         List<int[,]> rotatedBoard = GenerateRotatedBoard(board);
 
@@ -660,7 +682,7 @@ public class TetrisStats : MonoBehaviour
         
     }
     
-    public async UniTask CountTetrominoesWithoutUsingCard()
+    public async UniTask CountTetrominoesWithoutUsingCard(CancellationToken cancellationToken)
     {
         List<int[,]> rotatedBoard = GenerateRotatedBoard(board);
 
@@ -823,7 +845,7 @@ public class TetrisStats : MonoBehaviour
     }
 
 
-    private async UniTask UpdateBoardWithMatches(List<Vector2Int> matchedBlocks)
+    private async UniTask UpdateBoardWithMatches(List<Vector2Int> matchedBlocks,CancellationToken cancellationToken)
     {
 
         // 使用 HashSet 存储唯一的格子位置
@@ -842,7 +864,7 @@ public class TetrisStats : MonoBehaviour
     }
 
 
-    public  async UniTask ChangeColor()
+    public  async UniTask ChangeColor(CancellationToken cancellationToken)
     {
         Sequence sequence = DOTween.Sequence();
         sequence.SetAutoKill(false);
@@ -859,9 +881,13 @@ public class TetrisStats : MonoBehaviour
                     board[i, slow] = board[i, fast];
 
                     //动画效果
-                    sequence.Join(cubeMatrix[i, fast].transform
-                        .DOMove(cubeMatrix[i, slow].transform.position, (slow - fast) * fallTime));
-                    //moveUniTasks.Add(cubeMatrix[i, fast].transform.DOMove(cubeMatrix[i, slow].transform.position, (slow - fast) * fallTime).AsyncWaitForCompletion().AsUniTask());
+                    if (cubeMatrix[i, fast] != null && cubeMatrix[i, slow] != null)
+                    {
+                        sequence.Join(cubeMatrix[i, fast].transform
+                            .DOMove(cubeMatrix[i, slow].transform.position, (slow - fast) * fallTime));
+                        //moveUniTasks.Add(cubeMatrix[i, fast].transform.DOMove(cubeMatrix[i, slow].transform.position, (slow - fast) * fallTime).AsyncWaitForCompletion().AsUniTask());
+                    }
+                    
                     
                     //更新cubeMatrix数据
                     cubeMatrix[i, slow] = cubeMatrix[i, fast];
@@ -869,8 +895,12 @@ public class TetrisStats : MonoBehaviour
                 }
                 else
                 {
-                    VanishEffects.Add(GameObject.Instantiate(VanishEffectPrefab,cubeMatrix[i, fast].transform.position + Vector3.back,Quaternion.identity));
-                    destroyCubes.Add(cubeMatrix[i, fast]);
+                    if (cubeMatrix[i, fast] != null)
+                    {
+                        VanishEffects.Add(GameObject.Instantiate(VanishEffectPrefab,cubeMatrix[i, fast].transform.position + Vector3.back,Quaternion.identity));
+                        destroyCubes.Add(cubeMatrix[i, fast]);
+                    }
+                    
                 }
             }
 
@@ -896,7 +926,9 @@ public class TetrisStats : MonoBehaviour
             
         }
         moveUniTasks.Add(sequence.AsyncWaitForCompletion().AsUniTask());
-        await UniTask.WhenAll(moveUniTasks);
+        
+        await UniTask.WhenAll(moveUniTasks).AttachExternalCancellation(cancellationToken).SuppressCancellationThrow();
+        
         sequence.SetAutoKill(true);
     }
     
@@ -978,7 +1010,7 @@ public class TetrisStats : MonoBehaviour
             Destroy(blank);
         }
 
-        await CountTetrominoesWithUsingCard();
+        await CountTetrominoesWithUsingCard(cancellationToken);
 
         if (matchedBlocks.Count == 0)
         {
@@ -986,7 +1018,7 @@ public class TetrisStats : MonoBehaviour
         }
         else
         {
-            await LoopWithUsingCards();
+            await LoopWithUsingCards(cancellationToken);
         }
     }
     
@@ -1090,7 +1122,7 @@ public class TetrisStats : MonoBehaviour
                         selectedBlock1 = null;
                         selectedBlock2 = null;
                         // 统计方块图形个数
-                        CountTetrominoesWithUsingCard();
+                        await CountTetrominoesWithUsingCard(cancellationToken);
 
                         if (matchedBlocks.Count == 0)
                         {
@@ -1098,7 +1130,7 @@ public class TetrisStats : MonoBehaviour
                         }
                         else
                         {
-                            await LoopWithUsingCards();
+                            await LoopWithUsingCards(cancellationToken);
                         }
                         Main.instance.AddOne();
                         turn.text = Main.instance.GetTurn().ToString();
@@ -1156,14 +1188,16 @@ public class TetrisStats : MonoBehaviour
         List<UniTask> swapTaskList = new List<UniTask>();
         
         swapTaskList.Add(sequence.AsyncWaitForCompletion().AsUniTask());
-        await UniTask.WhenAll(swapTaskList);
+
+        await UniTask.WhenAll(swapTaskList).AttachExternalCancellation(cancellationToken).SuppressCancellationThrow();
         sequence.SetAutoKill(true);
+        
         //更新cubeMatrix数据
         GameObject temp1 = cubeMatrix[block1.y, block1.x];
         cubeMatrix[block1.y, block1.x] = cubeMatrix[block2.y, block2.x];
         cubeMatrix[block2.y, block2.x] = temp1;
 
-        await CountTetrominoesWithUsingCard();
+        await CountTetrominoesWithUsingCard(cancellationToken);
 
         if (matchedBlocks.Count == 0)
         {
@@ -1173,7 +1207,9 @@ public class TetrisStats : MonoBehaviour
             reverseSequence.Join(cubeMatrix[block2.y, block2.x].transform.DOMove(cubeMatrix[block1.y, block1.x].transform.position, 0.2f));
             List<UniTask> reverseTaskList = new List<UniTask>();
             reverseTaskList.Add(reverseSequence.AsyncWaitForCompletion().AsUniTask());
-            await UniTask.WhenAll(reverseTaskList);
+
+            await UniTask.WhenAll(reverseTaskList).AttachExternalCancellation(cancellationToken).SuppressCancellationThrow();
+
             reverseSequence.SetAutoKill(true);
             // 还原数据，交换回来
             int reverseTemp = board[block1.y, block1.x];
@@ -1190,7 +1226,7 @@ public class TetrisStats : MonoBehaviour
         }
         else
         {
-            await LoopWithUsingCards();
+            await LoopWithUsingCards(cancellationToken);
             Main.instance.AddOne();
             turn.text = Main.instance.GetTurn().ToString();
 
@@ -1356,6 +1392,9 @@ public class TetrisStats : MonoBehaviour
         Main.instance.OnSingletonInit();
         //PlayerState.instance.OnSingletonInit();
         playerHP.value = 1;
+        PlayerState.instance.DeleteDamageBuff();
+        PlayerState.instance.DeleteDefenceBuffLayer();
+        
         EnemyState.instance.OnSingletonInit();
         enemyHP.value = 1;
         turn.text = Main.instance.GetTurn().ToString();
@@ -1369,7 +1408,7 @@ public class TetrisStats : MonoBehaviour
         yield return new WaitForSeconds(time);
     }
 
-    public async UniTask<bool> CheckCanEliminate()
+    public async UniTask<bool> CheckCanEliminate(CancellationToken cancellationToken)
     {
         Array.Copy(board, board1, board.Length);
         for (int i = 0; i < boardSize; i++)
@@ -1502,12 +1541,12 @@ public class TetrisStats : MonoBehaviour
         {
             RandomColorOnlyBoard();
 
-            await CountTetrominoesWithoutUsingCard();
+            await CountTetrominoesWithoutUsingCard(cancellationToken);
 
-            await LoopWithoutUsingCards();
+            await LoopWithoutUsingCards(cancellationToken);
 
             ChangeToCanSwap();
-        } while (!await CheckCanEliminate());
+        } while (!await CheckCanEliminate(cancellationToken));
         
         GenerateCubeWithBoard();
         //

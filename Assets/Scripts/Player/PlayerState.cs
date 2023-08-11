@@ -140,6 +140,10 @@ public class PlayerState : ISingleton
     public void DeleteDamageBuff() {
         AttackBuffLayer = 0;
     }
+    
+    public void DeleteDefenceBuffLayer() {
+        DefenceBuffLayer = 0;
+    }
 
     public void Dispose() { SingletonProperty<PlayerState>.Instance.Dispose(); }
 }

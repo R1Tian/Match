@@ -20,4 +20,9 @@ public class CardManager
     {
         return CardDic[ID];
     }
+
+    public static Dictionary<int, CardObject> GetAllCardObjectInResources()
+    {
+        return CardDic;
+    }
 }

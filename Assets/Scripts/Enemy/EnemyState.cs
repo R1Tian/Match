@@ -31,7 +31,6 @@ using UnityEngine;
 //    Turn,
 //    // Add more task types as needed
 //}
-
 public class EnemyState : ISingleton
 {
     public static EnemyState instance
