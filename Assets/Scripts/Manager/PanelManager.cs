@@ -11,7 +11,6 @@ public class PanelManager
     }
 
     private static Dictionary<Layer, Transform> layers = new Dictionary<Layer, Transform>();
-    private static Dictionary<string, string> NameToPath;
     public static Dictionary<string, BasePanel> panels = new Dictionary<string, BasePanel>();
     public static Transform root;
     public static Transform canvas;
@@ -25,27 +24,16 @@ public class PanelManager
         Transform tip = canvas.Find("Tip");
         layers.Add(Layer.panel, panel);
         layers.Add(Layer.TIP, tip);
-        EnrollPath();
     }
 
-    private static void EnrollPath()
-    {
-        NameToPath = new Dictionary<string, string>
-        {
-            { "StartPanel", "Start" },
-            { "BattlePanel", "BattleField" },
-            { "RewardPanel", "Reward" },
-            { "UI_Showcase.ChooseBattleCardPanel", "ChooseBattleCardPanel" },
-            { "MapPanel", "Map" },
-        };
-    }
+
 
     public static void Open<T>(params object[] objects) where T : BasePanel
     {
         string name = typeof(T).ToString();
         if (panels.ContainsKey(name)) return;
 
-        GameObject skin = Object.Instantiate(ResourcesManager.LoadPrefeb(NameToPath[name]));
+        GameObject skin = Object.Instantiate(ResourcesManager.LoadPrefeb(name));
         
 
         BasePanel panel = skin.GetComponent<BasePanel>();

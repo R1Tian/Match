@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 7846275324551367611}
   - component: {fileID: 210194381929222361}
   m_Layer: 0
-  m_Name: Start
+  m_Name: StartPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

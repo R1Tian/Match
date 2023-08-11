@@ -1794,7 +1794,7 @@ GameObject:
   - component: {fileID: 7846275324551367611}
   - component: {fileID: 7455960336388802543}
   m_Layer: 0
-  m_Name: ChooseBattleCardPanel
+  m_Name: UI_Showcase.ChooseBattleCardPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

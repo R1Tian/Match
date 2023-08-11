@@ -1,7 +1,6 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
-using System.Reflection;
 
 public enum ColorType
 {
@@ -33,6 +32,10 @@ public class CardObject : ScriptableObject
     [ShowInInspector]
     public Color Color ;
 
+    //等级
+    [ShowInInspector]
+    public int Level;
+
     // 颜色类型
     [ShowInInspector]
     public ColorType ColorType ;
@@ -47,29 +50,44 @@ public class CardObject : ScriptableObject
     [ShowInInspector]
     public string[] SkillName;
 
+    //可选策略
+    private IStrategy[] StrategyList;
+
     //技能说明
     [ShowInInspector]
     public string SkillDes ;
 
-    private Action SkillEffect ;
+    private IStrategy SkillEffect ;
 
-    public void Do() {
-        if (SkillEffect == null) {
-            InitEffect();
+    public void InitStrategy() {
+        if (SkillName.Length == 0) {
+            Debug.Log("这张卡 " + Name + "没有技能效果，请检查");
+            return;
         }
-        SkillEffect();
+
+        StrategyList = new IStrategy[SkillName.Length];
+        Debug.Log(SkillName.Length);
+        for (int i = 0; i < SkillName.Length; i++) {
+            Type type = Type.GetType("StrategyMethod." + SkillName[i]);
+            StrategyList[i] = (IStrategy)Activator.CreateInstance(type);
+        }
+
+        SkillEffect = StrategyList[0];
     }
 
-    private void InitEffect() {
-        Type type = typeof(Skill);
-
-        foreach (var item in SkillName) {
-            MethodInfo methodInfo = type.GetMethod(item);
-
-            if (methodInfo != null) {
-                Action action = () => methodInfo.Invoke(type, null);
-                SkillEffect += action;
-            }
+    public void Do() {
+        if (Level > StrategyList.Length)
+        {
+            SkillEffect = StrategyList[StrategyList.Length - 1];
         }
+        else {
+            SkillEffect = StrategyList[Level - 1];
+        }
+        SkillExcute();
+    }
+
+    private void SkillExcute() {
+        SkillEffect.ExcuteStrategy();
+        SkillEffect.ExcuteStrategyByInput(Level);
     }
 }
