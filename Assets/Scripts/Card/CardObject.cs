@@ -1,8 +1,6 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
-using System.Reflection;
-using SkillRelated;
 
 public enum ColorType
 {
@@ -78,11 +76,18 @@ public class CardObject : ScriptableObject
     }
 
     public void Do() {
-        if (Level - 1 > StrategyList.Length) {
-            Debug.Log("这张卡 " + Name + "等级出现错误，此时等级为" + Level);
-            return;
+        if (Level > StrategyList.Length)
+        {
+            SkillEffect = StrategyList[StrategyList.Length - 1];
         }
-        SkillEffect = StrategyList[Level - 1];
+        else {
+            SkillEffect = StrategyList[Level - 1];
+        }
+        SkillExcute();
+    }
+
+    private void SkillExcute() {
         SkillEffect.ExcuteStrategy();
+        SkillEffect.ExcuteStrategyByInput(Level);
     }
 }
