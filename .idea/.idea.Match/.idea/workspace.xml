@@ -3,26 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ea38e703-71ab-4eac-aa5d-4a893e08aa36" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Match/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Match/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Cards/Attack_Red 1.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Cards/Attack_Red 1.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Cards/Attack_Red.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Cards/Attack_Red.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Cards/Heal_Green.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Cards/Heal_Green.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Cards/Power_Yellow.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Cards/Power_Yellow.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/字体文件/SIMKAI SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/字体文件/SIMKAI SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Card/CardObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Card/CardObject.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Manager/CardManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Manager/CardManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Manager/ResourcesManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Manager/ResourcesManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/InitMapSetting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/InitMapSetting.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/MapSetting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/MapSetting.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Skill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Skill.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Strategy/Strategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Strategy/Strategy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TetrisStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TetrisStats.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI_Showcase/RewardPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI_Showcase/RewardPanel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +113,7 @@
       <workItem from="1691727437746" duration="10030000" />
       <workItem from="1691813692771" duration="12523000" />
       <workItem from="1691838152481" duration="2564000" />
-      <workItem from="1691899198261" duration="5450000" />
+      <workItem from="1691899198261" duration="9493000" />
     </task>
     <servers />
   </component>

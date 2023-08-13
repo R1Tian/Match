@@ -16,7 +16,9 @@ public class PlayerState : ISingleton
     private int AttackBuffLayer;
     private int DefenceBuffLayer;
     private int FlexibilityBuffLayer;
-    private int TurtleShellBuffLayer = 0;
+    private int TurtleShellBuffLayer;
+
+    private int BattleCount;//战斗次数（临时用一下，根据战斗次数增加怪物数值）
     private int Damage;
     private List<CardObject> BattleCards;
     private List<CardObject> AllCards;
@@ -31,6 +33,7 @@ public class PlayerState : ISingleton
         DefenceBuffLayer = 0;
         FlexibilityBuffLayer = 0;
         TurtleShellBuffLayer = 0;
+        BattleCount = 0;
         CardRepository = new CardRepository();
         InitBag();
     }
@@ -190,5 +193,21 @@ public class PlayerState : ISingleton
         DefenceBuffLayer = 0;
     }
 
+    // 临时用
+    #region BattleCount
+
+    public int GetBattleCount()
+    {
+        return BattleCount;
+    }
+    
+    public void AddBattleCount()
+    {
+        BattleCount++;
+    }
+
+    #endregion
+    
+    
     public void Dispose() { SingletonProperty<PlayerState>.Instance.Dispose(); }
 }

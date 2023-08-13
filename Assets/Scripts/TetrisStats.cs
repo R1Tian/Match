@@ -280,6 +280,7 @@ public class TetrisStats : MonoBehaviour
         {
             if (EnemyState.instance.GetHP() <= 0)
             {
+                PlayerState.instance.AddBattleCount();
                 PanelManager.Open<RewardPanel>("Reward");
                 DOTween.KillAll();
                 isRewarded = true;
@@ -1380,7 +1381,7 @@ public class TetrisStats : MonoBehaviour
 
     public void Hurt()
     {
-        PlayerState.instance.TakeDamge(100);
+        PlayerState.instance.TakeDamge(EnemyState.instance.GetDamage() + PlayerState.instance.GetBattleCount() * 10);
 
     }
 
@@ -1398,6 +1399,16 @@ public class TetrisStats : MonoBehaviour
         PlayerState.instance.DeleteDefenceBuffLayer();
         
         EnemyState.instance.OnSingletonInit();
+        //todo 临时强化
+
+        #region MyRegion
+
+        EnemyState.instance.AddMaxHP(100 * PlayerState.instance.GetBattleCount());
+        EnemyState.instance.AddHPToMax();
+
+        #endregion
+       
+        
         enemyHP.value = 1;
         turn.text = Main.instance.GetTurn().ToString();
         

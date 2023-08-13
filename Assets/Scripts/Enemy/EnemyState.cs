@@ -56,12 +56,13 @@ public class EnemyState : ISingleton
     public void OnSingletonInit()
     {
         EnemyMaxHP = 100;
-        EnemyHP = 100;
+        EnemyHP = EnemyMaxHP;
         AttackBuffLayer = 0;
         DefenceBuffLayer = 0;
         WeakBuffLayer = 0;
         FragileBuffLayer = 0;
         ArmorPenetrationBuffLayer = 0;
+        Damage = 20;
         //InitTasks();
 
     }
@@ -130,9 +131,24 @@ public class EnemyState : ISingleton
         Damage += damage;
     }
 
+    public int GetDamage()
+    {
+        return Damage;
+    }
+
+    public void AddMaxHP(int hp)
+    {
+        EnemyMaxHP += hp;
+    }
+
+    public void AddHPToMax()
+    {
+        EnemyHP = EnemyMaxHP;
+    }
+
     public int GetDamageBuff() {
-        int res=AttackBuffLayer;
-        AttackBuffLayer=0;
+        int res = AttackBuffLayer;
+        AttackBuffLayer = 0;
         return res;
     }
 
