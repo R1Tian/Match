@@ -7,6 +7,7 @@ using System.Threading;
 using DG.Tweening;
 using TMPro;
 using Cysharp.Threading.Tasks;
+using QFramework;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 using Slider = UnityEngine.UI.Slider;
@@ -188,6 +189,9 @@ public class TetrisStats : MonoBehaviour
     
     private void OnEnable()
     {
+        //更改Canvas的RenderMode
+        CanvasRenderModeManager.ToScreenSpaceCamera();
+        
         ResetToken();
         BattleInitiate();
         boardContainer = GameObject.Find("BoardContainer").transform;
@@ -218,6 +222,7 @@ public class TetrisStats : MonoBehaviour
 
     private void OnDestroy()
     {
+        
         //取消所有UniTask
         cts.Cancel();
         
@@ -226,12 +231,20 @@ public class TetrisStats : MonoBehaviour
             Destroy(cube);
         }
 
+        if (VanishEffects.Count != 0)
+        {
+            foreach (GameObject VanishEffect in VanishEffects)
+            {
+                Destroy(VanishEffect);
+            }
+        }
+        
         if (blank != null)
         {
             Destroy(blank);
         }
         
-        Destroy(GameObject.Find("BoardBG(Clone)"));
+        //Destroy(GameObject.Find("BoardBG(Clone)"));
     }
     // public void Start()
     // {
@@ -280,6 +293,9 @@ public class TetrisStats : MonoBehaviour
         {
             if (EnemyState.instance.GetHP() <= 0)
             {
+                //更改Canvas的RenderMode
+                CanvasRenderModeManager.ToOverlay();
+                
                 PlayerState.instance.AddBattleCount();
                 PanelManager.Open<RewardPanel>("Reward");
                 DOTween.KillAll();
@@ -368,7 +384,7 @@ public class TetrisStats : MonoBehaviour
                     int randomColorIndex = ColorRandom();
                     //Color randomColor = colors[randomColorIndex];
                     board[i, j] = randomColorIndex;
-                    GameObject cube = Instantiate(cubePrefab[randomColorIndex], new Vector3(-boardSize + i + xOffset + 1, -j + yOffset, 0), Quaternion.identity);
+                    GameObject cube = Instantiate(cubePrefab[randomColorIndex], boardContainer.position + new Vector3(-boardSize + i + xOffset + 1, -j + yOffset, 0), Quaternion.identity);
                     //cube.GetComponent<SpriteRenderer>().color = randomColor;
                     cube.transform.SetParent(boardContainer);
                     cubeMatrix[i, j] = cube;
@@ -910,10 +926,12 @@ public class TetrisStats : MonoBehaviour
                 Destroy(cube);
             }
 
+            AudioKit.PlaySound(SoundManager.GetSE_Path() + "Elimination");
+
             for (int now = 1; slow >= 0; slow--) {
                 //now是现在应该在棋盘上方几格处生成一个新的
                 int index = ColorRandom();
-                GameObject cube = Instantiate(cubePrefab[index], new Vector3(-boardSize + i + xOffset + 1, -slow + yOffset + now, 0), Quaternion.identity,boardContainer);
+                GameObject cube = Instantiate(cubePrefab[index], boardContainer.position + new Vector3(-boardSize + i + xOffset + 1, -slow + yOffset + now, 0), Quaternion.identity,boardContainer);
                 cubeMatrix[i, slow] = cube;
                 //cubeMatrix[i, slow].GetComponent<SpriteRenderer>().color = colors[index];
                 board[i, slow] = index;
@@ -924,7 +942,7 @@ public class TetrisStats : MonoBehaviour
                 
             }
 
-            
+            AudioKit.PlaySound(SoundManager.GetSE_Path() + "Drop");
         }
         moveUniTasks.Add(sequence.AsyncWaitForCompletion().AsUniTask());
         
@@ -985,7 +1003,7 @@ public class TetrisStats : MonoBehaviour
                 {
                     Destroy(cubeMatrix[i, j]);
                 }
-                GameObject cube = Instantiate(cubePrefab[board[i, j]], new Vector3(-boardSize + i + xOffset + 1, -j + yOffset, 0), Quaternion.identity, boardContainer);
+                GameObject cube = Instantiate(cubePrefab[board[i, j]], boardContainer.position + new Vector3(-boardSize + i + xOffset + 1, -j + yOffset, 0), Quaternion.identity, boardContainer);
                 
                 //GameObject cube = Instantiate(cubePrefab[board[i, j]], pos, Quaternion.identity, boardContainer);
                 cubeMatrix[i, j] = cube;

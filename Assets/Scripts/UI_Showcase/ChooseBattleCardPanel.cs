@@ -323,7 +323,7 @@ namespace UI_Showcase
                 
             }
             PanelManager.Open<BattlePanel>("BattleField");
-            Instantiate(boardBG);
+            //Instantiate(boardBG);
             Close();
         }
 

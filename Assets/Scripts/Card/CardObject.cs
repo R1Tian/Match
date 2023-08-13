@@ -2,6 +2,7 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
+using QFramework;
 
 public enum ColorType
 {
@@ -60,6 +61,8 @@ public class CardObject : ScriptableObject
 
     private IStrategy SkillEffect ;
 
+    [HideInInspector] public CardShow CardShow;
+    
     public void InitLevel()
     {
         Level = 1;
@@ -81,7 +84,9 @@ public class CardObject : ScriptableObject
         SkillEffect = StrategyList[0];
     }
 
-    public void Do() {
+    public void Do()
+    {
+        NeedToUse();
         if (Level > StrategyList.Length)
         {
             SkillEffect = StrategyList[StrategyList.Length - 1];
@@ -95,5 +100,11 @@ public class CardObject : ScriptableObject
     private void SkillExcute() {
         SkillEffect.ExcuteStrategy();
         SkillEffect.ExcuteStrategyByInput(Level);
+    }
+
+    private void NeedToUse()
+    {
+        CardShow.Animator.SetBool("NeedToUse",true);
+        AudioKit.PlaySound(SoundManager.GetSE_Path() + "CardShowEffect");
     }
 }
