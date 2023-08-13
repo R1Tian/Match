@@ -12,4 +12,10 @@ public class ResourcesManager
     public static CardObject[] LoadAllCards(string path) {
         return Resources.LoadAll<CardObject>(path);
     }
+
+    public static EnemyObject[] LoadAllEnemys(string path)
+    {
+        return Resources.LoadAll<EnemyObject>(path);
+    }
+    
 }

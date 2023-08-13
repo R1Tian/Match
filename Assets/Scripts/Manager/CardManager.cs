@@ -12,6 +12,7 @@ public class CardManager
 
 
         foreach (var item in CardList) {
+            item.InitLevel();
             item.InitStrategy();
             CardDic.TryAdd(item.id, item);
         }
@@ -20,6 +21,15 @@ public class CardManager
     public static CardObject GetCardById(int ID)
     {
         return CardDic[ID];
+    }
+
+    public static void CardLevelUp(CardObject cardObject)
+    {
+        cardObject.Level++;
+        if (cardObject.Level > 3)
+        {
+            cardObject.Level = 3;
+        }
     }
 
     public static Dictionary<int, CardObject> GetAllCardObjectInResources()

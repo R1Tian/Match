@@ -48,18 +48,20 @@ public class EnemyState : ISingleton
     private int DefenceBuffLayer;
     private int WeakBuffLayer;
     private int FragileBuffLayer;
+    private int ArmorPenetrationBuffLayer;
     private int Damage;
     //private List<Task> Tasks = new List<Task>();
 
     #endregion
     public void OnSingletonInit()
     {
-        EnemyMaxHP = 1;
-        EnemyHP = 1;
+        EnemyMaxHP = 100;
+        EnemyHP = 100;
         AttackBuffLayer = 0;
         DefenceBuffLayer = 0;
         WeakBuffLayer = 0;
         FragileBuffLayer = 0;
+        ArmorPenetrationBuffLayer = 0;
         //InitTasks();
 
     }
@@ -67,8 +69,9 @@ public class EnemyState : ISingleton
     public void HealHealth(int hp) {
         EnemyHP += hp;
     }
-    public void TakeDamge(int hp) {
-        EnemyHP -= hp;
+    public void TakeDamge(int hp)
+    {
+        EnemyHP -= (int)Mathf.Floor((hp + PlayerState.instance.GetAttackBuff()) * Mathf.Pow(1.5f, GetArmorPenetrationBuffLayer()));
     }
     public int GetHP() {
         return EnemyHP;
@@ -112,6 +115,16 @@ public class EnemyState : ISingleton
     }
     public int GetFragileBuffLayer() {
         return FragileBuffLayer;
+    }
+    
+    public void AddArmorPenetrationBuffLayer(int layer) {
+        ArmorPenetrationBuffLayer += layer;
+    }
+    public void DropArmorPenetrationBuffLayer(int layer) {
+        ArmorPenetrationBuffLayer -= layer;
+    }
+    public int GetArmorPenetrationBuffLayer() {
+        return ArmorPenetrationBuffLayer;
     }
     public void AddDamage(int damage) {
         Damage += damage;

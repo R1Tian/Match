@@ -112,7 +112,15 @@ public class RewardPanel : BasePanel
 
     void OnCardClick(CardObject card)
     {
-        PlayerState.instance.AddAllCards(card);
+        if (PlayerState.instance.GetAllCards().Contains(card))
+        {
+            CardManager.CardLevelUp(card);
+        }
+        else
+        {
+            PlayerState.instance.AddAllCards(card);
+        }
+        
         foreach (MonoFullCard monoFullCard in allMonoFullCards)
         {
             Destroy(monoFullCard.gameObject);

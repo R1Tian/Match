@@ -15,6 +15,8 @@ public class PlayerState : ISingleton
     private int PlayerMaxHP;
     private int AttackBuffLayer;
     private int DefenceBuffLayer;
+    private int FlexibilityBuffLayer;
+    private int TurtleShellBuffLayer = 0;
     private int Damage;
     private List<CardObject> BattleCards;
     private List<CardObject> AllCards;
@@ -23,10 +25,12 @@ public class PlayerState : ISingleton
 
     public void OnSingletonInit()
     {
-        PlayerHP = 10;
-        PlayerMaxHP = 10;
+        PlayerHP = 1000;
+        PlayerMaxHP = 1000;
         AttackBuffLayer = 0;
         DefenceBuffLayer = 0;
+        FlexibilityBuffLayer = 0;
+        TurtleShellBuffLayer = 0;
         CardRepository = new CardRepository();
         InitBag();
     }
@@ -48,13 +52,15 @@ public class PlayerState : ISingleton
         BattleCards = new List<CardObject>();
         AllCards = new List<CardObject>();
         
-        AddBattleCards(CardManager.GetCardById(0));
         AddBattleCards(CardManager.GetCardById(1));
-        AddBattleCards(CardManager.GetCardById(2));
+        AddBattleCards(CardManager.GetCardById(4));
+        AddBattleCards(CardManager.GetCardById(7));
+        AddBattleCards(CardManager.GetCardById(10));
         
-        AddAllCards(CardManager.GetCardById(0));
         AddAllCards(CardManager.GetCardById(1));
-        AddAllCards(CardManager.GetCardById(2));
+        AddAllCards(CardManager.GetCardById(4));
+        AddAllCards(CardManager.GetCardById(7));
+        AddAllCards(CardManager.GetCardById(10));
     }
 
     //private void TestForCardObject() {
@@ -89,11 +95,25 @@ public class PlayerState : ISingleton
     }
 
     public void HealHealth(int hp) {
-        PlayerHP += hp;
+        PlayerHP += hp + GetFlexibilityBuffLayer();
     }
 
-    public void TakeDamge(int hp) {
+    public void TakeTrueDamge(int hp) {
         PlayerHP -= hp;
+    }
+    
+    public void TakeDamge(int hp) {
+        if (DefenceBuffLayer >= hp)
+        {
+            DefenceBuffLayer -= hp;
+        }
+        else
+        {
+            DefenceBuffLayer = 0;
+            PlayerHP -= hp - DefenceBuffLayer;
+        }
+        
+        
     }
 
     public int GetMaxHP()
@@ -118,7 +138,7 @@ public class PlayerState : ISingleton
     }
 
     public void AddDefenceBuffLayer(int layer) {
-        DefenceBuffLayer += layer;
+        DefenceBuffLayer += layer + GetTurtleShellBuffLayer();
     }
 
     public void DropDefenceBuffLayer(int layer) {
@@ -128,6 +148,31 @@ public class PlayerState : ISingleton
     public int GetDefenceBuffLayer() {
         return DefenceBuffLayer;
     }
+    
+    public void AddFlexibilityBuffLayer(int layer) {
+        FlexibilityBuffLayer += layer;
+    }
+
+    public void DropFlexibilityBuffLayer(int layer) {
+        FlexibilityBuffLayer -= layer;
+    }
+
+    public int GetFlexibilityBuffLayer() {
+        return FlexibilityBuffLayer;
+    }
+
+    public void AddTurtleShellBuffLayer(int layer) {
+        TurtleShellBuffLayer += layer;
+    }
+
+    public void DropTurtleShellBuffLayer(int layer) {
+        TurtleShellBuffLayer -= layer;
+    }
+
+    public int GetTurtleShellBuffLayer() {
+        return TurtleShellBuffLayer;
+    }
+    
 
     public void AddDamage(int damage) {
         Damage += damage;

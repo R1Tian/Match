@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
@@ -59,6 +60,11 @@ public class CardObject : ScriptableObject
 
     private IStrategy SkillEffect ;
 
+    public void InitLevel()
+    {
+        Level = 1;
+    }
+    
     public void InitStrategy() {
         if (SkillName.Length == 0) {
             Debug.Log("这张卡 " + Name + "没有技能效果，请检查");

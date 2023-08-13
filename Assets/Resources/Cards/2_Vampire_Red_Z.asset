@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f02ea13de62efc4a933ecc896e999c9, type: 3}
-  m_Name: Attack_Red
+  m_Name: 2_Vampire_Red_Z
   m_EditorClassIdentifier: 
-  id: 1
-  Name: "\u6253\u51FBT"
-  Shape: "T\u578B"
+  id: 2
+  Name: "\u6253\u51FB\u53E3"
+  Shape: "O\u578B"
   Quality: 0
   Color: {r: 1, g: 0, b: 0, a: 1}
-  Level: 2
+  Level: 1
   ColorType: 0
-  TetrominoType: 2
-  CardFace: {fileID: 21300000, guid: 794dd689569b0b14ba363cedd9f60caf, type: 3}
+  TetrominoType: 3
+  CardFace: {fileID: 0}
   SkillName:
-  - Attack_Red_Normal
-  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u9020\u62102/3/5\u7684\u6570\u503C\u4F24\u5BB3"
+  - Vampire_Red_O
+  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u9020\u62101/2/3\u7684\u6570\u503C\u4F24\u5BB3\uFF0C\u5E76\u83B7\u5F971/2/3\u7684\u6CBB\u7597\u503C"

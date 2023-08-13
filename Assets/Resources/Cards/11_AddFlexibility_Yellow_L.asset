@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f02ea13de62efc4a933ecc896e999c9, type: 3}
-  m_Name: Attack_Red 1
+  m_Name: 11_AddFlexibility_Yellow_L
   m_EditorClassIdentifier: 
-  id: 3
-  Name: "\u6253\u51FBT"
-  Shape: "T\u578B"
+  id: 11
+  Name: "\u8FC5\u75BEL"
+  Shape: "L\u578B"
   Quality: 0
-  Color: {r: 1, g: 0, b: 0, a: 1}
-  Level: 0
-  ColorType: 0
-  TetrominoType: 2
-  CardFace: {fileID: 21300000, guid: 794dd689569b0b14ba363cedd9f60caf, type: 3}
+  Color: {r: 1, g: 1, b: 0, a: 1}
+  Level: 1
+  ColorType: 2
+  TetrominoType: 7
+  CardFace: {fileID: 0}
   SkillName:
-  - Attack_Red_Normal
-  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u9020\u62102/3/5\u7684\u6570\u503C\u4F24\u5BB3"
+  - AddFlexibility_Yellow_L
+  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u751F\u62101/2/3\u5C42\u8FC5\u75BEbuff\uFF08\u6BCF\u589E\u52A01\u5C42\u8FC5\u75BEbuff\u6062\u590D\u751F\u547D\u503C\u7684\u6548\u679C+1\uFF09"

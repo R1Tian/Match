@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f02ea13de62efc4a933ecc896e999c9, type: 3}
-  m_Name: Heal_Green
+  m_Name: 8_Defend_Blue_O
   m_EditorClassIdentifier: 
-  id: 0
-  Name: "\u6CBB\u7597O"
+  id: 8
+  Name: "\u9632\u5FA1\u53E3"
   Shape: "O\u578B"
   Quality: 0
-  Color: {r: 0, g: 1, b: 0, a: 1}
+  Color: {r: 0, g: 0, b: 1, a: 1}
   Level: 1
-  ColorType: 3
+  ColorType: 1
   TetrominoType: 3
-  CardFace: {fileID: 21300000, guid: 794dd689569b0b14ba363cedd9f60caf, type: 3}
+  CardFace: {fileID: 0}
   SkillName:
-  - Heal_Green_Heal
-  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u6062\u590D2/3/4\u70B9\u751F\u547D\u503C"
+  - Defend_Blue_O
+  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u540E\u97621/2/3\u4E2A\u56DE\u5408\u6BCF\u56DE\u5408\u751F\u62101\u70B9\u9632\u5FA1\u503C"

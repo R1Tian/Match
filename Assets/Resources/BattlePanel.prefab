@@ -1160,7 +1160,7 @@ MonoBehaviour:
   playerHP: {fileID: 8298117662415438694}
   enemyHP: {fileID: 8298117662025372862}
   isGeneratingRuledBoard: 0
-  fallTime: 0.4
+  fallTime: 0.2
 --- !u!1 &8298117660772260679
 GameObject:
   m_ObjectHideFlags: 0

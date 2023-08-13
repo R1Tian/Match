@@ -1229,6 +1229,8 @@ public class TetrisStats : MonoBehaviour
             await LoopWithUsingCards(cancellationToken);
             Main.instance.AddOne();
             turn.text = Main.instance.GetTurn().ToString();
+            
+            BuffManager.instance.UpdateBuffs();
 
             if (Main.instance.GetTurn() % 3 == 0 && Main.instance.GetTurn() != 0)
             {
@@ -1378,7 +1380,7 @@ public class TetrisStats : MonoBehaviour
 
     public void Hurt()
     {
-        PlayerState.instance.TakeDamge(1);
+        PlayerState.instance.TakeDamge(100);
 
     }
 
@@ -1398,6 +1400,8 @@ public class TetrisStats : MonoBehaviour
         EnemyState.instance.OnSingletonInit();
         enemyHP.value = 1;
         turn.text = Main.instance.GetTurn().ToString();
+        
+        BuffManager.instance.OnSingletonInit();
         
         InitCurCounts();
         InitAllCounts();

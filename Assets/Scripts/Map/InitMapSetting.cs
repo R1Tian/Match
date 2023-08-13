@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 namespace Map {
-    public enum Setting
+    public enum MapPointType
     {
         EasyEnemy,
         NormalEnemy,
@@ -14,7 +14,7 @@ namespace Map {
 
     public class InitMapSetting : MonoBehaviour
     {
-        public static Dictionary<Setting, Action> MapDic;
+        public static Dictionary<MapPointType, Action> MapDic;
         public static List<MapSetting> PointList;
         public static int LastNodeIndex = -1;
 
@@ -38,12 +38,12 @@ namespace Map {
 
         private void EnrollDic()
         {
-            MapDic = new Dictionary<Setting, Action>
+            MapDic = new Dictionary<MapPointType, Action>
         {
-            { Setting.EasyEnemy, RandomEasyEnemy },
-            { Setting.NormalEnemy, RandomNormalEnemy},
-            { Setting.EliteEnemy, RandomEliteEnemy},
-            { Setting.Support, RandomSupport}
+            { MapPointType.EasyEnemy, RandomEasyEnemy },
+            { MapPointType.NormalEnemy, RandomNormalEnemy},
+            { MapPointType.EliteEnemy, RandomEliteEnemy},
+            { MapPointType.Support, RandomSupport}
         };
 
         }

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f02ea13de62efc4a933ecc896e999c9, type: 3}
+  m_Name: 12_AddTurtleShell_Yellow_O
+  m_EditorClassIdentifier: 
+  id: 12
+  Name: "\u9F9F\u7532\u53E3"
+  Shape: "O\u578B"
+  Quality: 0
+  Color: {r: 1, g: 1, b: 0, a: 1}
+  Level: 1
+  ColorType: 2
+  TetrominoType: 3
+  CardFace: {fileID: 0}
+  SkillName:
+  - AddTurtleShell_Yellow_O
+  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u751F\u62101/2/3\u5C42\u9F9F\u7532buff\uFF08\u6BCF\u589E\u52A01\u5C42\u9F9F\u7532buff\u9632\u5FA1\u503C\u7684\u6548\u679C+1\uFF09"

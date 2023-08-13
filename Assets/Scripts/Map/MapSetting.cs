@@ -6,11 +6,12 @@ using UI_Showcase;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace Map {
     public class MapSetting : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
-        public Setting setting;
+        [FormerlySerializedAs("setting")] public MapPointType mapPointType;
         private Action OnClickAction;
         public GameObject Tip;
         public int index { get; set; }
@@ -56,7 +57,7 @@ namespace Map {
 
         private void Start()
         {
-            OnClickAction += InitMapSetting.MapDic[setting];
+            OnClickAction += InitMapSetting.MapDic[mapPointType];
             OnClickAction += OpenChooseBattleCardPanel;
             OnClickAction += CloseMapPanel;
         }
