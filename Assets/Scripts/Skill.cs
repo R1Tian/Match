@@ -3,6 +3,8 @@ using UnityEngine;
 namespace SkillRelated {
     public class Skill
     {
+        
+        #region DamageRelated
         /// <summary>
         /// 造成伤害(2-3-5)
         /// </summary>
@@ -48,7 +50,11 @@ namespace SkillRelated {
             
             //Debug.Log(TestFunc.EnemyHP);
         }
+
         
+        #endregion
+
+        #region BuffRelate
         /// <summary>
         /// 力量（1-2-3）
         /// </summary>
@@ -90,6 +96,60 @@ namespace SkillRelated {
                     break;
             }
         }
+        
+        /// <summary>
+        /// 生成迅疾buff（1-2-3）
+        /// </summary>
+        /// <param name="level"></param>
+        public static void AddFlexibility(int level)
+        {
+            switch (level)
+            {
+                case 1:
+                    PlayerState.instance.AddFlexibilityBuffLayer(1);
+                    break;
+                case 2:
+                    PlayerState.instance.AddFlexibilityBuffLayer(2);
+                    break;
+                case 3:
+                    PlayerState.instance.AddFlexibilityBuffLayer(3);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 增加龟甲buff
+        /// </summary>
+        /// <param name="level"></param>
+        public static void AddTurtleShell(int level)
+        {
+            switch (level)
+            {
+                case 1:
+                    PlayerState.instance.AddTurtleShellBuffLayer(1);
+                    break;
+                case 2:
+                    PlayerState.instance.AddTurtleShellBuffLayer(2);
+                    break;
+                case 3:
+                    PlayerState.instance.AddTurtleShellBuffLayer(3);
+                    break;
+            }
+        }
+        
+        /// <summary>
+        /// 不准治疗
+        /// </summary>
+        /// <param name="level"></param>
+        public static void ForbidHeal(int level)
+        {
+            PlayerState.instance.ForbidHeal();
+            BuffManager.instance.ApplyDelayEffect(4 - level,4 - level, () => PlayerState.instance.AllowHeal());
+        }
+
+        #endregion
+
+        #region HealRelated
 
         /// <summary>
         /// 持续治疗
@@ -117,12 +177,6 @@ namespace SkillRelated {
                     PlayerState.instance.HealHealth(4);
                     break;
             }
-            
-            if (PlayerState.instance.GetHP() > PlayerState.instance.GetMaxHP())
-            {
-                PlayerState.instance.HealHealth(PlayerState.instance.GetMaxHP() - PlayerState.instance.GetHP());
-            }
-            //Debug.Log(PlayerState.instance.GetHP());
         }
         
         /// <summary>
@@ -132,10 +186,6 @@ namespace SkillRelated {
         public static void FixedHeal(int count)
         {
             PlayerState.instance.HealHealth(count);
-            if (PlayerState.instance.GetHP() > PlayerState.instance.GetMaxHP())
-            {
-                PlayerState.instance.HealHealth(PlayerState.instance.GetMaxHP() - PlayerState.instance.GetHP());
-            }
         }
 
         /// <summary>
@@ -156,37 +206,32 @@ namespace SkillRelated {
                     PlayerState.instance.HealHealth(3);
                     break;
             }
-            
-            if (PlayerState.instance.GetHP() > PlayerState.instance.GetMaxHP())
-            {
-                PlayerState.instance.HealHealth(PlayerState.instance.GetMaxHP() - PlayerState.instance.GetHP());
-            }
-            //Debug.Log(PlayerState.instance.GetHP());
         }
 
         /// <summary>
-        /// 生成迅疾buff（1-2-3）
+        /// 治疗（5-10-15）
         /// </summary>
         /// <param name="level"></param>
-        public static void AddFlexibility(int level)
+        public static void HighHeal(int level)
         {
             switch (level)
             {
                 case 1:
-                    PlayerState.instance.AddFlexibilityBuffLayer(1);
+                    PlayerState.instance.HealHealth(5);
                     break;
                 case 2:
-                    PlayerState.instance.AddFlexibilityBuffLayer(2);
+                    PlayerState.instance.HealHealth(10);
                     break;
                 case 3:
-                    PlayerState.instance.AddFlexibilityBuffLayer(3);
+                    PlayerState.instance.HealHealth(15);
                     break;
             }
         }
-        
-        
-        
 
+        
+        #endregion
+        
+        #region DefendRelated
         /// <summary>
         /// 防御（2-3-4）
         /// </summary>
@@ -227,23 +272,34 @@ namespace SkillRelated {
         }
 
         /// <summary>
-        /// 增加龟甲buff
+        /// 根据已损失生命值生成护甲
         /// </summary>
         /// <param name="level"></param>
-        public static void AddTurtleShell(int level)
+        public static void DefendWithCurHurt(int level)
         {
+            int curHurt = PlayerState.instance.GetMaxHP() - PlayerState.instance.GetHP();
             switch (level)
             {
                 case 1:
-                    PlayerState.instance.AddTurtleShellBuffLayer(1);
+                    PlayerState.instance.AddDefenceBuffLayer(Mathf.FloorToInt(0.02f * curHurt));
                     break;
                 case 2:
-                    PlayerState.instance.AddTurtleShellBuffLayer(2);
+                    PlayerState.instance.AddDefenceBuffLayer(Mathf.FloorToInt(0.03f * curHurt));
                     break;
                 case 3:
-                    PlayerState.instance.AddTurtleShellBuffLayer(3);
+                    PlayerState.instance.AddDefenceBuffLayer(Mathf.FloorToInt(0.04f * curHurt));
                     break;
             }
         }
+        
+
+        #endregion
+        
+        
+        
+
+        
+
+        
     }
 }

@@ -23,6 +23,7 @@ public class PlayerState : ISingleton
     private List<CardObject> BattleCards;
     private List<CardObject> AllCards;
     private CardRepository CardRepository;
+    private bool CanHeal = true;
     #endregion
 
     public void OnSingletonInit()
@@ -98,7 +99,16 @@ public class PlayerState : ISingleton
     }
 
     public void HealHealth(int hp) {
-        PlayerHP += hp + GetFlexibilityBuffLayer();
+        if (CanHeal)
+        {
+            PlayerHP += hp + GetFlexibilityBuffLayer();
+            if (PlayerHP > PlayerMaxHP)
+            {
+                PlayerHP = PlayerMaxHP;
+            }
+        }
+        
+        
     }
 
     public void TakeTrueDamge(int hp) {
@@ -191,6 +201,21 @@ public class PlayerState : ISingleton
     
     public void DeleteDefenceBuffLayer() {
         DefenceBuffLayer = 0;
+    }
+
+    public bool GetCanHeal()
+    {
+        return CanHeal;
+    }
+    
+    public void ForbidHeal()
+    {
+        CanHeal = false;
+    }
+    
+    public void AllowHeal()
+    {
+        CanHeal = true;
     }
 
     // 临时用

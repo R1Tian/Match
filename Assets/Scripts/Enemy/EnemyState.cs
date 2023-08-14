@@ -62,7 +62,7 @@ public class EnemyState : ISingleton
         WeakBuffLayer = 0;
         FragileBuffLayer = 0;
         ArmorPenetrationBuffLayer = 0;
-        Damage = 20;
+        Damage = 8;
         //InitTasks();
 
     }
