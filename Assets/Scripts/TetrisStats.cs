@@ -189,6 +189,8 @@ public class TetrisStats : MonoBehaviour
     
     private void OnEnable()
     {
+        
+        
         //更改Canvas的RenderMode
         CanvasRenderModeManager.ToScreenSpaceCamera();
         
@@ -218,6 +220,10 @@ public class TetrisStats : MonoBehaviour
         yOffset = 0.5f * (boardSize - 1);
 
         isRewarded = false;
+        
+        BattleInitiate();
+        GenerateRuledBoard();
+        ChangeToCanSwap();;
     }
 
     private void OnDestroy()
@@ -293,6 +299,9 @@ public class TetrisStats : MonoBehaviour
         {
             if (EnemyState.instance.GetHP() <= 0)
             {
+                cts.Cancel();
+                AudioKit.StopAllSound();
+                
                 //更改Canvas的RenderMode
                 CanvasRenderModeManager.ToOverlay();
                 
@@ -307,14 +316,14 @@ public class TetrisStats : MonoBehaviour
     public void OnButtonClick()
     {
 
-        BattleInitiate();
+        //BattleInitiate();
 
         // 初始化棋盘和计数器
         //tetrominoCounts = new int[colors.Length * tetrominoNames.Length];
 
         // 生成棋盘颜色
         //GenerateBoardColors();
-
+        BattleInitiate();
         GenerateRuledBoard();
         ChangeToCanSwap();;
         
@@ -1154,7 +1163,7 @@ public class TetrisStats : MonoBehaviour
                         Main.instance.AddOne();
                         turn.text = Main.instance.GetTurn().ToString();
 
-                        if (Main.instance.GetTurn() % 3 == 0 && Main.instance.GetTurn() != 0)
+                        if (Main.instance.GetTurn() % 1 == 0 && Main.instance.GetTurn() != 0)
                         {
                             Hurt();
                         }
@@ -1251,7 +1260,7 @@ public class TetrisStats : MonoBehaviour
             
             BuffManager.instance.UpdateBuffs();
 
-            if (Main.instance.GetTurn() % 3 == 0 && Main.instance.GetTurn() != 0)
+            if (Main.instance.GetTurn() % 1 == 0 && Main.instance.GetTurn() != 0)
             {
                 Hurt();
             }
@@ -1421,7 +1430,7 @@ public class TetrisStats : MonoBehaviour
 
         #region MyRegion
 
-        EnemyState.instance.AddMaxHP(100 * PlayerState.instance.GetBattleCount());
+        EnemyState.instance.AddMaxHP(150 * PlayerState.instance.GetBattleCount());
         EnemyState.instance.AddHPToMax();
 
         #endregion

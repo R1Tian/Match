@@ -122,4 +122,30 @@ namespace StrategyMethod {
             Skill.AddArmorPenetrationToEnemy(level);
         }
     }
+    
+    public class HighHealAndForbidHeal_Green_I : IStrategy
+    {
+        public void ExcuteStrategy() {
+            return;
+        }
+
+        public void ExcuteStrategyByInput(int level)
+        {
+            Skill.HighHeal(level);
+            Skill.ForbidHeal(level);
+        }
+    }
+    
+    public class DefendWithCurHurt_Blue_T : IStrategy
+    {
+        public void ExcuteStrategy() {
+            return;
+        }
+
+        public void ExcuteStrategyByInput(int level)
+        {
+            Skill.DefendWithCurHurt(level);
+        }
+    }
+    
 }

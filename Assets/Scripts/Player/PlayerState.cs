@@ -23,6 +23,7 @@ public class PlayerState : ISingleton
     private List<CardObject> BattleCards;
     private List<CardObject> AllCards;
     private CardRepository CardRepository;
+    private bool CanHeal = true;
     #endregion
 
     public void OnSingletonInit()
@@ -41,6 +42,17 @@ public class PlayerState : ISingleton
     private void InitBag()
     {
         Tetromino LShape = Main.instance.GetTetShape("L型");
+        //Card Card1 = new Card("AA", Color.red, LShape, Skill.Damage, "L型", "消除时，造成2/3/5的数值伤害");
+        //Card Card2 = new Card("BB", Color.yellow, LShape, Skill.Power, "L型", "消除时，生成1/2/3层力量buff（每增加1层力量buff攻击牌造成的伤害+1）");
+        //Card Card3 = new Card("CC", Color.blue, LShape, Skill.Defend, "L型", "消除时，生成2/3/4点防御值");
+        //Card Card4 = new Card("DD", Color.green, LShape, Skill.Heal, "L型", "消除时，恢复2/3/4点生命值");
+
+        //CardRepository.AddCard(Card1);
+        //CardRepository.AddCard(Card2);
+        //CardRepository.AddCard(Card3);
+        //CardRepository.AddCard(Card4);
+
+        //BattleCards = new List<Card> { Card1, Card2, Card3, Card4 };
         BattleCards = new List<CardObject>();
         AllCards = new List<CardObject>();
         
@@ -54,6 +66,14 @@ public class PlayerState : ISingleton
         AddAllCards(CardManager.GetCardById(7));
         AddAllCards(CardManager.GetCardById(10));
     }
+
+    //private void TestForCardObject() {
+    //    CardObject test1 = CardManager.GetCardById(0);
+    //    CardObject test2 = CardManager.GetCardById(1);
+
+    //    Debug.Log(test1.name);
+    //    Debug.Log(test2.Shape);
+    //}
 
     public List<CardObject> GetBattleCards() {
         return BattleCards;
@@ -74,11 +94,21 @@ public class PlayerState : ISingleton
     
     public List<CardObject> GetAllCards()
     {
+        //return CardRepository.GetAllCards();
         return AllCards;
     }
 
     public void HealHealth(int hp) {
-        PlayerHP += hp + GetFlexibilityBuffLayer();
+        if (CanHeal)
+        {
+            PlayerHP += hp + GetFlexibilityBuffLayer();
+            if (PlayerHP > PlayerMaxHP)
+            {
+                PlayerHP = PlayerMaxHP;
+            }
+        }
+        
+        
     }
 
     public void TakeTrueDamge(int hp) {
@@ -171,6 +201,21 @@ public class PlayerState : ISingleton
     
     public void DeleteDefenceBuffLayer() {
         DefenceBuffLayer = 0;
+    }
+
+    public bool GetCanHeal()
+    {
+        return CanHeal;
+    }
+    
+    public void ForbidHeal()
+    {
+        CanHeal = false;
+    }
+    
+    public void AllowHeal()
+    {
+        CanHeal = true;
     }
 
     // 临时用

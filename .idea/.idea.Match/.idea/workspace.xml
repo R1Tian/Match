@@ -3,20 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="ea38e703-71ab-4eac-aa5d-4a893e08aa36" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Match/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Match/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefeb/Card.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefeb/Card.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefeb/MapPoint.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefeb/MapPoint.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Animator/VanishEffect.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Animator/VanishEffect.controller" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/BattlePanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BattlePanel.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/MapPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MapPanel.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/字体文件/SIMKAI SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/字体文件/SIMKAI SDF.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test123.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test123.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Card/CardObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Card/CardObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Skill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Skill.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Strategy/Strategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Strategy/Strategy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TetrisStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TetrisStats.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/CardShow/CardShow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/CardShow/CardShow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/CardShow/ShowCardInBattle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/CardShow/ShowCardInBattle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI_Showcase/ChooseBattleCardPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI_Showcase/ChooseBattleCardPanel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/de.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/de.cs.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,6 +122,7 @@
       <workItem from="1691899198261" duration="10819000" />
       <workItem from="1691919170135" duration="3471000" />
       <workItem from="1691928207642" duration="17035000" />
+      <workItem from="1691985931549" duration="5741000" />
     </task>
     <servers />
   </component>
