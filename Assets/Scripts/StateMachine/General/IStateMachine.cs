@@ -1,1 +1,3 @@
-public interface IStateMachine { }
+public interface IStateMachine {
+    
+}

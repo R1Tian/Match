@@ -9,7 +9,7 @@ public class EnemyObject : ScriptableObject
     [ShowInInspector]
     public int id;
     
-    // 卡牌名称
+    // 怪物名称
     [ShowInInspector]
     public string Name ;
     
@@ -21,9 +21,11 @@ public class EnemyObject : ScriptableObject
     [ShowInInspector]
     public EnemyType Type;
 
-    //状态机
-    public IStateMachine state;
+    //攻击
+    [ShowInInspector]
+    public int BasicAttack;
 
-
-
+    //怪物形象
+    [ShowInInspector]
+    public Sprite Image;
 }
