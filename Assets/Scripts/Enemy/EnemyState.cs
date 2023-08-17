@@ -19,6 +19,13 @@ public partial class EnemyState : ISingleton
     private int ID;
     private int AttackVal;
     private Sprite sprite;
+    
+    //buff
+    private int AttackBuffLayer;
+    private int DefenceBuffLayer;
+    private int WeakBuffLayer;
+    private int FragileBuffLayer;
+    private int ArmorPenetrationBuffLayer;
 
     #endregion
     public void OnSingletonInit()
