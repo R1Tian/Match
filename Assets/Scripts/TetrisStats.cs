@@ -174,19 +174,12 @@ public class TetrisStats : MonoBehaviour
     //是否生成过奖励弹窗
     private bool isRewarded = false;
     
+    //现在使用CancellationTokenManager了
     //取消令牌
-    static CancellationTokenSource cts = new CancellationTokenSource();
-    CancellationToken cancellationToken = cts.Token;
+    // static CancellationTokenSource battleCts = new CancellationTokenSource();
+    // CancellationToken battleCancellationToken = battleCts.Token;
 
-    private void ResetToken()
-    {
-        cts.Cancel();
-        cts.Dispose();
-        cts = new CancellationTokenSource();
-        cancellationToken = cts.Token;
-    }
-    
-    
+
     private void OnEnable()
     {
         
@@ -194,7 +187,9 @@ public class TetrisStats : MonoBehaviour
         //更改Canvas的RenderMode
         CanvasRenderModeManager.ToScreenSpaceCamera();
         
-        ResetToken();
+        //重置取消令牌
+        CancellationTokenManager.ResetBattleToken();
+        
         BattleInitiate();
         boardContainer = GameObject.Find("BoardContainer").transform;
 
@@ -229,8 +224,8 @@ public class TetrisStats : MonoBehaviour
     private void OnDestroy()
     {
         
-        //取消所有UniTask
-        cts.Cancel();
+        //取消所有战斗界面UniTask
+        CancellationTokenManager.battleCts.Cancel();
         
         foreach (GameObject cube in cubeMatrix)
         {
@@ -299,7 +294,7 @@ public class TetrisStats : MonoBehaviour
         {
             if (EnemyState.instance.GetHP() <= 0)
             {
-                cts.Cancel();
+                CancellationTokenManager.battleCts.Cancel();
                 AudioKit.StopAllSound();
                 
                 //更改Canvas的RenderMode
@@ -1038,7 +1033,7 @@ public class TetrisStats : MonoBehaviour
             Destroy(blank);
         }
 
-        await CountTetrominoesWithUsingCard(cancellationToken);
+        await CountTetrominoesWithUsingCard(CancellationTokenManager.battleCancellationToken);
 
         if (matchedBlocks.Count == 0)
         {
@@ -1046,7 +1041,7 @@ public class TetrisStats : MonoBehaviour
         }
         else
         {
-            await LoopWithUsingCards(cancellationToken);
+            await LoopWithUsingCards(CancellationTokenManager.battleCancellationToken);
         }
     }
     
@@ -1150,7 +1145,7 @@ public class TetrisStats : MonoBehaviour
                         selectedBlock1 = null;
                         selectedBlock2 = null;
                         // 统计方块图形个数
-                        await CountTetrominoesWithUsingCard(cancellationToken);
+                        await CountTetrominoesWithUsingCard(CancellationTokenManager.battleCancellationToken);
 
                         if (matchedBlocks.Count == 0)
                         {
@@ -1158,7 +1153,7 @@ public class TetrisStats : MonoBehaviour
                         }
                         else
                         {
-                            await LoopWithUsingCards(cancellationToken);
+                            await LoopWithUsingCards(CancellationTokenManager.battleCancellationToken);
                         }
                         Main.instance.AddOne();
                         turn.text = Main.instance.GetTurn().ToString();
@@ -1217,7 +1212,7 @@ public class TetrisStats : MonoBehaviour
         
         swapTaskList.Add(sequence.AsyncWaitForCompletion().AsUniTask());
 
-        await UniTask.WhenAll(swapTaskList).AttachExternalCancellation(cancellationToken).SuppressCancellationThrow();
+        await UniTask.WhenAll(swapTaskList).AttachExternalCancellation(CancellationTokenManager.battleCancellationToken).SuppressCancellationThrow();
         sequence.SetAutoKill(true);
         
         //更新cubeMatrix数据
@@ -1225,7 +1220,7 @@ public class TetrisStats : MonoBehaviour
         cubeMatrix[block1.y, block1.x] = cubeMatrix[block2.y, block2.x];
         cubeMatrix[block2.y, block2.x] = temp1;
 
-        await CountTetrominoesWithUsingCard(cancellationToken);
+        await CountTetrominoesWithUsingCard(CancellationTokenManager.battleCancellationToken);
 
         if (matchedBlocks.Count == 0)
         {
@@ -1236,7 +1231,7 @@ public class TetrisStats : MonoBehaviour
             List<UniTask> reverseTaskList = new List<UniTask>();
             reverseTaskList.Add(reverseSequence.AsyncWaitForCompletion().AsUniTask());
 
-            await UniTask.WhenAll(reverseTaskList).AttachExternalCancellation(cancellationToken).SuppressCancellationThrow();
+            await UniTask.WhenAll(reverseTaskList).AttachExternalCancellation(CancellationTokenManager.battleCancellationToken).SuppressCancellationThrow();
 
             reverseSequence.SetAutoKill(true);
             // 还原数据，交换回来
@@ -1254,7 +1249,7 @@ public class TetrisStats : MonoBehaviour
         }
         else
         {
-            await LoopWithUsingCards(cancellationToken);
+            await LoopWithUsingCards(CancellationTokenManager.battleCancellationToken);
             Main.instance.AddOne();
             turn.text = Main.instance.GetTurn().ToString();
             
@@ -1583,12 +1578,12 @@ public class TetrisStats : MonoBehaviour
         {
             RandomColorOnlyBoard();
 
-            await CountTetrominoesWithoutUsingCard(cancellationToken);
+            await CountTetrominoesWithoutUsingCard(CancellationTokenManager.battleCancellationToken);
 
-            await LoopWithoutUsingCards(cancellationToken);
+            await LoopWithoutUsingCards(CancellationTokenManager.battleCancellationToken);
 
             ChangeToCanSwap();
-        } while (!await CheckCanEliminate(cancellationToken));
+        } while (!await CheckCanEliminate(CancellationTokenManager.battleCancellationToken));
         
         GenerateCubeWithBoard();
         //

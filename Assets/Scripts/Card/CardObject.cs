@@ -2,6 +2,7 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 using System;
+using System.Threading;
 using QFramework;
 
 public enum ColorType
@@ -86,7 +87,7 @@ public class CardObject : ScriptableObject
 
     public void Do()
     {
-        NeedToUse();
+        NeedToUse(CancellationTokenManager.battleCancellationToken);
         if (Level > StrategyList.Length)
         {
             SkillEffect = StrategyList[StrategyList.Length - 1];
@@ -102,9 +103,17 @@ public class CardObject : ScriptableObject
         SkillEffect.ExcuteStrategyByInput(Level);
     }
 
-    private void NeedToUse()
+    private async void NeedToUse(CancellationToken cancellationToken)
     {
         CardShow.Animator.SetBool("NeedToUse",true);
         AudioKit.PlaySound(SoundManager.GetSE_Path() + "CardShowEffect");
+        await ShowCardInBattle.MoveToFirst(CardShow,CancellationTokenManager.battleCancellationToken).SuppressCancellationThrow();
+    }
+    
+    private void NeedToUse1()
+    {
+        CardShow.Animator.SetBool("NeedToUse",true);
+        AudioKit.PlaySound(SoundManager.GetSE_Path() + "CardShowEffect");
+        ShowCardInBattle.MoveToFirst1(CardShow);
     }
 }
