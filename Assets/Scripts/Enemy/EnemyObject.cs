@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using Map;
-using System;
 [CreateAssetMenu(fileName = "Data", menuName = "Scriptable_Object/EnemyObject")]
 public class EnemyObject : ScriptableObject
 {
@@ -11,7 +9,7 @@ public class EnemyObject : ScriptableObject
     [ShowInInspector]
     public int id;
     
-    // 卡牌名称
+    // 怪物名称
     [ShowInInspector]
     public string Name ;
     
@@ -20,9 +18,14 @@ public class EnemyObject : ScriptableObject
     public int EnemyMaxHP;
 
     // 怪物难易度
-    [ShowInInspector] public MapPointType MapPointType;
-    
+    [ShowInInspector]
+    public EnemyType Type;
 
+    //攻击
+    [ShowInInspector]
+    public int BasicAttack;
 
-
+    //怪物形象
+    [ShowInInspector]
+    public Sprite Image;
 }

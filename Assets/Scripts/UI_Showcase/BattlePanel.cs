@@ -6,6 +6,4 @@ public class BattlePanel : BasePanel
     {
         layer = PanelManager.Layer.panel;
     }
-
-    
 }

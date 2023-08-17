@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using System;
-using QFramework;
 using UI_Showcase;
 using UnityEngine;
 using UnityEngine.UI;

@@ -296,14 +296,17 @@ public class TetrisStats : MonoBehaviour
             {
                 CancellationTokenManager.battleCts.Cancel();
                 AudioKit.StopAllSound();
-                
+
                 //更改Canvas的RenderMode
                 CanvasRenderModeManager.ToOverlay();
-                
+
                 PlayerState.instance.AddBattleCount();
                 PanelManager.Open<RewardPanel>("Reward");
                 DOTween.KillAll();
                 isRewarded = true;
+            }
+            else {
+                EnemyState.instance.OnLoadEnemyMachine();
             }
         }
     }
