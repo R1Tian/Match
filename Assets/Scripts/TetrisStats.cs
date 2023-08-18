@@ -282,7 +282,11 @@ public class TetrisStats : MonoBehaviour
                 SwitchBlock();
             }
         }
-        
+
+        if (Main.instance.GetTurn() % 1 == 0 && Main.instance.GetTurn() != 0)
+        {
+            Hurt();
+        }
 
         attackBuff.text = PlayerState.instance.GetAttackBuff().ToString();
         defendBuff.text = PlayerState.instance.GetDefenceBuffLayer().ToString();
@@ -1160,11 +1164,6 @@ public class TetrisStats : MonoBehaviour
                         }
                         Main.instance.AddOne();
                         turn.text = Main.instance.GetTurn().ToString();
-
-                        if (Main.instance.GetTurn() % 1 == 0 && Main.instance.GetTurn() != 0)
-                        {
-                            Hurt();
-                        }
                     }
                     
                     //Debug.Log(CheckCanEliminate());

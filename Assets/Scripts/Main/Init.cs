@@ -6,6 +6,8 @@ public class Init : MonoBehaviour
     {
         PanelManager.Init();
         CardManager.OnInitCardDatabase();
+        FSMManager.OnInitMachine();
         PanelManager.Open<StartPanel>("Start");
+
     }
 }
