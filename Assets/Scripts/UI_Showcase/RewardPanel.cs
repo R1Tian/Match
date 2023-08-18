@@ -60,7 +60,7 @@ public class RewardPanel : BasePanel
         for(int i = 0;i < selectedCardObjectId.Count;i++)
         {
             int id = selectedCardObjectId[i];
-            Debug.Log(id);
+            //Debug.Log(id);
             allMonoFullCards.Add(CreateFullCard(CardManager.GetCardById(id), gameObject.transform, count, i));
         }
 
