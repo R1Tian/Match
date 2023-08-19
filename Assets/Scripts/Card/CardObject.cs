@@ -76,6 +76,7 @@ public class CardObject : ScriptableObject
         }
 
         StrategyList = new IStrategy[SkillName.Length];
+        Debug.Log(SkillName.Length);
         for (int i = 0; i < SkillName.Length; i++) {
             Type type = Type.GetType("StrategyMethod." + SkillName[i]);
             StrategyList[i] = (IStrategy)Activator.CreateInstance(type);
@@ -86,7 +87,7 @@ public class CardObject : ScriptableObject
 
     public void Do()
     {
-        NeedToUse(CancellationTokenManager.battleCancellationToken);
+        NeedToUse();
         if (Level > StrategyList.Length)
         {
             SkillEffect = StrategyList[StrategyList.Length - 1];
@@ -102,17 +103,12 @@ public class CardObject : ScriptableObject
         SkillEffect.ExcuteStrategyByInput(Level);
     }
 
-    private async void NeedToUse(CancellationToken cancellationToken)
+    private void NeedToUse()
     {
         CardShow.Animator.SetBool("NeedToUse",true);
         AudioKit.PlaySound(SoundManager.GetSE_Path() + "CardShowEffect");
-        await ShowCardInBattle.MoveToFirst(CardShow,CancellationTokenManager.battleCancellationToken).SuppressCancellationThrow();
+        CardShowMouseWheelScroll.UpdateViewport();
+        ShowCardInBattle.MoveToFirst(CardShow);
     }
     
-    private void NeedToUse1()
-    {
-        CardShow.Animator.SetBool("NeedToUse",true);
-        AudioKit.PlaySound(SoundManager.GetSE_Path() + "CardShowEffect");
-        ShowCardInBattle.MoveToFirst1(CardShow);
-    }
 }
