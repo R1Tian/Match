@@ -18,6 +18,4 @@ public class FSMManager
         FindMachine.TryGetValue(key, out res);
         return res;
     }
-    
-    
 }

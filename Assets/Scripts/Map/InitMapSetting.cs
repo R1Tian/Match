@@ -17,7 +17,9 @@ namespace Map {
         public static Dictionary<MapPointType, Action> MapDic;
         public static List<MapSetting> PointList;
         public static int LastNodeIndex = -1;
-
+        public EnemyList Easy;
+        public EnemyList Normal;
+        public EnemyList Elite;
 
         private void Awake()
         {
@@ -49,9 +51,9 @@ namespace Map {
         }
 
         private void RandomEasyEnemy() {
-            string[] EasyEnemy = new string[] { "暗影魅魔", "幻影幽狼", "血牙狂战士"};
-            int index = UnityEngine.Random.Range(0, EasyEnemy.Length);
-            Debug.Log(EasyEnemy[index]);
+            string[] list = Easy.MonsterList;
+            int index = UnityEngine.Random.Range(0, list.Length);
+            EnemyState.instance.ReadEnemyData(ResourcesManager.LoadEnemy(list[index]));
         }
         private void RandomNormalEnemy() {
             string[] NormalEnemy = new string[] { "剧毒蜘蛛", "噬魂幽灵", "堕落收割者", "邪恶骨巫" };

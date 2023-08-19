@@ -13,9 +13,9 @@ public class ResourcesManager
         return Resources.LoadAll<CardObject>(path);
     }
 
-    public static EnemyObject[] LoadAllEnemys(string path)
+    public static EnemyObject LoadEnemy(string path)
     {
-        return Resources.LoadAll<EnemyObject>(path);
+        return Resources.Load<EnemyObject>("Enemys/" + path);
     }
     
 }

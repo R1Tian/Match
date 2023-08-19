@@ -283,10 +283,10 @@ public class TetrisStats : MonoBehaviour
             }
         }
 
-        if (Main.instance.GetTurn() % 1 == 0 && Main.instance.GetTurn() != 0)
-        {
-            Hurt();
-        }
+        //if (Main.instance.GetTurn() % 1 == 0 && Main.instance.GetTurn() != 0)
+        //{
+        //    EnemyState.instance.ExcuteAction();
+        //}
 
         attackBuff.text = PlayerState.instance.GetAttackBuff().ToString();
         defendBuff.text = PlayerState.instance.GetDefenceBuffLayer().ToString();
@@ -308,9 +308,6 @@ public class TetrisStats : MonoBehaviour
                 PanelManager.Open<RewardPanel>("Reward");
                 DOTween.KillAll();
                 isRewarded = true;
-            }
-            else {
-                EnemyState.instance.OnLoadEnemyMachine();
             }
         }
     }

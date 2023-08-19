@@ -76,7 +76,6 @@ public class CardObject : ScriptableObject
         }
 
         StrategyList = new IStrategy[SkillName.Length];
-        Debug.Log(SkillName.Length);
         for (int i = 0; i < SkillName.Length; i++) {
             Type type = Type.GetType("StrategyMethod." + SkillName[i]);
             StrategyList[i] = (IStrategy)Activator.CreateInstance(type);
