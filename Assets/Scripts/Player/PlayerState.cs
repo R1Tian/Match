@@ -24,6 +24,8 @@ public class PlayerState : ISingleton
     private List<CardObject> AllCards;
     private CardRepository CardRepository;
     private bool CanHeal = true;
+
+    private int Money;
     #endregion
 
     public void OnSingletonInit()
@@ -35,6 +37,7 @@ public class PlayerState : ISingleton
         FlexibilityBuffLayer = 0;
         TurtleShellBuffLayer = 0;
         BattleCount = 0;
+        Money = 100;
         CardRepository = new CardRepository();
         InitBag();
     }
@@ -213,7 +216,22 @@ public class PlayerState : ISingleton
     }
 
     #endregion
+
+
+    public int GetMoney()
+    {
+        return Money;
+    }
     
+    public void AddMoney(int val)
+    {
+        Money += val;
+    }
+    
+    public void ReduceMoney(int val)
+    {
+        Money -= val;
+    }
     
     public void Dispose() { SingletonProperty<PlayerState>.Instance.Dispose(); }
 }

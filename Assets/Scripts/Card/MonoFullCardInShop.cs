@@ -1,8 +1,10 @@
-﻿using TMPro;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MonoFullCard : MonoBehaviour
+public class MonoFullCardInShop : MonoBehaviour
 {
     // FullCard 的状态（在哪里）
     enum FullCardState
@@ -28,22 +30,6 @@ public class MonoFullCard : MonoBehaviour
 
     private FullCardState fullCardState;
 
-    public void RepositoryInit(CardObject card)
-    {
-        this.card = card;
-
-        shapeText.text = card.Shape;
-        nameText.text = card.Name;
-        skillDesText.text = card.SkillDes;
-        bgImage.color = card.Color;
-        var temp = bgImage.color;
-        temp.a = 100.0f / 255;
-        bgImage.color = temp;
-        costText.gameObject.SetActive(false);
-        fullCardState = FullCardState.InRepository;
-    }
-
-    
     public void ShopInit(CardObject card)
     {
         this.card = card;
@@ -73,6 +59,7 @@ public class MonoFullCard : MonoBehaviour
         costText.text = cost.ToString();
         fullCardState = FullCardState.InShop;
     }
+
     public void SetDisplayable(bool displayable)
     {
         root.SetActive(displayable);

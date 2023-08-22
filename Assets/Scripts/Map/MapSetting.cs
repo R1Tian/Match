@@ -55,13 +55,33 @@ namespace Map {
         private void Start()
         {
             OnClickAction += InitMapSetting.MapDic[mapPointType];
-            OnClickAction += OpenChooseBattleCardPanel;
+            switch (mapPointType)
+            {
+                case MapPointType.EasyEnemy:
+                    OnClickAction += OpenChooseBattleCardPanel;
+                    break;
+                case MapPointType.NormalEnemy:
+                    OnClickAction += OpenChooseBattleCardPanel;
+                    break;
+                case MapPointType.EliteEnemy:
+                    OnClickAction += OpenChooseBattleCardPanel;
+                    break;
+                case MapPointType.Support:
+                    OnClickAction += OpenShopPanel;
+                    break;
+                
+            }
             OnClickAction += CloseMapPanel;
         }
 
         void OpenChooseBattleCardPanel()
         {
             PanelManager.Open<ChooseBattleCardPanel>("ChooseBattleCardPanel");
+        }
+        
+        void OpenShopPanel()
+        {
+            PanelManager.Open<ShopPanel>("ShopPanel");
         }
         
         void CloseMapPanel()

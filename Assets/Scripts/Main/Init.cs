@@ -7,5 +7,6 @@ public class Init : MonoBehaviour
         PanelManager.Init();
         CardManager.OnInitCardDatabase();
         PanelManager.Open<StartPanel>("Start");
+        //PanelManager.Open<ShopPanel>("ShopPanel");
     }
 }
