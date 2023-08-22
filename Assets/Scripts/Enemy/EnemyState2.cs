@@ -4,11 +4,6 @@ using UnityEngine;
 
 public partial class EnemyState
 {
-    public void OnLoadEnemyMachine()
-    {
-        //FSMManager.FindStateMachine(ID).OnExcute();
-    }
-
     public int GetHP()
     {
         return CurHP;

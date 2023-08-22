@@ -40,5 +40,11 @@ public partial class EnemyState : ISingleton
         sprite = enemy.Image;
     }
 
+    public void ExcuteAction() {
+        FSMGeneral EnemyAction = FSMManager.FindStateMachine(ID);
+        if (EnemyAction != null) EnemyAction.OnExcute();
+        else Debug.Log("Cannot find the machine. ID :" + instance.ID);
+    }
+
     public void Dispose(){SingletonProperty<EnemyState>.Dispose();}
 }
