@@ -139,8 +139,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Easy: {fileID: 11400000, guid: f85b1a033d169488687f38dac57c60dd, type: 2}
-  Normal: {fileID: 11400000, guid: f85b1a033d169488687f38dac57c60dd, type: 2}
-  Elite: {fileID: 11400000, guid: f85b1a033d169488687f38dac57c60dd, type: 2}
+  Normal: {fileID: 11400000, guid: 2182fdb4d020f40b8be6add8540b9a63, type: 2}
+  Elite: {fileID: 11400000, guid: f83f5351e1a5e42a88b7e31da767b0e8, type: 2}
 --- !u!1 &5594413038947028745
 GameObject:
   m_ObjectHideFlags: 0

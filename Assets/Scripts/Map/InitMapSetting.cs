@@ -56,14 +56,14 @@ namespace Map {
             EnemyState.instance.ReadEnemyData(ResourcesManager.LoadEnemy(list[index]));
         }
         private void RandomNormalEnemy() {
-            string[] NormalEnemy = new string[] { "剧毒蜘蛛", "噬魂幽灵", "堕落收割者", "邪恶骨巫" };
-            int index = UnityEngine.Random.Range(0, NormalEnemy.Length);
-            Debug.Log(NormalEnemy[index]);
+            string[] list = Normal.MonsterList;
+            int index = UnityEngine.Random.Range(0, list.Length);
+            EnemyState.instance.ReadEnemyData(ResourcesManager.LoadEnemy(list[index]));
         }
         private void RandomEliteEnemy() {
-            string[] EliteEnemy = new string[] { "腐败瘟疫使者", "暗夜梦魇", "深渊虚灵", "五彩狂怒者" };
-            int index = UnityEngine.Random.Range(0, EliteEnemy.Length);
-            Debug.Log(EliteEnemy[index]);
+            string[] list = Elite.MonsterList;
+            int index = UnityEngine.Random.Range(0, list.Length);
+            EnemyState.instance.ReadEnemyData(ResourcesManager.LoadEnemy(list[index]));
         }
         private void RandomSupport() {
             string[] Support = new string[] { "商店", "升级卡片", "回血" };
