@@ -1,59 +1,42 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using QFramework;
 using Unity.VisualScripting;
-using UnityEngine.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class RewardPanel : BasePanel
+public class ShopPanel : BasePanel
 {
-    private Button BackBtn;
-    private Text CoinCount;
-    
     public GameObject fullCardPrefab;
+
+    public GameObject emptyPrefab;
+    
+    public GameObject gridLayoutGroup;
 
     private List<MonoFullCard> allMonoFullCards = new List<MonoFullCard>();
 
     private List<int> allCardsObjectId = new List<int>();
 
-    public int needToGenerateCount = 3;
+    public int needToGenerateCount = 8;
 
     public float xoffset = 300f;
 
     public float yoffset = 0f;
+    
     public override void OnInit()
     {
-        //skinPath = "Reward";
-        layer = PanelManager.Layer.TIP;
+        layer = PanelManager.Layer.panel;
     }
 
     public override void OnShow(params object[] objects)
     {
-        BackBtn = skin.transform.Find("Back").GetComponent<Button>();
-        CoinCount = skin.transform.Find("Coin").GetComponent<Text>();
-
-        //todo 需要根据怪物难度分配钱
-        #region Money
-
-        int count = Random.Range(1, 10);
-        CoinCount.text = count.ToString();
-        PlayerState.instance.AddMoney(count);
-
-        #endregion
-        
-        
+        Init();
         CreateRandomCards(needToGenerateCount);
-
-        BackBtn.onClick.AddListener(() =>
-        {
-            PanelManager.Close("BattlePanel");
-            PanelManager.MapPanel.SetActive(true);
-            Close();
-        });
+        CheckMoney();
     }
-
+    
     /// <summary>
-    /// 生成一定数量的是战后奖励卡牌
+    /// 生成一定数量的是商店卡牌
     /// </summary>
     /// <param name="count">生成数量</param>
     private void CreateRandomCards(int count)
@@ -68,8 +51,7 @@ public class RewardPanel : BasePanel
         for(int i = 0;i < selectedCardObjectId.Count;i++)
         {
             int id = selectedCardObjectId[i];
-            //Debug.Log(id);
-            allMonoFullCards.Add(CreateFullCard(CardManager.GetCardById(id), gameObject.transform, count, i));
+            allMonoFullCards.Add(CreateFullCard(CardManager.GetCardById(id), gridLayoutGroup.transform, count, i));
         }
 
     }
@@ -102,37 +84,71 @@ public class RewardPanel : BasePanel
     {
         MonoFullCard monoFullCard = Instantiate(fullCardPrefab, parent).GetComponent<MonoFullCard>();
 
-        if (count % 2 == 1)
-        {
-            monoFullCard.gameObject.GetComponent<RectTransform>().localPosition += new Vector3((index + 2 - ((count + 1) / 2)) * xoffset, 0, 0);
-
-        }
-        else
-        {
-            monoFullCard.gameObject.GetComponent<RectTransform>().localPosition += new Vector3((index + 2 - ((count / 2) + 0.5f)) * xoffset, 0, 0);
-        }
-        monoFullCard.RepositoryInit(card);
+        // if (count % 2 == 1)
+        // {
+        //     monoFullCard.gameObject.GetComponent<RectTransform>().localPosition += new Vector3((index + 2 - ((count + 1) / 2)) * xoffset, 0, 0);
+        //
+        // }
+        // else
+        // {
+        //     monoFullCard.gameObject.GetComponent<RectTransform>().localPosition += new Vector3((index + 2 - ((count / 2) + 0.5f)) * xoffset, 0, 0);
+        // }
+        monoFullCard.ShopInit(card);
         monoFullCard.clickButton.onClick.RemoveAllListeners();
-        monoFullCard.clickButton.onClick.AddListener(async () => OnCardClick(monoFullCard.card));
+        monoFullCard.clickButton.onClick.AddListener(async () => OnCardClick(monoFullCard));
     
         return monoFullCard;
     }
 
-    void OnCardClick(CardObject card)
+    void OnCardClick(MonoFullCard monoFullCardcard)
     {
-        if (PlayerState.instance.GetAllCards().Contains(card))
+        if (PlayerState.instance.GetMoney() >= monoFullCardcard.costText.text.ToInt())
         {
-            CardManager.CardLevelUp(card);
+            if (PlayerState.instance.GetAllCards().Contains(monoFullCardcard.card))
+            {
+                CardManager.CardLevelUp(monoFullCardcard.card);
+            }
+            else
+            {
+                PlayerState.instance.AddAllCards(monoFullCardcard.card);
+            }
+            PlayerState.instance.ReduceMoney(monoFullCardcard.costText.text.ToInt());
+            int index = allMonoFullCards.IndexOf(monoFullCardcard);
+            Destroy(monoFullCardcard.gameObject);
+            GameObject empty = Instantiate(emptyPrefab,gridLayoutGroup.transform);
+            empty.transform.SetSiblingIndex(index);
+            CheckMoney();
         }
         else
         {
-            PlayerState.instance.AddAllCards(card);
+            Debug.Log(false);
         }
         
+
+        
+    }
+
+    void CheckMoney()
+    {
         foreach (MonoFullCard monoFullCard in allMonoFullCards)
         {
-            Destroy(monoFullCard.gameObject);
+            if (monoFullCard.costText.text.ToInt() > PlayerState.instance.GetMoney())
+            {
+                monoFullCard.costText.color = Color.red;
+            }
         }
         
+    }
+
+    public void SelectOver()
+    {
+        Close();
+        PanelManager.MapPanel.SetActive(true);
+    }
+
+    void Init()
+    {
+        allMonoFullCards = new List<MonoFullCard>();
+        allCardsObjectId = new List<int>();
     }
 }

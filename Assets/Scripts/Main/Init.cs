@@ -9,5 +9,6 @@ public class Init : MonoBehaviour
         CardManager.OnInitCardDatabase();
         FSMManager.OnInitMachine();
         PanelManager.Open<StartPanel>("Start");
+        //PanelManager.Open<ShopPanel>("ShopPanel");
     }
 }
