@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b307b3b63d4e0a42b7f300eaa5c2153, type: 3}
+  m_Name: 2_Flexibility
+  m_EditorClassIdentifier: 
+  id: 2
+  name: "\u8FC5\u75BE"
+  sprite: {fileID: 21300000, guid: 52cc459e210930941ae3312da6e5d6ac, type: 3}
+  des: "\u6BCF\u589E\u52A01\u5C42\u8FC5\u75BEbuff\u6062\u590D\u751F\u547D\u503C\u7684\u6548\u679C+1"
+  Stackable: 1

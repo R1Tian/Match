@@ -19,6 +19,15 @@ public partial class EnemyState
         return AttackVal;
     }
 
+    public void AddBasicDamage(int val)
+    {
+        AttackVal += val;
+    }
+    
+    public void ReduceBasicDamage(int val)
+    {
+        AttackVal -= val;
+    }
     
     public void AddMaxHP(int val)
     {
@@ -77,12 +86,22 @@ public partial class EnemyState
     public void AddArmorPenetrationBuffLayer(int layer)
     {
         ArmorPenetrationBuffLayer += layer;
+        BuffManager.instance.ApplyStackableBuffByID(5,3,3,GetArmorPenetrationBuffLayer(),() =>DropAllArmorPenetrationBuffLayer());
     }
 
     public void DropArmorPenetrationBuffLayer(int layer) {
         ArmorPenetrationBuffLayer -= layer;
     }
+    
+    public void DropAllArmorPenetrationBuffLayer() {
+        ArmorPenetrationBuffLayer = 0;
+    }
     public int GetArmorPenetrationBuffLayer() {
         return ArmorPenetrationBuffLayer;
+    }
+
+    public Sprite GetSprite()
+    {
+        return sprite;
     }
 }

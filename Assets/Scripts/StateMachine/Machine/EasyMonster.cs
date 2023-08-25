@@ -6,7 +6,7 @@ public class EasyMonster : FSMGeneral
 {
     public override void OnExcute()
     {
-        PlayerState.instance.TakeDamge(EnemyState.instance.GetDamage() + PlayerState.instance.GetBattleCount() * 10);
+        PlayerState.instance.TakeDamge(EnemyState.instance.GetDamage());
         Debug.Log("!!!!!!!!!!");
     }
 }

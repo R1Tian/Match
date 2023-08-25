@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edb20f1773b8a7c48ab549381799712f, type: 3}
+  m_Name: 3_BloodfangBerserker
+  m_EditorClassIdentifier: 
+  id: 3
+  Name: "\u8840\u7259\u72C2\u6218\u58EB"
+  EnemyMaxHP: 100
+  Type: 0
+  BasicAttack: 10
+  Image: {fileID: 21300000, guid: 39ac85562331dcb44bbcd445a31de0d1, type: 3}

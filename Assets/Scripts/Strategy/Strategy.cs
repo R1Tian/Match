@@ -148,4 +148,27 @@ namespace StrategyMethod {
         }
     }
     
+    public class Eject_Red_T : IStrategy
+    {
+        public void ExcuteStrategy() {
+            return;
+        }
+
+        public void ExcuteStrategyByInput(int level)
+        {
+            Skill.DamageWithDefence(level);
+        }
+    }
+    
+    public class GoldenGuardian_Yellow_T : IStrategy
+    {
+        public void ExcuteStrategy() {
+            return;
+        }
+
+        public void ExcuteStrategyByInput(int level)
+        {
+            Skill.AddArmorFeedback(level);
+        }
+    }
 }

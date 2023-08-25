@@ -40,11 +40,6 @@ public class ObjectAnimation : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        //Idle();
-    }
-
     async void Sparkle()
     {
         for (int i = 0; i < 3; i++)
@@ -79,27 +74,11 @@ public class ObjectAnimation : MonoBehaviour
         float originalPos_y = rectTransform.anchoredPosition.y;
         Sequence sequence = DOTween.Sequence();
         sequence.SetLoops(-1);
-        // for (int i = 0; i < 3; i++)
-        // {
-        //     rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y - idleRange, DT_Duration).WaitForCompletion();
-        //     await UniTask.Delay(TimeSpan.FromSeconds(shakeInterval));
-        //     rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y + idleRange, DT_Duration).WaitForCompletion();
-        //     await UniTask.Delay(TimeSpan.FromSeconds(shakeInterval));
-        //     rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y + idleRange, DT_Duration).WaitForCompletion();
-        //     await UniTask.Delay(TimeSpan.FromSeconds(shakeInterval));
-        //     rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y - idleRange, DT_Duration).WaitForCompletion();
-        //     await UniTask.Delay(TimeSpan.FromSeconds(shakeInterval));
-        //     rectTransform.DOAnchorPosY(originalPos_y, DT_Duration).WaitForCompletion();
-        //     await UniTask.Delay(TimeSpan.FromSeconds(shakeInterval));
-        // }
-
         sequence.Append(rectTransform.DOAnchorPosY(originalPos_y - idleRange, idleStepTime));
         //sequence.AppendInterval(idleInterval);
         sequence.Append(rectTransform.DOAnchorPosY(originalPos_y + idleRange,  2 * idleStepTime));
         //sequence.AppendInterval(idleInterval);
         sequence.Append(rectTransform.DOAnchorPosY(originalPos_y, idleStepTime));
-
-
     }
     
 }

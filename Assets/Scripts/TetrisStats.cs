@@ -10,6 +10,7 @@ using Cysharp.Threading.Tasks;
 using QFramework;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
+using Image = UnityEngine.UI.Image;
 using Slider = UnityEngine.UI.Slider;
 
 public enum CurCountsType
@@ -153,9 +154,13 @@ public class TetrisStats : MonoBehaviour
 
     //玩家血条
     public Slider playerHP;
+    public TextMeshProUGUI playerHP_Text;
 
     //怪物血条
     public Slider enemyHP;
+    public TextMeshProUGUI enemyHP_Text;
+
+    public GameObject enmey;
     
     //当回合消除计数
     [ShowInInspector]
@@ -288,11 +293,13 @@ public class TetrisStats : MonoBehaviour
         //    EnemyState.instance.ExcuteAction();
         //}
 
-        attackBuff.text = PlayerState.instance.GetAttackBuff().ToString();
-        defendBuff.text = PlayerState.instance.GetDefenceBuffLayer().ToString();
+        //attackBuff.text = PlayerState.instance.GetAttackBuff().ToString();
+        //defendBuff.text = PlayerState.instance.GetDefenceBuffLayer().ToString();
 
         playerHP.value = (float)PlayerState.instance.GetHP() / PlayerState.instance.GetMaxHP();
         enemyHP.value = (float)EnemyState.instance.GetHP() / EnemyState.instance.GetMaxHP();
+        playerHP_Text.text = PlayerState.instance.GetHP().ToString() + "/" + PlayerState.instance.GetMaxHP();
+        enemyHP_Text.text = EnemyState.instance.GetHP().ToString() + "/" + EnemyState.instance.GetMaxHP();
 
         if (!isRewarded)
         {
@@ -1254,10 +1261,12 @@ public class TetrisStats : MonoBehaviour
             
             BuffManager.instance.UpdateBuffs();
 
-            if (Main.instance.GetTurn() % 1 == 0 && Main.instance.GetTurn() != 0)
-            {
-                Hurt();
-            }
+            EnemyState.instance.ExcuteAction();
+            
+            // if (Main.instance.GetTurn() % 1 == 0 && Main.instance.GetTurn() != 0)
+            // {
+            //     Hurt();
+            // }
         }
             
         
@@ -1402,7 +1411,10 @@ public class TetrisStats : MonoBehaviour
 
     public void Hurt()
     {
-        PlayerState.instance.TakeDamge(EnemyState.instance.GetDamage() + PlayerState.instance.GetBattleCount() * 10);
+        //todo 临时强化
+        //PlayerState.instance.TakeDamge(EnemyState.instance.GetDamage() + PlayerState.instance.GetBattleCount() * 10);
+
+        PlayerState.instance.TakeDamge(EnemyState.instance.GetDamage());
 
     }
 
@@ -1418,16 +1430,17 @@ public class TetrisStats : MonoBehaviour
         playerHP.value = 1;
         PlayerState.instance.DeleteDamageBuff();
         PlayerState.instance.DeleteDefenceBuffLayer();
+
+        enmey.GetComponent<Image>().sprite = EnemyState.instance.GetSprite();
         
-        EnemyState.instance.OnSingletonInit();
+        //EnemyState.instance.OnSingletonInit();
         //todo 临时强化
-
-        #region MyRegion
-
-        EnemyState.instance.AddMaxHP(150 * PlayerState.instance.GetBattleCount());
-        EnemyState.instance.AddHPToMax();
-
-        #endregion
+        // #region MyRegion
+        //
+        // EnemyState.instance.AddMaxHP(150 * PlayerState.instance.GetBattleCount());
+        // EnemyState.instance.AddHPToMax();
+        //
+        // #endregion
        
         
         enemyHP.value = 1;

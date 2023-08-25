@@ -9,7 +9,9 @@ public class FSMManager
 
     public static void OnInitMachine() {
         FindMachine = new Dictionary<int, FSMGeneral>() {
-            { 1, new EasyMonster()}
+            { 1, new EasyMonster() },
+            { 2, new PhantomWraithwolf() },
+            { 3, new BloodfangBerserker() },
         };
     }
 

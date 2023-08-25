@@ -24,6 +24,7 @@ public class PlayerState : ISingleton
     private List<CardObject> AllCards;
     private CardRepository CardRepository;
     private bool CanHeal = true;
+    private bool ArmorFeedback = false;
 
     private int Money;
     #endregion
@@ -53,10 +54,22 @@ public class PlayerState : ISingleton
         AddBattleCards(CardManager.GetCardById(7));
         AddBattleCards(CardManager.GetCardById(10));
         
+        //todo 临时测试
+        AddBattleCards(CardManager.GetCardById(6));
+        AddBattleCards(CardManager.GetCardById(8));
+        AddBattleCards(CardManager.GetCardById(28));
+        AddBattleCards(CardManager.GetCardById(5));
+        
         AddAllCards(CardManager.GetCardById(1));
         AddAllCards(CardManager.GetCardById(4));
         AddAllCards(CardManager.GetCardById(7));
         AddAllCards(CardManager.GetCardById(10));
+        
+        //todo 临时测试
+        AddAllCards(CardManager.GetCardById(6));
+        AddAllCards(CardManager.GetCardById(8));
+        AddAllCards(CardManager.GetCardById(28));
+        AddAllCards(CardManager.GetCardById(5));
     }
 
     public List<CardObject> GetBattleCards() {
@@ -83,6 +96,7 @@ public class PlayerState : ISingleton
     }
 
     public void HealHealth(int hp) {
+        //Debug.Log(CanHeal);
         if (CanHeal)
         {
             PlayerHP += hp + GetFlexibilityBuffLayer();
@@ -124,20 +138,36 @@ public class PlayerState : ISingleton
 
     public void AddAttackBuff(int layer) {
         AttackBuffLayer += layer;
+        BuffManager.instance.ApplyStackableBuffByID(1, 3, 3,GetAttackBuff(), () => DropAllAttackBuff());
     }
 
     public void DropAttackBuff(int layer) {
         AttackBuffLayer -= layer;
+    }
+    
+    public void DropAllAttackBuff() {
+        AttackBuffLayer = 0;
     }
 
     public int GetAttackBuff() {
         return AttackBuffLayer;
     }
 
-    public void AddDefenceBuffLayer(int layer) {
-        DefenceBuffLayer += layer + GetTurtleShellBuffLayer();
+    public void AddDefenceBuffLayer(int layer)
+    {
+        int increment = layer + GetTurtleShellBuffLayer();
+        DefenceBuffLayer += increment;
+        if (ArmorFeedback)
+        {
+            EnemyState.instance.TakeDamge(increment);
+        }
     }
 
+    public void DropAllefenceBuffLayer() {
+        DefenceBuffLayer = 0;
+    }
+    
+    
     public void DropDefenceBuffLayer(int layer) {
         DefenceBuffLayer -= layer;
     }
@@ -148,10 +178,15 @@ public class PlayerState : ISingleton
     
     public void AddFlexibilityBuffLayer(int layer) {
         FlexibilityBuffLayer += layer;
+        BuffManager.instance.ApplyStackableBuffByID(2, 3, 3,GetFlexibilityBuffLayer(), () => DropAllFlexibilityBuffLayer());
     }
 
     public void DropFlexibilityBuffLayer(int layer) {
         FlexibilityBuffLayer -= layer;
+    }
+    
+    public void DropAllFlexibilityBuffLayer() {
+        FlexibilityBuffLayer = 0;
     }
 
     public int GetFlexibilityBuffLayer() {
@@ -160,8 +195,13 @@ public class PlayerState : ISingleton
 
     public void AddTurtleShellBuffLayer(int layer) {
         TurtleShellBuffLayer += layer;
+        BuffManager.instance.ApplyStackableBuffByID(3, 3, 3, GetTurtleShellBuffLayer(),() => DropAllTurtleShellBuffLayer());
     }
 
+    public void DropAllTurtleShellBuffLayer() {
+        TurtleShellBuffLayer = 0;
+    }
+    
     public void DropTurtleShellBuffLayer(int layer) {
         TurtleShellBuffLayer -= layer;
     }
@@ -200,6 +240,21 @@ public class PlayerState : ISingleton
     public void AllowHeal()
     {
         CanHeal = true;
+    }
+    
+    public bool GetArmorFeedback()
+    {
+        return ArmorFeedback;
+    }
+    
+    public void ForbidArmorFeedback()
+    {
+        ArmorFeedback = false;
+    }
+    
+    public void AllowArmorFeedback()
+    {
+        ArmorFeedback = true;
     }
 
     // 临时用
