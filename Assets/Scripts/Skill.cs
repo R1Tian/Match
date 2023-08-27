@@ -165,7 +165,7 @@ namespace SkillRelated {
         public static void ForbidHeal(int level)
         {
             PlayerState.instance.ForbidHeal();
-            BuffManager.instance.ApplyBuffByID(4, 4 - level,4 - level, () => PlayerState.instance.AllowHeal());
+            BuffManager.instance.ApplyBuffByID(4, 4 - level,4 - level, BuffManagerUI.PlayerBuff,() => PlayerState.instance.AllowHeal());
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace SkillRelated {
         public static void AddArmorFeedback(int level)
         {
             PlayerState.instance.AllowArmorFeedback();
-            BuffManager.instance.ApplyBuffByID(6,level,level, () => PlayerState.instance.ForbidArmorFeedback());
+            BuffManager.instance.ApplyBuffByID(6,level,level, BuffManagerUI.PlayerBuff,() => PlayerState.instance.ForbidArmorFeedback());
         }
         
         #endregion
@@ -188,7 +188,7 @@ namespace SkillRelated {
         /// <param name="level"></param>
         public static void ContLowHeal(int level)
         {
-            BuffManager.instance.ApplyBuffByID(7,1,level, () =>FixedHeal(1));
+            BuffManager.instance.ApplyBuffByID(7,1,level, BuffManagerUI.PlayerBuff,() =>FixedHeal(1));
         }
         
         /// <summary>
@@ -299,7 +299,7 @@ namespace SkillRelated {
         /// <param name="level"></param>
         public static void ContDefend(int level)
         {
-            BuffManager.instance.ApplyBuffByID(8,1,level, () =>FixedDefend(1));
+            BuffManager.instance.ApplyBuffByID(8,1,level, BuffManagerUI.PlayerBuff,() =>FixedDefend(1));
         }
 
         /// <summary>

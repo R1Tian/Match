@@ -86,7 +86,7 @@ public partial class EnemyState
     public void AddArmorPenetrationBuffLayer(int layer)
     {
         ArmorPenetrationBuffLayer += layer;
-        BuffManager.instance.ApplyStackableBuffByID(5,3,3,GetArmorPenetrationBuffLayer(),() =>DropAllArmorPenetrationBuffLayer());
+        BuffManager.instance.ApplyStackableBuffByID(5,3,3,GetArmorPenetrationBuffLayer(),BuffManagerUI.EnemyBuff,() =>DropAllArmorPenetrationBuffLayer());
     }
 
     public void DropArmorPenetrationBuffLayer(int layer) {

@@ -62,13 +62,13 @@ public class BuffManager : ISingleton
 
                         if (delayEffect.action != null)
                         {
+                            if (delayEffect.remainingDuration % delayEffect.interval == 0)
+                            {
+                                delayEffect.action.Invoke();
+                            }
                             if (delayEffect.remainingDuration == 0)
                             {
                                 buff.delayEffects.Remove(delayEffect);
-                            }
-                            else if (delayEffect.remainingDuration % delayEffect.interval == 0)
-                            {
-                                delayEffect.action.Invoke();
                             }
                         }
                     }
@@ -127,7 +127,7 @@ public class BuffManager : ISingleton
     /// <param name="interval">间隔时间</param>
     /// <param name="duration">持续时间</param>
     /// <param name="actions">执行效果</param>
-    public void ApplyBuffByID(int id , int interval, int duration, params Action[] actions)
+    public void ApplyBuffByID(int id , int interval, int duration,Transform target, params Action[] actions)
     {
 
         BuffObject buffObject = GetBuffObjectByID(id);
@@ -151,7 +151,7 @@ public class BuffManager : ISingleton
             }
 
             AddBuff(buffObject);
-            BuffManagerUI.GenerateBuffPrefab(buffObject,duration);
+            BuffManagerUI.GenerateBuffPrefab(buffObject,duration,target);
         }
         
     }
@@ -164,7 +164,7 @@ public class BuffManager : ISingleton
     /// <param name="duration">持续时间</param>
     /// <param name="stackLayer">叠加层数（传入的是目前叠加的层数，会直接覆盖之前的层数，因此你需要手动计算层数）</param>
     /// <param name="actions">执行效果</param>
-    public void ApplyStackableBuffByID(int id , int interval, int duration,int stackLayer, params Action[] actions)
+    public void ApplyStackableBuffByID(int id , int interval, int duration,int stackLayer,Transform target, params Action[] actions)
     {
 
         BuffObject buffObject = GetBuffObjectByID(id);
@@ -190,12 +190,12 @@ public class BuffManager : ISingleton
                 }
 
                 AddBuff(buffObject);
-                BuffManagerUI.GenerateStackableBuffPrefab(buffObject,duration,stackLayer);
+                BuffManagerUI.GenerateStackableBuffPrefab(buffObject,duration,stackLayer,target);
             }
         }
         else
         {
-            ApplyBuffByID(id, interval, duration, actions);
+            ApplyBuffByID(id, interval, duration, target,actions);
         }
         
         

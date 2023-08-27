@@ -59,6 +59,7 @@ public class PlayerState : ISingleton
         AddBattleCards(CardManager.GetCardById(8));
         AddBattleCards(CardManager.GetCardById(28));
         AddBattleCards(CardManager.GetCardById(5));
+        AddBattleCards(CardManager.GetCardById(13));
         
         AddAllCards(CardManager.GetCardById(1));
         AddAllCards(CardManager.GetCardById(4));
@@ -70,6 +71,7 @@ public class PlayerState : ISingleton
         AddAllCards(CardManager.GetCardById(8));
         AddAllCards(CardManager.GetCardById(28));
         AddAllCards(CardManager.GetCardById(5));
+        AddAllCards(CardManager.GetCardById(13));
     }
 
     public List<CardObject> GetBattleCards() {
@@ -114,14 +116,15 @@ public class PlayerState : ISingleton
     }
     
     public void TakeDamge(int hp) {
+        Debug.Log(GetDefenceBuffLayer());
         if (DefenceBuffLayer >= hp)
         {
             DefenceBuffLayer -= hp;
         }
         else
         {
-            DefenceBuffLayer = 0;
             PlayerHP -= hp - DefenceBuffLayer;
+            DefenceBuffLayer = 0;
         }
         
         
@@ -138,7 +141,7 @@ public class PlayerState : ISingleton
 
     public void AddAttackBuff(int layer) {
         AttackBuffLayer += layer;
-        BuffManager.instance.ApplyStackableBuffByID(1, 3, 3,GetAttackBuff(), () => DropAllAttackBuff());
+        BuffManager.instance.ApplyStackableBuffByID(1, 3, 3,GetAttackBuff(), BuffManagerUI.PlayerBuff,() => DropAllAttackBuff());
     }
 
     public void DropAttackBuff(int layer) {
@@ -178,7 +181,7 @@ public class PlayerState : ISingleton
     
     public void AddFlexibilityBuffLayer(int layer) {
         FlexibilityBuffLayer += layer;
-        BuffManager.instance.ApplyStackableBuffByID(2, 3, 3,GetFlexibilityBuffLayer(), () => DropAllFlexibilityBuffLayer());
+        BuffManager.instance.ApplyStackableBuffByID(2, 3, 3,GetFlexibilityBuffLayer(), BuffManagerUI.PlayerBuff,() => DropAllFlexibilityBuffLayer());
     }
 
     public void DropFlexibilityBuffLayer(int layer) {
@@ -195,7 +198,7 @@ public class PlayerState : ISingleton
 
     public void AddTurtleShellBuffLayer(int layer) {
         TurtleShellBuffLayer += layer;
-        BuffManager.instance.ApplyStackableBuffByID(3, 3, 3, GetTurtleShellBuffLayer(),() => DropAllTurtleShellBuffLayer());
+        BuffManager.instance.ApplyStackableBuffByID(3, 3, 3, GetTurtleShellBuffLayer(),BuffManagerUI.PlayerBuff,() => DropAllTurtleShellBuffLayer());
     }
 
     public void DropAllTurtleShellBuffLayer() {

@@ -147,11 +147,22 @@ public class TetrisStats : MonoBehaviour
     public TextMeshProUGUI turn;
 
     //当前AttackBuff
-    public TextMeshProUGUI attackBuff;
+    //public TextMeshProUGUI attackBuff;
 
     //当前DefendBuff
-    public TextMeshProUGUI defendBuff;
+    //public TextMeshProUGUI defendBuff;
 
+    //盾的条的图片
+    public Sprite shieldBG;
+    public Sprite shieldFill;
+    
+    //盾条旁边的图标
+    public GameObject shield;
+    
+    //血的条的图片
+    public Sprite hpBG;
+    public Sprite hpFill;
+    
     //玩家血条
     public Slider playerHP;
     public TextMeshProUGUI playerHP_Text;
@@ -252,27 +263,6 @@ public class TetrisStats : MonoBehaviour
         
         //Destroy(GameObject.Find("BoardBG(Clone)"));
     }
-    // public void Start()
-    // {
-    //     InitBag();
-    //     turn.text = Main.instance.GetTurn().ToString();
-    //
-    //     board = new int[boardSize, boardSize];
-    //     cubeMatrix = new GameObject[boardSize, boardSize];
-    //     InitializeBoard();
-    //     
-    //     
-    //     board1 = new int[boardSize, boardSize];
-    //
-    //     matchedBlocks = new List<Vector2Int>();
-    //
-    //     randomBtn.onClick.AddListener(GenerateRuledBoard);
-    //
-    //
-    //     xOffset = 0.5f * (boardSize - 1);
-    //     yOffset = 0.5f * (boardSize - 1);
-    //     
-    // }
 
     public void InitBag() {
         bag = PlayerState.instance.GetBattleCards();
@@ -293,6 +283,27 @@ public class TetrisStats : MonoBehaviour
         //    EnemyState.instance.ExcuteAction();
         //}
 
+        if (PlayerState.instance.GetDefenceBuffLayer() > 0)
+        {
+            //更换背景图片
+            playerHP.GetComponentsInChildren<Image>()[1].sprite = shieldBG;
+            //更换填充
+            playerHP.fillRect.GetComponentInChildren<Image>().sprite = shieldFill;
+            //条旁边的盾图标
+            shield.GetComponentInChildren<TextMeshProUGUI>().text =
+                PlayerState.instance.GetDefenceBuffLayer().ToString();
+            shield.SetActive(true);
+        }
+        else
+        {
+            //更换背景图片
+            playerHP.GetComponentsInChildren<Image>()[1].sprite = hpBG;
+            //更换填充
+            playerHP.fillRect.GetComponentInChildren<Image>().sprite = hpFill;
+            //条旁边的盾图标
+            shield.SetActive(false);
+        }
+        
         //attackBuff.text = PlayerState.instance.GetAttackBuff().ToString();
         //defendBuff.text = PlayerState.instance.GetDefenceBuffLayer().ToString();
 
