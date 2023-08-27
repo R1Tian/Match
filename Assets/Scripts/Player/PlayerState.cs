@@ -50,11 +50,30 @@ public class PlayerState : ISingleton
         AllCards = new List<CardObject>();
         
         AddBattleCards(CardManager.GetCardById(1));
+        AddBattleCards(CardManager.GetCardById(2));
+        AddBattleCards(CardManager.GetCardById(3));
         AddBattleCards(CardManager.GetCardById(4));
         AddBattleCards(CardManager.GetCardById(7));
         AddBattleCards(CardManager.GetCardById(10));
+        AddBattleCards(CardManager.GetCardById(14));
+        AddBattleCards(CardManager.GetCardById(15));
+        AddBattleCards(CardManager.GetCardById(16));
+        AddBattleCards(CardManager.GetCardById(17));
+        AddBattleCards(CardManager.GetCardById(18));
+
+        AddAllCards(CardManager.GetCardById(1));
+        AddAllCards(CardManager.GetCardById(2));
+        AddAllCards(CardManager.GetCardById(3));
+        AddAllCards(CardManager.GetCardById(4));
+        AddAllCards(CardManager.GetCardById(7));
+        AddAllCards(CardManager.GetCardById(10));
+        AddAllCards(CardManager.GetCardById(14));
+        AddAllCards(CardManager.GetCardById(15));
+        AddAllCards(CardManager.GetCardById(16));
+        AddAllCards(CardManager.GetCardById(17));
+        AddAllCards(CardManager.GetCardById(18));
         
-        //todo 临时测试
+/*         //todo 临时测试
         AddBattleCards(CardManager.GetCardById(6));
         AddBattleCards(CardManager.GetCardById(8));
         AddBattleCards(CardManager.GetCardById(28));
@@ -71,7 +90,7 @@ public class PlayerState : ISingleton
         AddAllCards(CardManager.GetCardById(8));
         AddAllCards(CardManager.GetCardById(28));
         AddAllCards(CardManager.GetCardById(5));
-        AddAllCards(CardManager.GetCardById(13));
+        AddAllCards(CardManager.GetCardById(13)); */
     }
 
     public List<CardObject> GetBattleCards() {

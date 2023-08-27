@@ -26,6 +26,17 @@ namespace StrategyMethod {
             
         }
     }
+        public class Low_Green_Heal : IStrategy {
+        public void ExcuteStrategy() {
+            return;
+        }
+
+        public void ExcuteStrategyByInput(int level)
+        {
+            Skill.LowHeal(level);
+            
+        }
+    }
 
     public class Power_Yellow_Power : IStrategy {
         public void ExcuteStrategy() {
@@ -35,6 +46,19 @@ namespace StrategyMethod {
         public void ExcuteStrategyByInput(int level)
         {
             Skill.Power(level);
+        }
+    }
+
+    public class Attack_Red_L : IStrategy
+    {
+        public void ExcuteStrategy() {
+            return;
+        }
+
+        public void ExcuteStrategyByInput(int level)
+        {
+            Skill.LowDamage(level);
+            
         }
     }
 
@@ -72,6 +96,17 @@ namespace StrategyMethod {
         public void ExcuteStrategyByInput(int level)
         {
             Skill.Defend(level);
+        }
+    }
+    public class Defend_Blue_L : IStrategy
+    {
+        public void ExcuteStrategy() {
+            return;
+        }
+
+        public void ExcuteStrategyByInput(int level)
+        {
+            Skill.LowDefend(level);
         }
     }
     

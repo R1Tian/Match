@@ -283,6 +283,27 @@ namespace SkillRelated {
             }
             
         }
+
+        /// <summary>
+        /// 防御（1-2-3）
+        /// </summary>
+        /// <param name="level"></param>
+        public static void LowDefend(int level)
+        {
+            switch (level)
+            {
+                case 1:
+                    PlayerState.instance.AddDefenceBuffLayer(1);
+                    break;
+                case 2:
+                    PlayerState.instance.AddDefenceBuffLayer(2);
+                    break;
+                case 3:
+                    PlayerState.instance.AddDefenceBuffLayer(3);
+                    break;
+            }
+            
+        }
         
         /// <summary>
         /// 固定量防御
