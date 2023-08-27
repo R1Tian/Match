@@ -3,19 +3,35 @@
   <component name="ChangeListManager">
     <list default="true" id="ea38e703-71ab-4eac-aa5d-4a893e08aa36" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Match/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Match/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefeb/FullCard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefeb/FullCard.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefeb/FullCardInReward.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefeb/FullCardInReward.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/BattlePanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BattlePanel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/EnemyList/Easy.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/EnemyList/Easy.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemys/Test1.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemys/Test2.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemys/test.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Enemys/test.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MapPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MapPanel.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/字体文件/SIMKAI SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/字体文件/SIMKAI SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/贴图资源/knight.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/贴图资源/knight.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test123.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test123.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Card/MonoFullCard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Card/MonoFullCard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Main/Init.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Main/Init.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/MapSetting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/MapSetting.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/贴图资源/enemy 1-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/贴图资源/enemy 1-2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/贴图资源/enemy1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/贴图资源/enemy1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/贴图资源/enemy2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/贴图资源/enemy2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/贴图资源/knight.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/贴图资源/knight.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Buff.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Buff.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyState2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyState2.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Manager/BuffManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Manager/BuffManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Manager/FSMManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Manager/FSMManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Manager/ResourcesManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Manager/ResourcesManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/InitMapSetting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/InitMapSetting.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectAnimation.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI_Showcase/RewardPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI_Showcase/RewardPanel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Skill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Skill.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/StateMachine/Machine/EasyMonster.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/StateMachine/Machine/EasyMonster.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Strategy/Strategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Strategy/Strategy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TetrisStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TetrisStats.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +43,8 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/cbf0a658be6b4a09b610d7d2917b90f1157c00/7d/868610fd/Component.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/da6a1787df247a0274ec8fc4840f41df092ee13874f55f87a9db568acab1bd2/System.Reflection.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Buff.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Buff/Buff.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Buff/BuffList.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/DestroyGameObjectOnAnimatonComplete.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyObject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyState.cs" root0="FORCE_HIGHLIGHTING" />
@@ -35,6 +52,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Manager/CancellationTokenManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Manager/SoundManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ObjectAnimation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/StateMachine/Machine/BloodfangBerserker.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI_Showcase/MapPanel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI_Showcase/ShopPanel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collab-proxy@1.15.18/Editor/Collaborate/Components/AlertBox.cs" root0="SKIP_HIGHLIGHTING" />
@@ -52,17 +70,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Discover.Launch.Via.Unity": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.gutterIcons",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.gutterIcons&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$PROJECT_DIR$/../../4Match\Match.exe" />
@@ -139,7 +157,14 @@
       <workItem from="1692337069970" duration="7938000" />
       <workItem from="1692591688515" duration="13503000" />
       <workItem from="1692623893705" duration="1030000" />
-      <workItem from="1692677512688" duration="6337000" />
+      <workItem from="1692677512688" duration="7883000" />
+      <workItem from="1692689202767" duration="1429000" />
+      <workItem from="1692691302375" duration="5000" />
+      <workItem from="1692771381840" duration="8940000" />
+      <workItem from="1692802420883" duration="682000" />
+      <workItem from="1692852558286" duration="10814000" />
+      <workItem from="1692880405863" duration="4073000" />
+      <workItem from="1692938944664" duration="11921000" />
     </task>
     <servers />
   </component>

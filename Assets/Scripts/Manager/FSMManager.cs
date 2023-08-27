@@ -7,15 +7,17 @@ public class FSMManager
 {
     private static Dictionary<int, FSMGeneral> FindMachine;
 
+    public static void OnInitMachine() {
+        FindMachine = new Dictionary<int, FSMGeneral>() {
+            { 1, new EasyMonster() },
+            { 2, new PhantomWraithwolf() },
+            { 3, new BloodfangBerserker() },
+        };
+    }
+
     public static FSMGeneral FindStateMachine(int key) {
         FSMGeneral res = null;
         FindMachine.TryGetValue(key, out res);
         return res;
-    }
-
-    public static void OnInitMachine() {
-        FindMachine = new Dictionary<int, FSMGeneral>() {
-            { 1, new EasyMonster()}
-        };
     }
 }

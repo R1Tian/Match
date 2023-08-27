@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f02ea13de62efc4a933ecc896e999c9, type: 3}
+  m_Name: 6_HighHealAndForbidHeal_Green_I
+  m_EditorClassIdentifier: 
+  id: 6
+  Name: "\u6CBB\u7597I"
+  Shape: "I\u578B"
+  Quality: 0
+  Color: {r: 0, g: 1, b: 0, a: 1}
+  Level: 1
+  ColorType: 3
+  TetrominoType: 4
+  CardFace: {fileID: 0}
+  SkillName:
+  - HighHealAndForbidHeal_Green_I
+  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u6062\u590D5/10/15\u70B9\u751F\u547D\u503C\uFF0C\u540E3/2/1\u4E2A\u56DE\u5408\u6240\u6709\u6062\u590D\u6548\u679C\u5931\u6548"
+  CardShow: {fileID: 0}

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace SkillRelated {
@@ -51,7 +52,27 @@ namespace SkillRelated {
             //Debug.Log(TestFunc.EnemyHP);
         }
 
-        
+        /// <summary>
+        /// 根据护甲值造成伤害(0.2-0.3-0.5倍)
+        /// </summary>
+        public static void DamageWithDefence(int level)
+        {
+            int defence = PlayerState.instance.GetDefenceBuffLayer();
+            switch (level)
+            {
+                case 1:
+                    EnemyState.instance.TakeDamge(Mathf.FloorToInt(defence * 0.2f));
+                    break;
+                case 2:
+                    EnemyState.instance.TakeDamge(Mathf.FloorToInt(defence * 0.3f));
+                    break;
+                case 3:
+                    EnemyState.instance.TakeDamge(Mathf.FloorToInt(defence * 0.5f));
+                    break;
+            }
+            
+            //Debug.Log(TestFunc.EnemyHP);
+        }
         #endregion
 
         #region BuffRelate
@@ -144,9 +165,19 @@ namespace SkillRelated {
         public static void ForbidHeal(int level)
         {
             PlayerState.instance.ForbidHeal();
-            BuffManager.instance.ApplyDelayEffect(4 - level,4 - level, () => PlayerState.instance.AllowHeal());
+            BuffManager.instance.ApplyBuffByID(4, 4 - level,4 - level, () => PlayerState.instance.AllowHeal());
         }
 
+        /// <summary>
+        /// 获得护甲回馈
+        /// </summary>
+        /// <param name="level"></param>
+        public static void AddArmorFeedback(int level)
+        {
+            PlayerState.instance.AllowArmorFeedback();
+            BuffManager.instance.ApplyBuffByID(6,level,level, () => PlayerState.instance.ForbidArmorFeedback());
+        }
+        
         #endregion
 
         #region HealRelated
@@ -157,7 +188,7 @@ namespace SkillRelated {
         /// <param name="level"></param>
         public static void ContLowHeal(int level)
         {
-            BuffManager.instance.ApplyDelayEffect(1,level, () =>FixedHeal(1));
+            BuffManager.instance.ApplyBuffByID(7,1,level, () =>FixedHeal(1));
         }
         
         /// <summary>
@@ -268,7 +299,7 @@ namespace SkillRelated {
         /// <param name="level"></param>
         public static void ContDefend(int level)
         {
-            BuffManager.instance.ApplyDelayEffect(1,level, () =>FixedDefend(1));
+            BuffManager.instance.ApplyBuffByID(8,1,level, () =>FixedDefend(1));
         }
 
         /// <summary>
