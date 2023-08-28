@@ -1,4 +1,5 @@
 using System;
+using QFramework;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -23,10 +24,13 @@ public class CardShow : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerEnter(PointerEventData eventData)
     {
         EffectDes.SetActive(true);
+        EffectDes.transform.SetParent(transform.parent.parent.parent.parent);
+        EffectDes.transform.SetAsLastSibling();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        EffectDes.transform.SetParent(transform);
         EffectDes.SetActive(false);
     }
     public void Update()

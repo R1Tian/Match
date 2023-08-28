@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using DG.Tweening;
+using QFramework;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -26,21 +27,23 @@ public class ObjectAnimation : MonoBehaviour
     public float shakeRange = 5f;
     public float idleRange = 10f;
 
+    public static bool idleComplete = false;
+    
     private void Awake()
     {
         image = GetComponent<Image>();
         rectTransform = GetComponent<RectTransform>();
-        btn1.onClick.AddListener(() => Sparkle());
-        btn2.onClick.AddListener(() => Shake());
+        // btn1.onClick.AddListener(() => Sparkle());
+        // btn2.onClick.AddListener(() => Shake());
     }
 
     private void Start()
     {
-        Idle();
+        //Idle();
     }
 
     // Update is called once per frame
-    async void Sparkle()
+    public async void Sparkle()
     {
         for (int i = 0; i < 3; i++)
         {
@@ -52,7 +55,7 @@ public class ObjectAnimation : MonoBehaviour
         
     }
     
-    async void Shake()
+    public async void Shake()
     {
         float originalPos_x = rectTransform.anchoredPosition.x;
         for (int i = 0; i < 3; i++)
@@ -69,8 +72,9 @@ public class ObjectAnimation : MonoBehaviour
         rectTransform.DOAnchorPosX(originalPos_x, shakeStepTime).WaitForCompletion();
     }
     
-    async void Idle()
+    public void Idle(FSM<BattleFSM.OrganismsState> fsm)
     {
+        idleComplete = false;
         float originalPos_y = rectTransform.anchoredPosition.y;
         Sequence sequence = DOTween.Sequence();
         sequence.SetLoops(-1);
@@ -79,6 +83,15 @@ public class ObjectAnimation : MonoBehaviour
         sequence.Append(rectTransform.DOAnchorPosY(originalPos_y + idleRange,  2 * idleStepTime));
         //sequence.AppendInterval(idleInterval);
         sequence.Append(rectTransform.DOAnchorPosY(originalPos_y, idleStepTime));
+        sequence.AppendCallback(() =>
+        {
+            if (fsm.CurrentStateId != BattleFSM.OrganismsState.Idle)
+            {
+                idleComplete = true;
+                sequence.Kill();
+            }
+        });
     }
-    
+
+    public Func<bool> GetIdleComplete = () => idleComplete;
 }

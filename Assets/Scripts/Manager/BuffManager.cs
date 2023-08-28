@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using QFramework;
 using UnityEngine;
 
@@ -38,7 +39,7 @@ public class BuffManager : ISingleton
         activeBuffs.Add(buffObject);
     }
 
-    public void UpdateBuffs()
+    public async UniTask UpdateBuffs()
     {
         int newTurn = Main.instance.GetTurn();
 

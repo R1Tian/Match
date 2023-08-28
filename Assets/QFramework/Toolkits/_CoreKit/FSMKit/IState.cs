@@ -103,6 +103,11 @@ namespace QFramework
         {
             mOnExit?.Invoke();
         }
+
+        public void OnCondition()
+        {
+            throw new NotImplementedException();
+        }
     }
 #if UNITY_EDITOR
     [ClassAPI("10.FSM","FSM",0,"FSM")]

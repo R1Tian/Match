@@ -3,19 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="ea38e703-71ab-4eac-aa5d-4a893e08aa36" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Match/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Match/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/UniTask/Runtime/UniTask.WaitUntil.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/UniTask/Runtime/UniTask.WaitUntil.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefeb/Card_Blue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefeb/Card_Blue.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefeb/Card_Green.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefeb/Card_Green.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefeb/Card_Red.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefeb/Card_Red.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefeb/Card_Yellow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefeb/Card_Yellow.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/QFramework/Toolkits/_CoreKit/FSMKit/IState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/QFramework/Toolkits/_CoreKit/FSMKit/IState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/BattlePanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BattlePanel.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/贴图资源/bar/empty shield bar.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/贴图资源/bar/empty shield bar.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/贴图资源/bar/empty shield bar.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/贴图资源/bar/empty shield bar.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/贴图资源/bar/框.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/贴图资源/bar/框.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/贴图资源/empty shield bar.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/贴图资源/empty shield bar.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Buff/BuffManagerUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Buff/BuffManagerUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyState2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyState2.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Manager/BuffManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Manager/BuffManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectAnimation.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Skill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Skill.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TetrisStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TetrisStats.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/CardShow/CardShow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/CardShow/CardShow.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +26,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/cbf0a658be6b4a09b610d7d2917b90f1157c00/7d/868610fd/Component.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/da6a1787df247a0274ec8fc4840f41df092ee13874f55f87a9db568acab1bd2/System.Reflection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/BattleFSM.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Buff/Buff.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Buff/BuffList.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/DestroyGameObjectOnAnimatonComplete.cs" root0="FORCE_HIGHLIGHTING" />
@@ -151,6 +151,8 @@
       <workItem from="1692938944664" duration="11921000" />
       <workItem from="1692968972092" duration="4227000" />
       <workItem from="1693029022774" duration="5482000" />
+      <workItem from="1693116773885" duration="9333000" />
+      <workItem from="1693195652978" duration="4122000" />
     </task>
     <servers />
   </component>

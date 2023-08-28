@@ -1267,10 +1267,12 @@ public class TetrisStats : MonoBehaviour
         else
         {
             await LoopWithUsingCards(CancellationTokenManager.battleCancellationToken);
-            Main.instance.AddOne();
-            turn.text = Main.instance.GetTurn().ToString();
             
-            BuffManager.instance.UpdateBuffs();
+            
+            await BuffManager.instance.UpdateBuffs();
+            
+            Main.instance.AddOne();
+            turn.text = Main.instance.GetTurn().ToString();            
 
             EnemyState.instance.ExcuteAction();
             

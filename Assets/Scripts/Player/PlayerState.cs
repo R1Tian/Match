@@ -25,6 +25,10 @@ public class PlayerState : ISingleton
     private CardRepository CardRepository;
     private bool CanHeal = true;
     private bool ArmorFeedback = false;
+    
+    //一些状态（动画用）
+    private bool isHurt = false;
+    private bool isAttack = false;
 
     private int Money;
     #endregion
@@ -134,7 +138,9 @@ public class PlayerState : ISingleton
         PlayerHP -= hp;
     }
     
-    public void TakeDamge(int hp) {
+    public void TakeDamge(int hp)
+    {
+        isHurt = true;
         Debug.Log(GetDefenceBuffLayer());
         if (DefenceBuffLayer >= hp)
         {
@@ -308,6 +314,21 @@ public class PlayerState : ISingleton
     public void ReduceMoney(int val)
     {
         Money -= val;
+    }
+
+    public bool GetIsHurt()
+    {
+        return isHurt;
+    }
+    
+    public void SetIsHurt()
+    {
+        isHurt = true;
+    }
+    
+    public void SetNotHurt()
+    {
+        isHurt = false;
     }
     
     public void Dispose() { SingletonProperty<PlayerState>.Instance.Dispose(); }
