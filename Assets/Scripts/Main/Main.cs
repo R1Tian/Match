@@ -13,7 +13,7 @@ public class Main : ISingleton
 
     public void OnSingletonInit()
     {
-        Turn = 0;
+        Turn = 1;
         InitShape();
     }
 

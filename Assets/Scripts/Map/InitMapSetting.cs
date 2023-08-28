@@ -80,25 +80,46 @@ namespace Map {
             if (needReset)
             {
                 needReset = false;
-                foreach (MapSetting mapSetting in PointList)
+                if (LastNodeIndex == -1)
                 {
-                    Debug.Log("mapsetting:" + mapSetting.Finished);
                     Sequence sequence = DOTween.Sequence();
-                    if (!mapSetting.Finished)
+                    if (!PointList[0].Finished)
                     {
                         sequence.SetLoops(-1).SetAutoKill(false);
-                        sequence.Append(mapSetting.GetComponent<Transform>().DOScale(new Vector3(1.5f, 1.5f, 1), duration)
+                        sequence.Append(PointList[0].GetComponent<Transform>().DOScale(new Vector3(1.5f, 1.5f, 1), duration)
                             .SetEase(Ease.InSine));
-                        sequence.Append(mapSetting.GetComponent<Transform>().DOScale(new Vector3(1f, 1f, 1), duration)
+                        sequence.Append(PointList[0].GetComponent<Transform>().DOScale(new Vector3(1f, 1f, 1), duration)
                             .SetEase(Ease.InSine));
                         //sequence.Append(GetComponent<Transform>().DOScale(new Vector3(1.5f, 1.5f, 1), duration));
                     }
                     else
                     {
                         sequence.Kill();
-                        mapSetting.GetComponent<Transform>().localScale = new Vector3(1, 1, 1);
+                        PointList[0].GetComponent<Transform>().localScale = new Vector3(1, 1, 1);
                     }
                 }
+                else
+                {
+                    foreach (MapSetting mapSetting in PointList[LastNodeIndex].NextNode)
+                    {
+                        Sequence sequence = DOTween.Sequence();
+                        if (!mapSetting.Finished)
+                        {
+                            sequence.SetLoops(-1).SetAutoKill(false);
+                            sequence.Append(mapSetting.GetComponent<Transform>().DOScale(new Vector3(1.5f, 1.5f, 1), duration)
+                                .SetEase(Ease.InSine));
+                            sequence.Append(mapSetting.GetComponent<Transform>().DOScale(new Vector3(1f, 1f, 1), duration)
+                                .SetEase(Ease.InSine));
+                            //sequence.Append(GetComponent<Transform>().DOScale(new Vector3(1.5f, 1.5f, 1), duration));
+                        }
+                        else
+                        {
+                            sequence.Kill();
+                            mapSetting.GetComponent<Transform>().localScale = new Vector3(1, 1, 1);
+                        }
+                    }
+                }
+                
             }
         }
 
@@ -113,6 +134,14 @@ namespace Map {
             DOTween.KillAll();
             Reset();
         }
-        
+
+        void U()
+        {
+            
+
+            
+            
+            
+        }
     }
 }

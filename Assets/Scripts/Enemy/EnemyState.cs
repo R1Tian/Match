@@ -19,6 +19,7 @@ public partial class EnemyState : ISingleton
     private int ID;
     private int AttackVal;
     private Sprite sprite;
+    private EnemyType EnemyType;
     
     //buff
     private int AttackBuffLayer;
@@ -41,6 +42,7 @@ public partial class EnemyState : ISingleton
         ID = enemy.id;
         AttackVal = enemy.BasicAttack;
         sprite = enemy.Image;
+        EnemyType = enemy.Type;
     }
 
     public void ExcuteAction() {

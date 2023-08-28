@@ -30,7 +30,7 @@ public class BuffManager : ISingleton
         //
         // activeBuffGameObjects.Clear();
         activeBuffs.Clear();
-        currentTurn = 0;
+        currentTurn = 1;
     }
 
 

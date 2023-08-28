@@ -135,6 +135,7 @@ public class PlayerState : ISingleton
     }
 
     public void TakeTrueDamge(int hp) {
+        isHurt = true;
         PlayerHP -= hp;
     }
     

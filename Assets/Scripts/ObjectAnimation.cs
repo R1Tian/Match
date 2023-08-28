@@ -51,9 +51,9 @@ public class ObjectAnimation : MonoBehaviour
         image.DOKill();
         for (int i = 0; i < 3; i++)
         {
-            image.DOFade(0, sparkleStepTime);
+            if(image != null) image.DOFade(0, sparkleStepTime);
             await UniTask.Delay(TimeSpan.FromSeconds(sparkleInterval));
-            image.DOFade(1, sparkleStepTime);
+            if(image != null) image.DOFade(1, sparkleStepTime);
             await UniTask.Delay(TimeSpan.FromSeconds(sparkleInterval));
         }
         sparkleComplete = true;
@@ -66,13 +66,13 @@ public class ObjectAnimation : MonoBehaviour
         rectTransform.DOKill();
         for (int i = 0; i < 3; i++)
         {
-            rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x - shakeRange, shakeStepTime).WaitForCompletion();
+            if (rectTransform != null) rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x - shakeRange, shakeStepTime).WaitForCompletion();
             await UniTask.Delay(TimeSpan.FromSeconds(shakeInterval));
-            rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x + shakeRange, shakeStepTime).WaitForCompletion();
+            if (rectTransform != null) rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x + shakeRange, shakeStepTime).WaitForCompletion();
             await UniTask.Delay(TimeSpan.FromSeconds(shakeInterval));
-            rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x + shakeRange, shakeStepTime).WaitForCompletion();
+            if (rectTransform != null) rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x + shakeRange, shakeStepTime).WaitForCompletion();
             await UniTask.Delay(TimeSpan.FromSeconds(shakeInterval));
-            rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x - shakeRange, shakeStepTime).WaitForCompletion();
+            if (rectTransform != null) rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x - shakeRange, shakeStepTime).WaitForCompletion();
             await UniTask.Delay(TimeSpan.FromSeconds(shakeInterval));
         }
         rectTransform.DOAnchorPosX(originalPos_x, shakeStepTime).WaitForCompletion();
@@ -105,4 +105,9 @@ public class ObjectAnimation : MonoBehaviour
     public Func<bool> GetIdleComplete = () => idleComplete;
     public Func<bool> GetSparkleComplete = () => sparkleComplete;
     public Func<bool> GetShakeComplete = () => shakeComplete;
+
+    private void OnDestroy()
+    {
+        //DOTween.KillAll();
+    }
 }

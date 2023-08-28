@@ -121,4 +121,9 @@ public partial class EnemyState
     {
         isHurt = false;
     }
+
+    public EnemyType GetEnemyType()
+    {
+        return EnemyType;
+    }
 }

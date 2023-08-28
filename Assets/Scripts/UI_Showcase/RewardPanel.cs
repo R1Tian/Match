@@ -31,11 +31,23 @@ public class RewardPanel : BasePanel
     {
         BackBtn = skin.transform.Find("Back").GetComponent<Button>();
         CoinCount = skin.transform.Find("Coin").GetComponent<Text>();
-
-        //todo 需要根据怪物难度分配钱
+        
         #region Money
 
-        int count = Random.Range(1, 10);
+        int count = 0;
+        switch (EnemyState.instance.GetEnemyType())
+        {
+            case EnemyType.easy:
+                count = Random.Range(15, 30);
+                break;
+            case EnemyType.normal:
+                count = Random.Range(40, 60);
+                break;
+            case EnemyType.elite:
+                count = Random.Range(90, 110);
+                break;
+        }
+        
         CoinCount.text = count.ToString();
         PlayerState.instance.AddMoney(count);
 

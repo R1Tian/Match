@@ -1443,6 +1443,8 @@ public class TetrisStats : MonoBehaviour
         playerHP.value = 1;
         PlayerState.instance.DeleteDamageBuff();
         PlayerState.instance.DeleteDefenceBuffLayer();
+        PlayerState.instance.SetNotHurt();
+        EnemyState.instance.SetNotHurt();
 
         enmey.GetComponent<Image>().sprite = EnemyState.instance.GetSprite();
         

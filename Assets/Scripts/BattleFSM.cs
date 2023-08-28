@@ -181,4 +181,11 @@ public class BattleFSM : MonoBehaviour
     private void OnGUI()
     {
     }
+
+    private void OnDestroy()
+    {
+        PlayerFSM.Clear();
+        EnemyFSM.Clear();
+        //DOTween.KillAll();
+    }
 }
