@@ -141,6 +141,8 @@ MonoBehaviour:
   Easy: {fileID: 11400000, guid: ac8c2ffb21ed1b242a175131817c6df8, type: 2}
   Normal: {fileID: 11400000, guid: 9cbfee766fdacca41a39d4a0b6e1d6af, type: 2}
   Elite: {fileID: 11400000, guid: 7ad38ae0be9d2cf459cb255846b42091, type: 2}
+  duration: 0.4
+  interval: 0.02
 --- !u!1 &5594413038947028745
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,9 +412,29 @@ PrefabInstance:
     m_TransformParent: {fileID: 3153941079868284168}
     m_Modifications:
     - target: {fileID: 3949474228498208430, guid: 6c0c8af386af1674aad49aa0acd5ef7e, type: 3}
+      propertyPath: sprites.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3949474228498208430, guid: 6c0c8af386af1674aad49aa0acd5ef7e, type: 3}
       propertyPath: NextNode.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3949474228498208430, guid: 6c0c8af386af1674aad49aa0acd5ef7e, type: 3}
+      propertyPath: sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 39ac85562331dcb44bbcd445a31de0d1, type: 3}
+    - target: {fileID: 3949474228498208430, guid: 6c0c8af386af1674aad49aa0acd5ef7e, type: 3}
+      propertyPath: sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 29c4296b018971342a56695f6fd7ca33, type: 3}
+    - target: {fileID: 3949474228498208430, guid: 6c0c8af386af1674aad49aa0acd5ef7e, type: 3}
+      propertyPath: sprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 7e2b9a67a9feecd448a0a6e2c0648442, type: 3}
+    - target: {fileID: 3949474228498208430, guid: 6c0c8af386af1674aad49aa0acd5ef7e, type: 3}
+      propertyPath: sprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 4b2055747741561469a9db27fcd0f16d, type: 3}
     - target: {fileID: 3949474228498208430, guid: 6c0c8af386af1674aad49aa0acd5ef7e, type: 3}
       propertyPath: NextNode.Array.data[0]
       value: 

@@ -1653,6 +1653,14 @@ public class TetrisStats : MonoBehaviour
             allCounts.Add(type,0);
         }
     }
+
+    /// <summary>
+    /// 测试专用，缪莎
+    /// </summary>
+    public void KillEnemy()
+    {
+        EnemyState.instance.TakeDamge(99999999);
+    }
     
     /// <summary>
     /// 字符串转Enum

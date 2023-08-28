@@ -39,8 +39,10 @@ public partial class EnemyState
         CurHP = MaxHP;
     }
     
-    public void TakeDamge(int val) {
+    public void TakeDamge(int val)
+    {
 
+        isHurt = true;
         CurHP -= (int)Mathf.Floor((val + PlayerState.instance.GetAttackBuff()) * Mathf.Pow(1.5f, GetArmorPenetrationBuffLayer()));
     }
 
@@ -103,5 +105,20 @@ public partial class EnemyState
     public Sprite GetSprite()
     {
         return sprite;
+    }
+
+    public bool GetIsHurt()
+    {
+        return isHurt;
+    }
+
+    public void SetIsHurt()
+    {
+        isHurt = true;
+    }
+    
+    public void SetNotHurt()
+    {
+        isHurt = false;
     }
 }

@@ -41,6 +41,11 @@ public class BattleFSM : MonoBehaviour
                 {
                     PlayerFSM.ChangeState(OrganismsState.Hurt);
                 }
+
+                if (EnemyState.instance.GetIsHurt())
+                {
+                    PlayerFSM.ChangeState(OrganismsState.Attack);
+                }
             })
             .OnGUI(() => { });
         
@@ -48,65 +53,129 @@ public class BattleFSM : MonoBehaviour
             .OnCondition(() => true)
             .OnEnter(async () =>
             {
-                await UniTask
-                    .WaitUntil(Player.GetComponent<ObjectAnimation>().GetIdleComplete,
-                        cancellationToken: CancellationTokenManager.battleCancellationToken)
-                    .SuppressCancellationThrow();
+                // await UniTask
+                //     .WaitUntil(Player.GetComponent<ObjectAnimation>().GetIdleComplete,
+                //         cancellationToken: CancellationTokenManager.battleCancellationToken)
+                //     .SuppressCancellationThrow();
                 Player.GetComponent<ObjectAnimation>().Sparkle();
             })
             .OnExit(() =>
             {
-                Player.transform.DOKill();
+                PlayerState.instance.SetNotHurt();
+                //Player.transform.DOKill();
             })
-            .OnUpdate(() => { })
+            .OnUpdate(() =>
+            {
+                Debug.Log(Player.GetComponent<ObjectAnimation>().GetSparkleComplete());
+                if (Player.GetComponent<ObjectAnimation>().GetSparkleComplete())
+                {
+                    Debug.Log("Hurt切换Idle");
+                    PlayerFSM.ChangeState(OrganismsState.Idle);
+                }
+            })
             .OnGUI(() => { });
         
         PlayerFSM.State(OrganismsState.Attack)
             .OnCondition(() => true)
-            .OnEnter(() => { })
+            .OnEnter(async () =>
+            {
+                // await UniTask
+                //     .WaitUntil(Player.GetComponent<ObjectAnimation>().GetIdleComplete,
+                //         cancellationToken: CancellationTokenManager.battleCancellationToken)
+                //     .SuppressCancellationThrow();
+                Player.GetComponent<ObjectAnimation>().Shake();
+                
+            })
             .OnExit(() =>
             {
-                Player.transform.DOKill();
+                //EnemyState.instance.SetNotHurt();
+                //Player.transform.DOKill();
             })
-            .OnUpdate(() => { })
+            .OnUpdate(() =>
+            {
+                Debug.Log(Player.GetComponent<ObjectAnimation>().GetShakeComplete());
+                if (Player.GetComponent<ObjectAnimation>().GetShakeComplete())
+                {
+                    Debug.Log("Attack切换Idle");
+                    PlayerFSM.ChangeState(OrganismsState.Idle);
+                }
+            })
             .OnGUI(() => { });
         
         EnemyFSM.State(OrganismsState.Idle)
             .OnCondition(() => true)
-            .OnEnter(() => { })
+            .OnEnter(() =>
+            {
+                Enemy.GetComponent<ObjectAnimation>().Idle(EnemyFSM);
+            })
             .OnExit(() =>
             {
-                Enemy.transform.DOKill();
+                //Enemy.transform.DOKill();
             })
-            .OnUpdate(() => { })
+            .OnUpdate(() =>
+            {
+                Debug.Log("enemy:"+EnemyState.instance.GetIsHurt());
+                if (PlayerState.instance.GetIsHurt())
+                {
+                    EnemyFSM.ChangeState(OrganismsState.Attack);
+                }
+
+                if (EnemyState.instance.GetIsHurt())
+                {
+                    EnemyFSM.ChangeState(OrganismsState.Hurt);
+                }
+            })
             .OnGUI(() => { });
         
         EnemyFSM.State(OrganismsState.Hurt)
             .OnCondition(() => true)
-            .OnEnter(() => { })
+            .OnEnter(() =>
+            {
+                Debug.Log("enemy进入hurt");
+                Enemy.GetComponent<ObjectAnimation>().Sparkle();
+            })
             .OnExit(() =>
             {
-                Enemy.transform.DOKill();
+                Debug.Log("enemy不受伤");
+                EnemyState.instance.SetNotHurt();
+                //Enemy.transform.DOKill();
             })
-            .OnUpdate(() => { })
+            .OnUpdate(() =>
+            {
+                if (Enemy.GetComponent<ObjectAnimation>().GetSparkleComplete())
+                {
+                    EnemyFSM.ChangeState(OrganismsState.Idle);
+                }
+            })
             .OnGUI(() => { });
         
         EnemyFSM.State(OrganismsState.Attack)
             .OnCondition(() => true)
-            .OnEnter(() => { })
+            .OnEnter(() =>
+            {
+                Enemy.GetComponent<ObjectAnimation>().Shake();
+            })
             .OnExit(() =>
             {
-                Enemy.transform.DOKill();
+                //Enemy.transform.DOKill();
             })
-            .OnUpdate(() => { })
+            .OnUpdate(() =>
+            {
+                if (Enemy.GetComponent<ObjectAnimation>().GetShakeComplete())
+                {
+                    EnemyFSM.ChangeState(OrganismsState.Idle);
+                }
+            })
             .OnGUI(() => { });
         
         PlayerFSM.StartState(OrganismsState.Idle);
+        EnemyFSM.StartState(OrganismsState.Idle);
     }
 
     private void Update()
     {
         PlayerFSM.Update();
+        EnemyFSM.Update();
     }
 
     private void OnGUI()

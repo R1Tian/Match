@@ -27,6 +27,9 @@ public partial class EnemyState : ISingleton
     private int FragileBuffLayer;
     private int ArmorPenetrationBuffLayer;
 
+    //状态
+    private bool isHurt = false;
+    
     #endregion
     public void OnSingletonInit()
     {

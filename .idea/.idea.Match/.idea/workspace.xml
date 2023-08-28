@@ -3,18 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="ea38e703-71ab-4eac-aa5d-4a893e08aa36" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Match/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Match/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/UniTask/Runtime/UniTask.WaitUntil.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/UniTask/Runtime/UniTask.WaitUntil.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefeb/Card_Blue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefeb/Card_Blue.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefeb/Card_Green.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefeb/Card_Green.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefeb/Card_Red.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefeb/Card_Red.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefeb/Card_Yellow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefeb/Card_Yellow.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/QFramework/Toolkits/_CoreKit/FSMKit/IState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/QFramework/Toolkits/_CoreKit/FSMKit/IState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefeb/MapPoint.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefeb/MapPoint.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/BattlePanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/BattlePanel.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Manager/BuffManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Manager/BuffManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/MapPanel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/MapPanel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BattleFSM.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BattleFSM.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyState2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/EnemyState2.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/InitMapSetting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/InitMapSetting.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Map/MapSetting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Map/MapSetting.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectAnimation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/TetrisStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TetrisStats.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/CardShow/CardShow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/CardShow/CardShow.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +150,7 @@
       <workItem from="1692968972092" duration="4227000" />
       <workItem from="1693029022774" duration="5482000" />
       <workItem from="1693116773885" duration="9333000" />
-      <workItem from="1693195652978" duration="4122000" />
+      <workItem from="1693195652978" duration="16985000" />
     </task>
     <servers />
   </component>

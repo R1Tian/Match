@@ -27,7 +27,9 @@ public class ObjectAnimation : MonoBehaviour
     public float shakeRange = 5f;
     public float idleRange = 10f;
 
-    public static bool idleComplete = false;
+    private static bool idleComplete = false;
+    public static bool sparkleComplete = false;
+    public static bool shakeComplete = false;
     
     private void Awake()
     {
@@ -45,6 +47,8 @@ public class ObjectAnimation : MonoBehaviour
     // Update is called once per frame
     public async void Sparkle()
     {
+        sparkleComplete = false;
+        image.DOKill();
         for (int i = 0; i < 3; i++)
         {
             image.DOFade(0, sparkleStepTime);
@@ -52,12 +56,14 @@ public class ObjectAnimation : MonoBehaviour
             image.DOFade(1, sparkleStepTime);
             await UniTask.Delay(TimeSpan.FromSeconds(sparkleInterval));
         }
-        
+        sparkleComplete = true;
     }
     
     public async void Shake()
     {
+        shakeComplete = false;
         float originalPos_x = rectTransform.anchoredPosition.x;
+        rectTransform.DOKill();
         for (int i = 0; i < 3; i++)
         {
             rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x - shakeRange, shakeStepTime).WaitForCompletion();
@@ -70,6 +76,8 @@ public class ObjectAnimation : MonoBehaviour
             await UniTask.Delay(TimeSpan.FromSeconds(shakeInterval));
         }
         rectTransform.DOAnchorPosX(originalPos_x, shakeStepTime).WaitForCompletion();
+
+        shakeComplete = true;
     }
     
     public void Idle(FSM<BattleFSM.OrganismsState> fsm)
@@ -88,10 +96,13 @@ public class ObjectAnimation : MonoBehaviour
             if (fsm.CurrentStateId != BattleFSM.OrganismsState.Idle)
             {
                 idleComplete = true;
-                sequence.Kill();
+                sequence.Pause();
             }
         });
+        sequence.Play();
     }
 
     public Func<bool> GetIdleComplete = () => idleComplete;
+    public Func<bool> GetSparkleComplete = () => sparkleComplete;
+    public Func<bool> GetShakeComplete = () => shakeComplete;
 }
