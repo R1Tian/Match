@@ -202,20 +202,20 @@ namespace SkillRelated {
         }
         
         /// <summary>
-        /// 治疗(4-5-7)
+        /// 治疗(8-10-12)
         /// </summary>
         public static void Heal(int level)
         {
             switch (level)
             {
                 case 1:
-                    PlayerState.instance.HealHealth(4);
+                    PlayerState.instance.HealHealth(8);
                     break;
                 case 2:
-                    PlayerState.instance.HealHealth(5);
+                    PlayerState.instance.HealHealth(10);
                     break;
                 case 3:
-                    PlayerState.instance.HealHealth(7);
+                    PlayerState.instance.HealHealth(12);
                     break;
             }
         }
@@ -230,7 +230,7 @@ namespace SkillRelated {
         }
 
         /// <summary>
-        /// 治疗（2-3-4）
+        /// 治疗（6-7-8）
         /// </summary>
         /// <param name="level"></param>
         public static void LowHeal(int level)
@@ -238,19 +238,19 @@ namespace SkillRelated {
             switch (level)
             {
                 case 1:
-                    PlayerState.instance.HealHealth(2);
+                    PlayerState.instance.HealHealth(6);
                     break;
                 case 2:
-                    PlayerState.instance.HealHealth(3);
+                    PlayerState.instance.HealHealth(7);
                     break;
                 case 3:
-                    PlayerState.instance.HealHealth(4);
+                    PlayerState.instance.HealHealth(8);
                     break;
             }
         }
 
         /// <summary>
-        /// 治疗（5-10-15）
+        /// 治疗（5-10-20）
         /// </summary>
         /// <param name="level"></param>
         public static void HighHeal(int level)
@@ -264,7 +264,7 @@ namespace SkillRelated {
                     PlayerState.instance.HealHealth(10);
                     break;
                 case 3:
-                    PlayerState.instance.HealHealth(15);
+                    PlayerState.instance.HealHealth(20);
                     break;
             }
         }

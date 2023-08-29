@@ -3807,8 +3807,8 @@ MonoBehaviour:
   isGeneratingRuledBoard: 0
   fallTime: 0.2
   whetherReinforce: 1
-  ReinforceHP: 10
-  ReinforceAttack: 8
+  ReinforceHP: 5
+  ReinforceAttack: 10
 --- !u!1 &8298117660772260679
 GameObject:
   m_ObjectHideFlags: 0

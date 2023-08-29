@@ -36,8 +36,8 @@ public class PlayerState : ISingleton
 
     public void OnSingletonInit()
     {
-        PlayerHP = 1000;
-        PlayerMaxHP = 1000;
+        PlayerHP = 2200;
+        PlayerMaxHP = 2200;
         AttackBuffLayer = 0;
         DefenceBuffLayer = 0;
         FlexibilityBuffLayer = 0;

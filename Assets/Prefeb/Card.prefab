@@ -99,6 +99,7 @@ MonoBehaviour:
   Description: {fileID: 5846766365621157106}
   EffectDes: {fileID: 5846766366536286696}
   Animator: {fileID: 0}
+  colorType: 0
 --- !u!95 &683605225450540843
 Animator:
   serializedVersion: 4
@@ -266,7 +267,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: cc3c7ee38c7633c4c937a39331206052, type: 3}
     m_FontSize: 17
     m_FontStyle: 0
     m_BestFit: 0
