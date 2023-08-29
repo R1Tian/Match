@@ -1471,10 +1471,12 @@ public class TetrisStats : MonoBehaviour
         //EnemyState.instance.OnSingletonInit();
         //todo 临时强化
         #region 临时强化
-        
-        EnemyState.instance.AddMaxHP(ReinforceHP * PlayerState.instance.GetBattleCount());
-        EnemyState.instance.AddHPToMax();
-        EnemyState.instance.AddBasicDamage(ReinforceAttack * PlayerState.instance.GetBattleCount());
+        if(whetherReinforce)
+        {
+            EnemyState.instance.AddMaxHP(ReinforceHP * PlayerState.instance.GetBattleCount());
+            EnemyState.instance.AddHPToMax();
+            EnemyState.instance.AddBasicDamage(ReinforceAttack * PlayerState.instance.GetBattleCount());
+        }
         
         #endregion
        

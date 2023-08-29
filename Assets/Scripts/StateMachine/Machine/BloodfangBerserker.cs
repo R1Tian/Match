@@ -6,7 +6,7 @@ public class BloodfangBerserker : FSMGeneral
 {
     public override void OnExcute()
     {
-        EnemyState.instance.AddBasicDamage(10);
+        EnemyState.instance.AddBasicDamage(5);
         PlayerState.instance.TakeDamge(EnemyState.instance.GetDamage());
     }
 }

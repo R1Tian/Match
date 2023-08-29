@@ -7,7 +7,7 @@ namespace SkillRelated {
         
         #region DamageRelated
         /// <summary>
-        /// 造成伤害(2-3-5)
+        /// 造成伤害(4-5-7)
         /// </summary>
         public static void Damage(int level)
         {
@@ -16,13 +16,13 @@ namespace SkillRelated {
             switch (level)
             {
                 case 1:
-                    EnemyState.instance.TakeDamge(2);
+                    EnemyState.instance.TakeDamge(4);
                     break;
                 case 2:
-                    EnemyState.instance.TakeDamge(3);
+                    EnemyState.instance.TakeDamge(5);
                     break;
                 case 3:
-                    EnemyState.instance.TakeDamge(5);
+                    EnemyState.instance.TakeDamge(7);
                     break;
             }
             
@@ -30,7 +30,7 @@ namespace SkillRelated {
         }
         
         /// <summary>
-        /// 造成伤害(1-2-3)
+        /// 造成伤害(2-3-4)
         /// </summary>
         public static void LowDamage(int level)
         {
@@ -39,13 +39,13 @@ namespace SkillRelated {
             switch (level)
             {
                 case 1:
-                    EnemyState.instance.TakeDamge(1);
-                    break;
-                case 2:
                     EnemyState.instance.TakeDamge(2);
                     break;
-                case 3:
+                case 2:
                     EnemyState.instance.TakeDamge(3);
+                    break;
+                case 3:
+                    EnemyState.instance.TakeDamge(4);
                     break;
             }
             
@@ -202,20 +202,20 @@ namespace SkillRelated {
         }
         
         /// <summary>
-        /// 治疗(2-3-4)
+        /// 治疗(4-5-7)
         /// </summary>
         public static void Heal(int level)
         {
             switch (level)
             {
                 case 1:
-                    PlayerState.instance.HealHealth(2);
+                    PlayerState.instance.HealHealth(4);
                     break;
                 case 2:
-                    PlayerState.instance.HealHealth(3);
+                    PlayerState.instance.HealHealth(5);
                     break;
                 case 3:
-                    PlayerState.instance.HealHealth(4);
+                    PlayerState.instance.HealHealth(7);
                     break;
             }
         }
@@ -230,7 +230,7 @@ namespace SkillRelated {
         }
 
         /// <summary>
-        /// 治疗（1-2-3）
+        /// 治疗（2-3-4）
         /// </summary>
         /// <param name="level"></param>
         public static void LowHeal(int level)
@@ -238,13 +238,13 @@ namespace SkillRelated {
             switch (level)
             {
                 case 1:
-                    PlayerState.instance.HealHealth(1);
-                    break;
-                case 2:
                     PlayerState.instance.HealHealth(2);
                     break;
-                case 3:
+                case 2:
                     PlayerState.instance.HealHealth(3);
+                    break;
+                case 3:
+                    PlayerState.instance.HealHealth(4);
                     break;
             }
         }
