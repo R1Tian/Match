@@ -17,11 +17,11 @@ MonoBehaviour:
   Shape: "T\u578B"
   Quality: 0
   Color: {r: 1, g: 0, b: 0, a: 1}
-  Level: 0
+  Level: 1
   ColorType: 0
   TetrominoType: 2
   CardFace: {fileID: 0}
   SkillName:
   - Eject_Red_T
-  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u9020\u6210\u5F53\u524D0.2/0.3/0.5\u62A4\u7532\u503C\u7684\u4F24\u5BB3"
+  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u9020\u6210\u5F53\u524D0.5/1/2\u62A4\u7532\u503C\u7684\u4F24\u5BB3"
   CardShow: {fileID: 0}

@@ -7,9 +7,32 @@ namespace SkillRelated {
         
         #region DamageRelated
         /// <summary>
-        /// 造成伤害(4-5-7)
+        /// 造成伤害(6-7-9)
         /// </summary>
         public static void Damage(int level)
+        {
+            //Debug.Log(TestFunc.EnemyHP);
+            //TestFunc.EnemyHP -= 2 + PlayerState.instance.GetDamageBuff();
+            switch (level)
+            {
+                case 1:
+                    EnemyState.instance.TakeDamge(6);
+                    break;
+                case 2:
+                    EnemyState.instance.TakeDamge(7);
+                    break;
+                case 3:
+                    EnemyState.instance.TakeDamge(9);
+                    break;
+            }
+            
+            //Debug.Log(TestFunc.EnemyHP);
+        }
+        
+        /// <summary>
+        /// 造成伤害(4-5-6)
+        /// </summary>
+        public static void LowDamage(int level)
         {
             //Debug.Log(TestFunc.EnemyHP);
             //TestFunc.EnemyHP -= 2 + PlayerState.instance.GetDamageBuff();
@@ -22,30 +45,7 @@ namespace SkillRelated {
                     EnemyState.instance.TakeDamge(5);
                     break;
                 case 3:
-                    EnemyState.instance.TakeDamge(7);
-                    break;
-            }
-            
-            //Debug.Log(TestFunc.EnemyHP);
-        }
-        
-        /// <summary>
-        /// 造成伤害(2-3-4)
-        /// </summary>
-        public static void LowDamage(int level)
-        {
-            //Debug.Log(TestFunc.EnemyHP);
-            //TestFunc.EnemyHP -= 2 + PlayerState.instance.GetDamageBuff();
-            switch (level)
-            {
-                case 1:
-                    EnemyState.instance.TakeDamge(2);
-                    break;
-                case 2:
-                    EnemyState.instance.TakeDamge(3);
-                    break;
-                case 3:
-                    EnemyState.instance.TakeDamge(4);
+                    EnemyState.instance.TakeDamge(6);
                     break;
             }
             
@@ -53,7 +53,7 @@ namespace SkillRelated {
         }
 
         /// <summary>
-        /// 根据护甲值造成伤害(0.2-0.3-0.5倍)
+        /// 根据护甲值造成伤害(0.5-1-2倍)
         /// </summary>
         public static void DamageWithDefence(int level)
         {
@@ -61,13 +61,13 @@ namespace SkillRelated {
             switch (level)
             {
                 case 1:
-                    EnemyState.instance.TakeDamge(Mathf.FloorToInt(defence * 0.2f));
+                    EnemyState.instance.TakeDamge(Mathf.FloorToInt(defence * 0.5f));
                     break;
                 case 2:
-                    EnemyState.instance.TakeDamge(Mathf.FloorToInt(defence * 0.3f));
+                    EnemyState.instance.TakeDamge(Mathf.FloorToInt(defence * 1f));
                     break;
                 case 3:
-                    EnemyState.instance.TakeDamge(Mathf.FloorToInt(defence * 0.5f));
+                    EnemyState.instance.TakeDamge(Mathf.FloorToInt(defence * 2f));
                     break;
             }
             
@@ -274,7 +274,7 @@ namespace SkillRelated {
         
         #region DefendRelated
         /// <summary>
-        /// 防御（2-3-4）
+        /// 防御（6-7-9）
         /// </summary>
         /// <param name="level"></param>
         public static void Defend(int level)
@@ -282,20 +282,20 @@ namespace SkillRelated {
             switch (level)
             {
                 case 1:
-                    PlayerState.instance.AddDefenceBuffLayer(2);
+                    PlayerState.instance.AddDefenceBuffLayer(6);
                     break;
                 case 2:
-                    PlayerState.instance.AddDefenceBuffLayer(3);
+                    PlayerState.instance.AddDefenceBuffLayer(7);
                     break;
                 case 3:
-                    PlayerState.instance.AddDefenceBuffLayer(4);
+                    PlayerState.instance.AddDefenceBuffLayer(9);
                     break;
             }
             
         }
 
         /// <summary>
-        /// 防御（1-2-3）
+        /// 防御（4-5-6）
         /// </summary>
         /// <param name="level"></param>
         public static void LowDefend(int level)
@@ -303,13 +303,13 @@ namespace SkillRelated {
             switch (level)
             {
                 case 1:
-                    PlayerState.instance.AddDefenceBuffLayer(1);
+                    PlayerState.instance.AddDefenceBuffLayer(4);
                     break;
                 case 2:
-                    PlayerState.instance.AddDefenceBuffLayer(2);
+                    PlayerState.instance.AddDefenceBuffLayer(5);
                     break;
                 case 3:
-                    PlayerState.instance.AddDefenceBuffLayer(3);
+                    PlayerState.instance.AddDefenceBuffLayer(6);
                     break;
             }
             

@@ -17,7 +17,7 @@ MonoBehaviour:
   Shape: "L\u578B"
   Quality: 0
   Color: {r: 0, g: 1, b: 0, a: 1}
-  Level: 1
+  Level: 2
   ColorType: 3
   TetrominoType: 7
   CardFace: {fileID: 21300000, guid: 794dd689569b0b14ba363cedd9f60caf, type: 3}

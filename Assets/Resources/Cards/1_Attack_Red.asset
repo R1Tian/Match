@@ -17,11 +17,11 @@ MonoBehaviour:
   Shape: "Z\u578B"
   Quality: 0
   Color: {r: 1, g: 0, b: 0, a: 1}
-  Level: 1
+  Level: 2
   ColorType: 0
   TetrominoType: 8
   CardFace: {fileID: 21300000, guid: 794dd689569b0b14ba363cedd9f60caf, type: 3}
   SkillName:
   - Attack_Red_Normal
-  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u9020\u62104/5/7\u7684\u6570\u503C\u4F24\u5BB3"
+  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u9020\u62106/7/9\u7684\u6570\u503C\u4F24\u5BB3"
   CardShow: {fileID: 0}

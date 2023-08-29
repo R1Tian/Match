@@ -23,4 +23,5 @@ MonoBehaviour:
   CardFace: {fileID: 0}
   SkillName:
   - Defend_Blue_Z
-  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u751F\u62102/3/4\u70B9\u9632\u5FA1\u503C"
+  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u751F\u62106/7/9\u70B9\u9632\u5FA1\u503C"
+  CardShow: {fileID: 0}

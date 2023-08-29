@@ -23,5 +23,5 @@ MonoBehaviour:
   CardFace: {fileID: 21300000, guid: 794dd689569b0b14ba363cedd9f60caf, type: 3}
   SkillName:
   - Heal_Green_Heal
-  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u6062\u590D4/5/7\u70B9\u751F\u547D\u503C"
+  SkillDes: "\u6D88\u9664\u65F6\uFF0C\u6062\u590D6/7/9\u70B9\u751F\u547D\u503C"
   CardShow: {fileID: 0}
