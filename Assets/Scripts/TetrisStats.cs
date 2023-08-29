@@ -8,9 +8,11 @@ using DG.Tweening;
 using TMPro;
 using Cysharp.Threading.Tasks;
 using QFramework;
+using Unity.VisualScripting;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 using Image = UnityEngine.UI.Image;
+using Sequence = DG.Tweening.Sequence;
 using Slider = UnityEngine.UI.Slider;
 
 public enum CurCountsType
@@ -90,7 +92,7 @@ public class TetrisStats : MonoBehaviour
     private string[] colorNames = { "红色", "绿色" ,"蓝色", "黄色" };
     private string[] tetrominoNames = { "L型", "J型", "O型", "I型", "T型", "S型", "Z型" };
     [ShowInInspector]
-    public int[,] board;
+    public static int[,] board;
     [ShowInInspector]
     public int[,] board1;//置为-1之后的棋盘数据
 
@@ -189,7 +191,13 @@ public class TetrisStats : MonoBehaviour
     
     //是否生成过奖励弹窗
     private bool isRewarded = false;
-    
+
+
+    //是否强化
+    public bool whetherReinforce = false;
+
+    [ShowIf("whetherReinforce")] public int ReinforceHP = 10;
+    [ShowIf("whetherReinforce")] public int ReinforceAttack = 10;
     //现在使用CancellationTokenManager了
     //取消令牌
     // static CancellationTokenSource battleCts = new CancellationTokenSource();
@@ -239,7 +247,7 @@ public class TetrisStats : MonoBehaviour
 
     private void OnDestroy()
     {
-        
+        CanvasRenderModeManager.ToOverlay();
         //取消所有战斗界面UniTask
         CancellationTokenManager.battleCts.Cancel();
         
@@ -270,6 +278,13 @@ public class TetrisStats : MonoBehaviour
 
     void Update()
     {
+        if (PlayerState.instance.GetHP() <= 0)
+        {
+            PanelManager.Close("BattlePanel");
+            PanelManager.Close("MapPanel");
+            PanelManager.Open<StartPanel>();
+        }
+        
         if (canSwap)
         {
             if (Input.GetMouseButtonDown(0))
@@ -1425,7 +1440,7 @@ public class TetrisStats : MonoBehaviour
     public void Hurt()
     {
         //todo 临时强化
-        //PlayerState.instance.TakeDamge(EnemyState.instance.GetDamage() + PlayerState.instance.GetBattleCount() * 10);
+        //EnemyState.instance.AddBasicDamage(ReinforceAttack);
 
         PlayerState.instance.TakeDamge(EnemyState.instance.GetDamage());
 
@@ -1441,21 +1456,27 @@ public class TetrisStats : MonoBehaviour
         Main.instance.OnSingletonInit();
         //PlayerState.instance.OnSingletonInit();
         playerHP.value = 1;
-        PlayerState.instance.DeleteDamageBuff();
-        PlayerState.instance.DeleteDefenceBuffLayer();
-        PlayerState.instance.SetNotHurt();
-        EnemyState.instance.SetNotHurt();
+        // PlayerState.instance.DeleteDamageBuff();
+        // PlayerState.instance.DeleteDefenceBuffLayer();
+        // PlayerState.instance.SetNotHurt();
+        // EnemyState.instance.SetNotHurt();
+        // PlayerState.instance.SetNotAttack();
+        // EnemyState.instance.SetNotHurt();
+        
+        PlayerState.instance.ResetInBattle();
+        EnemyState.instance.ResetInBattle();
 
         enmey.GetComponent<Image>().sprite = EnemyState.instance.GetSprite();
         
         //EnemyState.instance.OnSingletonInit();
         //todo 临时强化
-        // #region MyRegion
-        //
-        // EnemyState.instance.AddMaxHP(150 * PlayerState.instance.GetBattleCount());
-        // EnemyState.instance.AddHPToMax();
-        //
-        // #endregion
+        #region 临时强化
+        
+        EnemyState.instance.AddMaxHP(ReinforceHP * PlayerState.instance.GetBattleCount());
+        EnemyState.instance.AddHPToMax();
+        EnemyState.instance.AddBasicDamage(ReinforceAttack * PlayerState.instance.GetBattleCount());
+        
+        #endregion
        
         
         enemyHP.value = 1;
@@ -1656,12 +1677,73 @@ public class TetrisStats : MonoBehaviour
         }
     }
 
+    public static int GetRed()
+    {
+        int count = 0;
+        foreach (var i in board)
+        {
+            if (i == 0)
+            {
+                count++;
+            }
+            
+        }
+        return count;
+    }
+    
+    public static int GetGreen()
+    {
+        int count = 0;
+        foreach (var i in board)
+        {
+            if (i == 1)
+            {
+                count++;
+            }
+            
+        }
+        return count;
+    }
+    public static int GetBlue()
+    {
+        int count = 0;
+        foreach (var i in board)
+        {
+            if (i == 2)
+            {
+                count++;
+            }
+            
+        }
+        return count;
+    }
+    public static int GetYellow()
+    {
+        int count = 0;
+        foreach (var i in board)
+        {
+            if (i == 3)
+            {
+                count++;
+            }
+            
+        }
+        return count;
+    }
+    
     /// <summary>
     /// 测试专用，缪莎
     /// </summary>
     public void KillEnemy()
     {
         EnemyState.instance.TakeDamge(99999999);
+    }
+    /// <summary>
+    /// 测试专用，缪莎自己
+    /// </summary>
+    public void KillPlayer()
+    {
+        PlayerState.instance.TakeDamge(99999999);
     }
     
     /// <summary>

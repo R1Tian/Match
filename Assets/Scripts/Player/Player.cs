@@ -4,6 +4,6 @@ public class Player : MonoBehaviour
 {
     private void Awake()
     {
-        PlayerState.instance.OnSingletonInit();
+        //PlayerState.instance.OnSingletonInit();
     }
 }

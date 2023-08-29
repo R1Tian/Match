@@ -25,6 +25,7 @@ public class PlayerState : ISingleton
     private CardRepository CardRepository;
     private bool CanHeal = true;
     private bool ArmorFeedback = false;
+    private bool isHealingConversion = false;
     
     //一些状态（动画用）
     private bool isHurt = false;
@@ -47,6 +48,36 @@ public class PlayerState : ISingleton
         InitBag();
     }
 
+    public void ResetInBattle()
+    {
+        AttackBuffLayer = 0;
+        DefenceBuffLayer = 0;
+        FlexibilityBuffLayer = 0;
+        TurtleShellBuffLayer = 0;
+
+        CanHeal = true;
+        ArmorFeedback = false;
+        isHealingConversion = false;
+        
+        isHurt = false;
+        isAttack = false;
+    }
+
+    public void ResetAll()
+    {
+        PlayerHP = 1000;
+        PlayerMaxHP = 1000;
+        AttackBuffLayer = 0;
+        DefenceBuffLayer = 0;
+        FlexibilityBuffLayer = 0;
+        TurtleShellBuffLayer = 0;
+        BattleCount = 0;
+        Money = 100;
+        CardRepository = new CardRepository();
+        InitBag();
+        ResetInBattle();
+    }
+    
     private void InitBag()
     {
         Tetromino LShape = Main.instance.GetTetShape("L型");
@@ -124,11 +155,20 @@ public class PlayerState : ISingleton
         //Debug.Log(CanHeal);
         if (CanHeal)
         {
-            PlayerHP += hp + GetFlexibilityBuffLayer();
-            if (PlayerHP > PlayerMaxHP)
+            int increment = hp + GetFlexibilityBuffLayer();
+            if (isHealingConversion)
             {
-                PlayerHP = PlayerMaxHP;
+                AddDefenceBuffLayer(increment);
             }
+            else
+            {
+                PlayerHP += increment;
+                if (PlayerHP > PlayerMaxHP)
+                {
+                    PlayerHP = PlayerMaxHP;
+                }
+            }
+            
         }
         
         
@@ -285,6 +325,21 @@ public class PlayerState : ISingleton
     {
         ArmorFeedback = true;
     }
+    
+    public bool GetIsHealingConversion()
+    {
+        return isHealingConversion;
+    }
+    
+    public void ForbidIsHealingConversion()
+    {
+        isHealingConversion = false;
+    }
+    
+    public void AllowIsHealingConversion()
+    {
+        isHealingConversion = true;
+    }
 
     // 临时用
     #region BattleCount
@@ -330,6 +385,21 @@ public class PlayerState : ISingleton
     public void SetNotHurt()
     {
         isHurt = false;
+    }
+    
+    public bool GetIsAttack()
+    {
+        return isAttack;
+    }
+    
+    public void SetIsAttack()
+    {
+        isAttack = true;
+    }
+    
+    public void SetNotAttack()
+    {
+        isAttack = false;
     }
     
     public void Dispose() { SingletonProperty<PlayerState>.Instance.Dispose(); }

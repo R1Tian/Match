@@ -30,12 +30,23 @@ public partial class EnemyState : ISingleton
 
     //状态
     private bool isHurt = false;
-    
+    private bool isAttack = false;
     #endregion
     public void OnSingletonInit()
     {
     }
 
+    public void ResetInBattle()
+    {
+        AttackBuffLayer = 0;
+        DefenceBuffLayer = 0;
+        WeakBuffLayer = 0;
+        FragileBuffLayer = 0;
+        ArmorPenetrationBuffLayer = 0;
+        isHurt = false;
+        isAttack = false;
+    }
+    
     public void ReadEnemyData(EnemyObject enemy) {
         MaxHP = enemy.EnemyMaxHP;
         CurHP = MaxHP;

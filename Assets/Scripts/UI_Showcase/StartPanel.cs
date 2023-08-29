@@ -1,3 +1,4 @@
+using Map;
 using UI_Showcase;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +22,11 @@ public class StartPanel : BasePanel
         {
             //PanelManager.Open<BattlePanel>("BattleField");
             //PanelManager.Open<ChooseBattleCardPanel>("ChooseBattleCardPanel");
+            PlayerState.instance.OnSingletonInit();
+            CardManager.OnInitCardDatabase();
             PanelManager.Open<MapPanel>("Map");
+            InitMapSetting.Init();
+            //PanelManager.MapPanel.SetActive(true);
             //GameObject.Find("BoardBG").SetActive(false);
             Destroy(gameObject);
             Close();

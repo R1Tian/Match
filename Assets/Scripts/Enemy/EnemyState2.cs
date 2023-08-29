@@ -122,6 +122,22 @@ public partial class EnemyState
         isHurt = false;
     }
 
+    
+    public bool GetIsAttack()
+    {
+        return isAttack;
+    }
+    
+    public void SetIsAttack()
+    {
+        isAttack = true;
+    }
+    
+    public void SetNotAttack()
+    {
+        isAttack = false;
+    }
+    
     public EnemyType GetEnemyType()
     {
         return EnemyType;

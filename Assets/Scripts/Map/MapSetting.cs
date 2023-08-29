@@ -59,6 +59,11 @@ namespace Map {
 
         private void Start()
         {
+            Init();
+        }
+
+        public void Init()
+        {
             OnClickAction += InitMapSetting.MapDic[mapPointType];
             switch (mapPointType)
             {
@@ -78,8 +83,8 @@ namespace Map {
                     OnClickAction += OpenShopPanel;
                     GetComponent<Image>().sprite = sprites[3];
                     break;
-                
             }
+
             OnClickAction += CloseMapPanel;
         }
 

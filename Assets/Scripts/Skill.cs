@@ -178,6 +178,16 @@ namespace SkillRelated {
             BuffManager.instance.ApplyBuffByID(6,level,level, BuffManagerUI.PlayerBuff,() => PlayerState.instance.ForbidArmorFeedback());
         }
         
+        /// <summary>
+        /// 获得治疗转化
+        /// </summary>
+        /// <param name="level"></param>
+        public static void AddHealingConversion(int level)
+        {
+            PlayerState.instance.AllowIsHealingConversion();
+            BuffManager.instance.ApplyBuffByID(9,level,level, BuffManagerUI.PlayerBuff,() => PlayerState.instance.ForbidIsHealingConversion());
+        }
+        
         #endregion
 
         #region HealRelated
@@ -303,6 +313,16 @@ namespace SkillRelated {
                     break;
             }
             
+        }
+
+        /// <summary>
+        /// 倍率防御
+        /// </summary>
+        /// <param name="level">倍率（等级）</param>
+        /// <param name="count">固定量</param>
+        public static void MagnificationDefend(int level,int count)
+        {
+            FixedDefend(level * count);
         }
         
         /// <summary>

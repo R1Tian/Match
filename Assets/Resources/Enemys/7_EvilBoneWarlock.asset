@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb20f1773b8a7c48ab549381799712f, type: 3}
   m_Name: 7_EvilBoneWarlock
   m_EditorClassIdentifier: 
-  id: 0
-  Name: 
-  EnemyMaxHP: 0
-  Type: 0
-  BasicAttack: 0
-  Image: {fileID: 0}
+  id: 7
+  Name: "\u90AA\u6076\u9AA8\u5DEB"
+  EnemyMaxHP: 120
+  Type: 1
+  BasicAttack: 20
+  Image: {fileID: 21300000, guid: 29c4296b018971342a56695f6fd7ca33, type: 3}

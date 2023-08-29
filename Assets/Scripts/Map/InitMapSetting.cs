@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using DG.Tweening;
+using UnityEngine.UI;
 
 namespace Map {
     public enum MapPointType
@@ -25,10 +26,14 @@ namespace Map {
         private bool needReset = false;
         public float duration = 0.1f;
         public float interval = 0.02f;
+
+        public delegate void ResetAnimationDelegate(); 
+        public static event ResetAnimationDelegate ResetAnimationEvent;
         private void Awake()
         {
             EnrollDic();
             EnrollList();
+            ResetAnimationEvent += ResetAnimation;
         }
 
         private void EnrollList() {
@@ -75,6 +80,23 @@ namespace Map {
             Debug.Log(Support[index]);
         }
 
+        public static void Init()
+        {
+            LastNodeIndex = -1;
+            foreach (MapSetting mapSetting in PointList)
+            {
+                mapSetting.Init();
+                mapSetting.Finished = false;
+                mapSetting.GetComponent<Image>().color = Color.white;
+            }
+
+            ResetAnimationEvent?.Invoke();
+
+        }
+        
+        /// <summary>
+        /// 动画
+        /// </summary>
         void Reset()
         {
             if (needReset)
@@ -130,18 +152,15 @@ namespace Map {
 
         private void OnEnable()
         {
+            ResetAnimation();
+        }
+
+        private void ResetAnimation()
+        {
             needReset = true;
             DOTween.KillAll();
             Reset();
-        }
 
-        void U()
-        {
-            
-
-            
-            
-            
         }
     }
 }

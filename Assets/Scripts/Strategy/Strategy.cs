@@ -194,7 +194,7 @@ namespace StrategyMethod {
             Skill.DamageWithDefence(level);
         }
     }
-    
+    //028
     public class GoldenGuardian_Yellow_T : IStrategy
     {
         public void ExcuteStrategy() {
@@ -204,6 +204,32 @@ namespace StrategyMethod {
         public void ExcuteStrategyByInput(int level)
         {
             Skill.AddArmorFeedback(level);
+        }
+    }
+    
+    //029
+    public class AzureShield_Blue_T: IStrategy
+    {
+        public void ExcuteStrategy() {
+            return;
+        }
+
+        public void ExcuteStrategyByInput(int level)
+        {
+            Skill.MagnificationDefend(level,TetrisStats.GetBlue());
+        }
+    }
+    
+    //030
+    public class EmeraldGuardian_Green_T: IStrategy
+    {
+        public void ExcuteStrategy() {
+            return;
+        }
+
+        public void ExcuteStrategyByInput(int level)
+        {
+            Skill.AddHealingConversion(level);
         }
     }
 }
